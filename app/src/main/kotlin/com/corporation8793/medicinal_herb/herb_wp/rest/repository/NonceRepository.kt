@@ -1,19 +1,14 @@
-package com.corporation8793.medicinal_herb.herb_wp.rest
+package com.corporation8793.medicinal_herb.herb_wp.rest.repository
 
-import android.service.controls.ControlsProviderService.TAG
-import android.util.Log
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.Nonce
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.SignUpStatus
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.nonce.SignUpStatus
 
-class RestRepository {
+class NonceRepository {
     var nonce = ""
     var signUpStatus = SignUpStatus()
 
     fun getNonce() {
-        val call = RestClient.service.getNonce()
+        val call = RestClient.nonceService.getNonce()
 
         // for test (execute)
         nonce = call.execute().body()!!.nonce
@@ -40,7 +35,7 @@ class RestRepository {
     }
 
     fun runSignUp(id : String, pw : String, email : String, nickname : String) {
-        val call = RestClient.service.runSignUp(nonce = nonce, username = id, user_pass = pw, email = email, display_name = nickname)
+        val call = RestClient.nonceService.runSignUp(nonce = nonce, username = id, user_pass = pw, email = email, display_name = nickname)
 
         // for test (execute)
         signUpStatus = call.execute().body()!!.copy()

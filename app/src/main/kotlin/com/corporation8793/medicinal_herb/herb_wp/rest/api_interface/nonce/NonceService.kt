@@ -1,9 +1,8 @@
-package com.corporation8793.medicinal_herb.herb_wp.rest.api_interface
+package com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce
 
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.Nonce
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.SignUpStatus
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.nonce.Nonce
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.nonce.SignUpStatus
 import retrofit2.Call
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 import retrofit2.http.Query
 

@@ -8,16 +8,6 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface BoardService {
-    @POST("api/get_nonce/?controller=user&method=register")
-    fun getNonce() : Call<Nonce>
-
-    @POST("api/user/register/?insecure=cool&notify=no")
-    fun runSignUp(@Query("nonce") nonce: String,
-                  @Query("username") username: String,
-                  @Query("user_pass") user_pass: String,
-                  @Query("email") email: String,
-                  @Query("display_name") display_name: String) : Call<SignUpStatus>
-
     @FormUrlEncoded
     @POST("wp-json/wp/v2/posts")
     fun create(@Header("Authorization") h1 : String,
@@ -27,11 +17,32 @@ interface BoardService {
                @Field("categories") categories : String = "10",
                @Field("featured_media") featured_media : String = "0") : Call<ResponseBody>
 
-    @GET("wp-json/wp/v2/posts")
-    fun retrieveOne(@Query("id") id : String) : Call<Post>
+    @GET("wp-json/wp/v2/posts/{id}")
+    fun retrieveOne(@Path("id") id : String) : Call<Post>
 
     @GET("wp-json/wp/v2/posts")
-    fun retrieveAll() : Call<List<Post>>
+    fun retrieveAll(@Query("per_page") per_page : String = "100",
+                    @Query("page") page : String = "1",
+                    @Query("order") order : String = "desc") : Call<List<Post>>
+
+    @GET("wp-json/wp/v2/posts")
+    fun retrieveCategories(@Query("per_page") per_page : String = "100",
+                           @Query("page") page : String = "1",
+                           @Query("order") order : String = "desc",
+                           @Query("categories") categories : String) : Call<List<Post>>
+
+    @GET("wp-json/wp/v2/posts")
+    fun retrieveSearchAll(@Query("per_page") per_page : String = "100",
+                           @Query("page") page : String = "1",
+                           @Query("order") order : String = "desc",
+                           @Query("search") search : String) : Call<List<Post>>
+
+    @GET("wp-json/wp/v2/posts")
+    fun retrieveSearchInCategories(@Query("per_page") per_page : String = "100",
+                                   @Query("page") page : String = "1",
+                                   @Query("order") order : String = "desc",
+                                   @Query("categories") categories : String,
+                                   @Query("search") search : String) : Call<List<Post>>
 
     @FormUrlEncoded
     @POST("wp-json/wp/v2/posts")

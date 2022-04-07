@@ -16,12 +16,31 @@ class PostsCRUD {
         val basicAuth = Credentials.basic(testId, testPw)
         val boardRepository = BoardRepository(basicAuth)
 
-        println("====== postsCRUD  ======")
-        println("------ Create     ------")
-        var responseCode = boardRepository.createPost("연동 테스트", "아아 마이크 테스트 ㅎㅎ")
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode")
+        println("====== postsCRUD       ======")
+        println("------ Create          ------")
+//        var responseCode = boardRepository.createPost("연동 테스트 2", "아아 마이크 테스트 ㅎㅎ 2")
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
 
-        println("====== EndTest    ======")
+
+
+        println("------ Retrieve        ------")
+        println("------ OnePost         ------")
+        var responseOnePost = boardRepository.retrieveOnePost("172")
+        Assert.assertEquals("200", responseOnePost.first)
+        if (responseOnePost.first == "200") {
+            println("response Post : ${responseOnePost.second!!}\n")
+        }
+
+        println("------ AllPost         ------")
+        var responseAllPost = boardRepository.retrieveAllPost()
+        Assert.assertEquals("200", responseAllPost.first)
+        if (responseAllPost.first == "200") {
+            for ((i, p) in responseAllPost.second!!.withIndex()) {
+                println("response Post $i : ${p.title.rendered}\n")
+            }
+        }
+
+        println("====== EndTest         ======")
     }
 }

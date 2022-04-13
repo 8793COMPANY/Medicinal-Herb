@@ -18,7 +18,7 @@ class SignUp {
 
         println("------ runSignUp() ------")
 
-        nonceRepository.runSignUp("john7", "testjohn", "john6@gmail.com", "존식이")
+        nonceRepository.runSignUp("john8", "testjohn", "john8@gmail.com", "에잇존")
         Assert.assertEquals("ok", nonceRepository.signUpStatus.status)
 
         when(nonceRepository.signUpStatus.status) {

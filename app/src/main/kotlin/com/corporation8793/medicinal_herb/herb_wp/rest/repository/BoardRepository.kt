@@ -206,26 +206,69 @@ class BoardRepository(val basicAuth : String) {
 
 
     // Comment
-    fun createComment(postId : String, parent : String, content : String) : String =
+    /**
+     * 댓글을 생성합니다.
+     * * 댓글 : parent 0
+     * * 대댓글 : parent {Comment ID}
+     * @author  두동근
+     * @param   postId      댓글이 달릴 게시물의 고유 번호(Post ID)
+     * @param   parent      댓글, 대댓글 설정 (기본값 : 댓글)
+     * @param   content     내용
+     * @return  responseCode (expected : "201")
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#create-a-comment">Create a Comment [REST API Reference]</a>
+     */
+    fun createComment(postId : String, parent : String = "0", content : String) : String =
         RestClient.boardService.createComment(basicAuth, postId, parent, content)
             .execute().code().toString()
-
+    /**
+     * id([commentId])가 일치하는 댓글을 검색합니다.
+     * * (id가 일치하는 댓글은 1개(One)입니다.)
+     * @author  두동근
+     * @param   commentId  댓글 id
+     * @return  responseCode (expected : "200"), [Comment]
+     * @see     Comment
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#retrieve-a-comment">Retrieve a Comment [REST API Reference]</a>
+     */
     fun retrieveOneComment(commentId : String) : Pair<String, Comment?> {
         val response = RestClient.boardService.retrieveOneComment(commentId).execute()
 
         return Pair(response.code().toString(), response.body())
     }
-
+    /**
+     * id([postId])가 일치하는 게시물의 모든 댓글[Comment]을 검색합니다.
+     * @author  두동근
+     * @param   postId  게시물 id
+     * @return  responseCode (expected : "200"), [List<Comment>]
+     * @see     Comment
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#list-comments">List Comments [REST API Reference]</a>
+     */
     fun retrieveAllComment(postId : String) : Pair<String, List<Comment>?> {
         val response = RestClient.boardService.retrieveAllComment(postId).execute()
 
         return Pair(response.code().toString(), response.body())
     }
-
+    /**
+     * 댓글을 수정합니다.
+     * * id([commentId])가 일치하는 댓글을 수정합니다.
+     * @author  두동근
+     * @param   commentId   댓글 id
+     * @param   content     내용
+     * @return  responseCode (expected : "200")
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#update-a-comment">Update a Comment [REST API Reference]</a>
+     */
     fun updateComment(commentId : String, content : String) : String =
         RestClient.boardService.updateComment(basicAuth, commentId, content)
             .execute().code().toString()
-
+    /**
+     * 댓글을 삭제합니다.
+     * * id([commentId])가 일치하는 댓글을 삭제합니다.
+     * @author  두동근
+     * @param   commentId  댓글 id
+     * @return  responseCode (expected : "200")
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#delete-a-comment">Delete a Comment [REST API Reference]</a>
+     */
     fun deleteComment(commentId : String) : String =
         RestClient.boardService.deleteComment(basicAuth, commentId)
             .execute().code().toString()

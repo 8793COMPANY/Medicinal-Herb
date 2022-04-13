@@ -18,10 +18,10 @@ class CommentsCRUD {
 
 
 
-        println("------ Create          ------")
-        var responseCode = boardRepository.createPost("연동 테스트 2", "아아 마이크 테스트 ㅎㅎ 2")
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode\n")
+//        println("------ Create          ------")
+//        var responseCode = boardRepository.createComment("204", content = "댓글 ON~")
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
 
 
 
@@ -30,41 +30,41 @@ class CommentsCRUD {
 
 
 
-        println("------ OnePost         ------")
-        val responseOnePost = boardRepository.retrieveOnePost("172")
-        Assert.assertEquals("200", responseOnePost.first)
-        if (responseOnePost.first == "200") {
-            println("response Post : ${responseOnePost.second!!}\n")
-        }
+//        println("------ OneComment      ------")
+//        val responseOneComment = boardRepository.retrieveOneComment("21")
+//        Assert.assertEquals("200", responseOneComment.first)
+//        if (responseOneComment.first == "200") {
+//            println("response Comment : ${responseOneComment.second!!}\n")
+//        }
 
-        println("------ AllPost         ------")
-        val responseAllPost = boardRepository.retrieveAllPost()
-        Assert.assertEquals("200", responseAllPost.first)
-        if (responseAllPost.first == "200") {
-            for ((i, p) in responseAllPost.second!!.withIndex()) {
-                println("response Post $i : ${p.title.rendered}\n")
+        println("------ AllComment      ------")
+        val responseAllComment = boardRepository.retrieveAllComment("204")
+        Assert.assertEquals("200", responseAllComment.first)
+        if (responseAllComment.first == "200") {
+            for ((i, p) in responseAllComment.second!!.withIndex()) {
+                println("response Comment $i : $p")
             }
         }
 
+//        println("------ Create c of c   ------")
+//        var responseCode = boardRepository.createComment("204", "38", "대댓글 테스트 두둠칫~")
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
 
 
 
-        println("------ Update          ------")
-        val updatePost = boardRepository.updatePost("201", "수정이 된곤감??", "그렇다고하자~ ㅋ")
-        Assert.assertEquals("200", updatePost)
-        if (responseOnePost.first == "200") {
-            println("Update Post : ${updatePost}\n")
-        }
+//        println("------ Update          ------")
+//        val updateComment = boardRepository.updateComment("22", "테스트 2번 댓글 수정이 된곤감??")
+//        Assert.assertEquals("200", updateComment)
+//        println("Update Comment : ${updateComment}\n")
 
 
 
 
-        println("------ Delete          ------")
-        val deletePost = boardRepository.deletePost("201")
-        Assert.assertEquals("200", deletePost)
-        if (responseOnePost.first == "200") {
-            println("Delete Post : ${deletePost}\n")
-        }
+//        println("------ Delete          ------")
+//        val deleteComment = boardRepository.deleteComment("21")
+//        Assert.assertEquals("200", deleteComment)
+//        println("Delete Comment : ${deleteComment}\n")
 
 
 

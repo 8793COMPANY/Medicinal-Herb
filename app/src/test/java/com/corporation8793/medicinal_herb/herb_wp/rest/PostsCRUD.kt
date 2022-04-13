@@ -17,10 +17,10 @@ class PostsCRUD {
 
 
 
-        println("------ Create          ------")
-        var responseCode = boardRepository.createPost("연동 테스트 2", "아아 마이크 테스트 ㅎㅎ 2")
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode\n")
+//        println("------ Create          ------")
+//        var responseCode = boardRepository.createPost("연동 테스트 2", "아아 마이크 테스트 ㅎㅎ 2")
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
 
 
 
@@ -51,9 +51,7 @@ class PostsCRUD {
         println("------ Update          ------")
         val updatePost = boardRepository.updatePost("201", "수정이 된곤감??", "그렇다고하자~ ㅋ")
         Assert.assertEquals("200", updatePost)
-        if (responseOnePost.first == "200") {
-            println("Update Post : ${updatePost}\n")
-        }
+        println("Update Post : ${updatePost}\n")
 
 
 
@@ -61,9 +59,7 @@ class PostsCRUD {
         println("------ Delete          ------")
         val deletePost = boardRepository.deletePost("201")
         Assert.assertEquals("200", deletePost)
-        if (responseOnePost.first == "200") {
-            println("Delete Post : ${deletePost}\n")
-        }
+        println("Delete Post : ${deletePost}\n")
 
 
 

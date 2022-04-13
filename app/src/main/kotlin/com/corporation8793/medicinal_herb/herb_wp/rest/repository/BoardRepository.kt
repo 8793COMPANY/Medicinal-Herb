@@ -14,6 +14,7 @@ import okhttp3.Credentials
  * @see     BoardService
  * @see     Credentials
  * @see     <a href="https://developer.wordpress.org/rest-api/reference/posts/">WP-Posts [REST API Reference]</a>
+ * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/">WP-Comments [REST API Reference]</a>
  */
 class BoardRepository(val basicAuth : String) {
     // Post

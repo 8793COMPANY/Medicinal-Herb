@@ -2,13 +2,17 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board
 
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Media
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.User
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.nonce.Nonce
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.nonce.SignUpStatus
 import okhttp3.Credentials
+import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.File
 
 /**
  * 게시판의 인터페이스
@@ -31,7 +35,7 @@ interface BoardService {
                @Field("title") title : String,
                @Field("content") content : String,
                @Field("categories") categories : String = "10",
-               @Field("featured_media") featured_media : String = "0") : Call<ResponseBody>
+               @Field("featured_media") featured_media : String? = "0") : Call<ResponseBody>
     /**
      * id([postId])가 일치하는 게시물을 검색합니다.
      * * (id가 일치하는 게시물은 1개(One)입니다.)
@@ -174,4 +178,47 @@ interface BoardService {
     @DELETE("wp-json/wp/v2/comments/{id}?force=true")
     fun deleteComment(@Header("Authorization") h1 : String,
                    @Path("id") id : String) : Call<ResponseBody>
+
+
+
+    // Media
+    /**
+     * [Post.featured_media]로 사용할 이미지를 업로드합니다.
+     * @author  두동근
+     * @see     Media
+     * @see     Pair
+     * @see     File
+     * @see     Post.featured_media
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#create-a-media-item">Create a Media Item [REST API Reference]</a>
+     */
+    @Multipart
+    @POST("http://3.37.133.132/wp-json/wp/v2/media")
+    fun uploadMedia(@Header("Authorization") h1 : String,
+                    @Part file : MultipartBody.Part) : Call<Media>
+    /**
+     * id([mediaId])가 일치하는 미디어를 검색합니다.
+     * * (id가 일치하는 미디어는 1개(One)입니다.)
+     * @author  두동근
+     * @see     Media
+     * @see     Pair
+     * @see     Post.featured_media
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#retrieve-a-media-item">Retrieve a Media Item [REST API Reference]</a>
+     */
+    @GET("http://3.37.133.132/wp-json/wp/v2/media/{id}")
+    fun retrieveMedia(@Path("id") id : String?) : Call<Media>
+
+
+
+    // User
+    /**
+     * id([userId])가 일치하는 유저를 검색합니다.
+     * * (id가 일치하는 유저는 1개(One)입니다.)
+     * @author  두동근
+     * @see     User
+     * @see     Pair
+     * @see     Post.author
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user">Retrieve a User [REST API Reference]</a>
+     */
+    @GET("http://3.37.133.132/wp-json/wp/v2/users/{id}")
+    fun retrieveUser(@Path("id") id : String?) : Call<User>
 }

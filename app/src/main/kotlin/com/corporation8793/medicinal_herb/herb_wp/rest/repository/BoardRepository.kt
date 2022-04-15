@@ -1,11 +1,17 @@
 package com.corporation8793.medicinal_herb.herb_wp.rest.repository
 
-import android.app.Application
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
 import com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board.BoardService
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Media
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.User
 import okhttp3.Credentials
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+
 
 /**
  * [BoardService]의 구현 클래스
@@ -21,16 +27,33 @@ class BoardRepository(val basicAuth : String) {
     /**
      * 게시물을 생성합니다.
      * @author  두동근
-     * @param   title   제목
-     * @param   content 내용
+     * @param   title               제목
+     * @param   content             내용
+     * @param   categories          [RestClient]의 카테고리값 (기본값 : [RestClient.CATEGORY_CHITCHAT])
+     * * 이벤트 - [RestClient.CATEGORY_EVENT]
+     * * 맞춤추천 - [RestClient.CATEGORY_RECOMMEND]
+     * * 약초사전 - [RestClient.CATEGORY_DICTIONARY]
+     * * 방방곡곡 약초농장 - [RestClient.CATEGORY_FARM]
+     * * 궁금해요 - [RestClient.CATEGORY_QNA]
+     * * 약초수다 - [RestClient.CATEGORY_CHITCHAT]
+     *
+     * @param   featured_media      [Media.id] (기본값 : 0)
      * @return  responseCode (expected : "201")
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/posts/#create-a-post">Create a Post [REST API Reference]</a>
      */
-    fun createPost(title : String, content : String) : String {
-        // status : publish
-        // categories : String
-        // featured_media_id : String
-        val call = RestClient.boardService.createPost(basicAuth, title = title, content = content)
+    fun createPost(title : String, content : String, categories : String =
+        RestClient.CATEGORY_CHITCHAT, featured_media : String? = "0") : String {
+
+        val verifiedCategories = when (categories) {
+            "1", "5", "6", "7", "8", "10" -> categories
+            else -> {
+                // 잘못된 카테고리 입력은 Chitchat 으로 처리
+                RestClient.CATEGORY_CHITCHAT
+            }
+        }
+
+        val call = RestClient.boardService.createPost(basicAuth, title = title, content = content,
+            categories = verifiedCategories, featured_media = featured_media)
 
         // for test (execute)
         return call.execute().code().toString()
@@ -273,4 +296,66 @@ class BoardRepository(val basicAuth : String) {
     fun deleteComment(commentId : String) : String =
         RestClient.boardService.deleteComment(basicAuth, commentId)
             .execute().code().toString()
+
+
+
+    // Media
+    /**
+     * [Post.featured_media]로 사용할 이미지를 업로드합니다.
+     * @author  두동근
+     * @param   file        이미지 [File]
+     * @return  responseCode (expected : "201"), [Media]
+     * @see     Media
+     * @see     Pair
+     * @see     File
+     * @see     Post.featured_media
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#create-a-media-item">Create a Media Item [REST API Reference]</a>
+     */
+    fun uploadMedia(file : File) : Pair<String, Media?> {
+        val filePart = MultipartBody.Part.createFormData(
+            "file",
+            file.name,
+            RequestBody.create(MediaType.parse("image/*"), file)
+        )
+
+        val response = RestClient.boardService.uploadMedia(basicAuth, filePart).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
+    /**
+     * id([mediaId])가 일치하는 미디어를 검색합니다.
+     * * (id가 일치하는 미디어는 1개(One)입니다.)
+     * @author  두동근
+     * @param   mediaId  미디어 id
+     * @return  responseCode (expected : "200"), [Media]
+     * @see     Media
+     * @see     Pair
+     * @see     Post.featured_media
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#retrieve-a-media-item">Retrieve a Media Item [REST API Reference]</a>
+     */
+    fun retrieveMedia(mediaId : String?) : Pair<String, Media?> {
+        val response = RestClient.boardService.retrieveMedia(mediaId).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
+
+
+
+    // User
+    /**
+     * id([userId])가 일치하는 유저를 검색합니다.
+     * * (id가 일치하는 유저는 1개(One)입니다.)
+     * @author  두동근
+     * @param   userId  유저 id
+     * @return  responseCode (expected : "200"), [User]
+     * @see     User
+     * @see     Pair
+     * @see     Post.author
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user">Retrieve a User [REST API Reference]</a>
+     */
+    fun retrieveUser(userId : String?) : Pair<String, User?> {
+        val response = RestClient.boardService.retrieveUser(userId).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
 }

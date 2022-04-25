@@ -31,6 +31,8 @@ class BoardRepository(val basicAuth : String) {
      * @param   content             내용
      * @param   categories          [RestClient]의 카테고리값 (기본값 : [RestClient.CATEGORY_CHITCHAT])
      * * 이벤트 - [RestClient.CATEGORY_EVENT]
+     * * 진행중인 이벤트 - [RestClient.CATEGORY_EVENT_ONGOING]
+     * * 종료된 이벤트 - [RestClient.CATEGORY_EVENT_DONE]
      * * 맞춤추천 - [RestClient.CATEGORY_RECOMMEND]
      * * 약초사전 - [RestClient.CATEGORY_DICTIONARY]
      * * 방방곡곡 약초농장 - [RestClient.CATEGORY_FARM]
@@ -45,7 +47,14 @@ class BoardRepository(val basicAuth : String) {
         RestClient.CATEGORY_CHITCHAT, featured_media : String? = "0") : String {
 
         val verifiedCategories = when (categories) {
-            "1", "5", "6", "7", "8", "10" -> categories
+            RestClient.CATEGORY_EVENT -> categories
+            RestClient.CATEGORY_EVENT_ONGOING -> categories
+            RestClient.CATEGORY_EVENT_DONE -> categories
+            RestClient.CATEGORY_RECOMMEND -> categories
+            RestClient.CATEGORY_DICTIONARY -> categories
+            RestClient.CATEGORY_FARM -> categories
+            RestClient.CATEGORY_QNA -> categories
+            RestClient.CATEGORY_CHITCHAT -> categories
             else -> {
                 // 잘못된 카테고리 입력은 Chitchat 으로 처리
                 RestClient.CATEGORY_CHITCHAT
@@ -106,6 +115,8 @@ class BoardRepository(val basicAuth : String) {
      * @param   order       [Post.date]기준 내림차순(desc), 오름차순(asc) (기본값 : desc)
      * @param   categories  [RestClient]의 카테고리값 (기본값 : [RestClient.CATEGORY_CHITCHAT])
      * * 이벤트 - [RestClient.CATEGORY_EVENT]
+     * * 진행중인 이벤트 - [RestClient.CATEGORY_EVENT_ONGOING]
+     * * 종료된 이벤트 - [RestClient.CATEGORY_EVENT_DONE]
      * * 맞춤추천 - [RestClient.CATEGORY_RECOMMEND]
      * * 약초사전 - [RestClient.CATEGORY_DICTIONARY]
      * * 방방곡곡 약초농장 - [RestClient.CATEGORY_FARM]
@@ -120,7 +131,14 @@ class BoardRepository(val basicAuth : String) {
     fun retrievePostInCategories(per_page : String = "100", page : String = "1", order : String = "desc",
                                categories : String = RestClient.CATEGORY_CHITCHAT) : Pair<String, List<Post>?> {
         val verifiedCategories = when (categories) {
-            "1", "5", "6", "7", "8", "10" -> categories
+            RestClient.CATEGORY_EVENT -> categories
+            RestClient.CATEGORY_EVENT_ONGOING -> categories
+            RestClient.CATEGORY_EVENT_DONE -> categories
+            RestClient.CATEGORY_RECOMMEND -> categories
+            RestClient.CATEGORY_DICTIONARY -> categories
+            RestClient.CATEGORY_FARM -> categories
+            RestClient.CATEGORY_QNA -> categories
+            RestClient.CATEGORY_CHITCHAT -> categories
             else -> {
                 // 잘못된 카테고리 입력은 Chitchat 으로 처리
                 RestClient.CATEGORY_CHITCHAT
@@ -165,6 +183,8 @@ class BoardRepository(val basicAuth : String) {
      * @param   order       [Post.date]기준 내림차순(desc), 오름차순(asc) (기본값 : desc)
      * @param   categories  [RestClient]의 카테고리값 (기본값 : [RestClient.CATEGORY_CHITCHAT])
      * * 이벤트 - [RestClient.CATEGORY_EVENT]
+     * * 진행중인 이벤트 - [RestClient.CATEGORY_EVENT_ONGOING]
+     * * 종료된 이벤트 - [RestClient.CATEGORY_EVENT_DONE]
      * * 맞춤추천 - [RestClient.CATEGORY_RECOMMEND]
      * * 약초사전 - [RestClient.CATEGORY_DICTIONARY]
      * * 방방곡곡 약초농장 - [RestClient.CATEGORY_FARM]
@@ -181,7 +201,14 @@ class BoardRepository(val basicAuth : String) {
                                categories : String = RestClient.CATEGORY_CHITCHAT,
                                search : String) : Pair<String, List<Post>?> {
         val verifiedCategories = when (categories) {
-            "1", "5", "6", "7", "8", "10" -> categories
+            RestClient.CATEGORY_EVENT -> categories
+            RestClient.CATEGORY_EVENT_ONGOING -> categories
+            RestClient.CATEGORY_EVENT_DONE -> categories
+            RestClient.CATEGORY_RECOMMEND -> categories
+            RestClient.CATEGORY_DICTIONARY -> categories
+            RestClient.CATEGORY_FARM -> categories
+            RestClient.CATEGORY_QNA -> categories
+            RestClient.CATEGORY_CHITCHAT -> categories
             else -> {
                 // 잘못된 카테고리 입력은 Chitchat 으로 처리
                 RestClient.CATEGORY_CHITCHAT
@@ -261,6 +288,7 @@ class BoardRepository(val basicAuth : String) {
     }
     /**
      * id([postId])가 일치하는 게시물의 모든 댓글[Comment]을 검색합니다.
+     * * 총 댓글수 : [List.size]
      * @author  두동근
      * @param   postId  게시물 id
      * @return  responseCode (expected : "200"), [List<Comment>]
@@ -351,10 +379,30 @@ class BoardRepository(val basicAuth : String) {
      * @see     User
      * @see     Pair
      * @see     Post.author
+     * @see     Comment.author
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user">Retrieve a User [REST API Reference]</a>
      */
     fun retrieveUser(userId : String?) : Pair<String, User?> {
         val response = RestClient.boardService.retrieveUser(userId).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
+    /**
+     * 유저를 수정합니다.
+     * * id([userId])가 일치하는 유저를 수정합니다.
+     * @author  두동근
+     * @param   userId          유저 id
+     * @param   url             프로필 이미지의 HTTP URL
+     * @param   description     회원 소개글
+     * @return  responseCode (expected : "200"), [User]
+     * @see     User
+     * @see     Pair
+     * @see     Post.author
+     * @see     Comment.author
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#update-a-user">Update a User [REST API Reference]</a>
+     */
+    fun updateUser(userId : String?, url : String?, description : String?) : Pair<String, User?> {
+        val response = RestClient.boardService.updateUser(basicAuth, userId, url, description).execute()
 
         return Pair(response.code().toString(), response.body())
     }

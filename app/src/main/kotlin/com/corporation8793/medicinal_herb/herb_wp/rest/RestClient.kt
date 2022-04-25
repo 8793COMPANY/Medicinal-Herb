@@ -16,11 +16,6 @@ object RestClient {
      */
     private const val baseUrl = "http://3.37.133.132/"
     /**
-     * 이벤트 카테고리
-     * @see     <a href="http://3.37.133.132/category/event/">산야초 마을 - 이벤트</a>
-     */
-    const val CATEGORY_EVENT = "1"
-    /**
      * 맞춤추천 카테고리
      * @see     <a href="http://3.37.133.132/category/recommend/">산야초 마을 - 맞춤추천</a>
      */
@@ -41,10 +36,25 @@ object RestClient {
      */
     const val CATEGORY_QNA = "8"
     /**
+     * 이벤트 카테고리
+     * @see     <a href="http://3.37.133.132/category/event/">산야초 마을 - 이벤트</a>
+     */
+    const val CATEGORY_EVENT = "9"
+    /**
      * 약초수다 카테고리
      * @see     <a href="http://3.37.133.132/category/chitchat/">산야초 마을 - 약초수다</a>
      */
     const val CATEGORY_CHITCHAT = "10"
+    /**
+     * 진행중인 이벤트 카테고리
+     * @see     <a href="http://3.37.133.132/category/event/ongoing/">산야초 마을 - 진행중인 이벤트</a>
+     */
+    const val CATEGORY_EVENT_ONGOING = "21"
+    /**
+     * 종료된 이벤트 카테고리
+     * @see     <a href="http://3.37.133.132/category/event/done/">산야초 마을 - 종료된 이벤트</a>
+     */
+    const val CATEGORY_EVENT_DONE = "22"
 
     /**
      * 산야초 마을 정보로 초기화된 [Retrofit]

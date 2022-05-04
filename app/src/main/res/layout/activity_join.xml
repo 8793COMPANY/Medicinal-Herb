@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JoinActivity"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_left"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.08"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_right"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintGuide_percent="0.92"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이메일 회원가입"
+        android:textStyle="normal"
+        android:fontFamily="@font/nskr_medium"
+        android:textSize="31dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintVertical_bias="0.1"></TextView>
+
+
+    <TextView
+        android:id="@+id/id_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이메일 주소"
+        android:textStyle="normal"
+        android:fontFamily="@font/nskr_medium"
+        android:textSize="15dp"
+        android:textColor="@color/gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintVertical_bias="0.25"></TextView>
+
+
+    <EditText
+        android:id="@+id/id_input_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/id_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="@+id/guideline_right"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintVertical_bias="0.01"
+        android:hint="이메일 아이디를 입력해주세요."
+        android:backgroundTint="@color/gray"
+        android:textColorHint="@color/gray"></EditText>
+
+
+    <TextView
+        android:id="@+id/pw_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
+        android:textStyle="normal"
+        android:fontFamily="@font/nskr_medium"
+        android:textSize="15dp"
+        android:textColor="@color/gray"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintVertical_bias="0.44"></TextView>
+
+
+    <EditText
+        android:id="@+id/pw_input_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/pw_section"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="@+id/guideline_right"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintVertical_bias="0.01"
+        android:hint="비밀번호를 입력해주세요."
+        android:backgroundTint="@color/gray"
+        android:textColorHint="@color/gray"></EditText>
+
+
+    <EditText
+        android:id="@+id/pw_check_input_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/pw_input_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="@+id/guideline_right"
+        app:layout_constraintVertical_bias="0.03"
+        app:layout_constraintHeight_percent="0.06"
+        android:hint="비밀번호를 한 번 더 입력해주세요"
+        android:textSize="20dp"
+        android:backgroundTint="@color/gray"
+        android:textColorHint="@color/gray"></EditText>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/access_terms_box"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/green"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintWidth_percent="0.64"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintTop_toBottomOf="@+id/pw_check_input_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="@+id/guideline_right">
+
+        <TextView
+            android:id="@+id/access_term_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이용약관에 동의합니다(필수)"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"></TextView>
+
+        <CheckBox
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/custom_checkbox"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.07"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/access_term_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.55"></CheckBox>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/green_box"
+        app:layout_constraintVertical_bias="0.48"
+        app:layout_constraintWidth_percent="0.64"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintTop_toBottomOf="@+id/access_terms_box"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+        app:layout_constraintRight_toRightOf="@+id/guideline_right">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="다음"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:gravity="center"></TextView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         wv.loadUrl("3.37.133.132");
 
 
+
         wv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

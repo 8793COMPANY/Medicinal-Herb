@@ -1,14 +1,16 @@
-package com.corporation8793.medicinal_herb;
+package com.corporation8793.medicinal_herb.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SetNotiActivity extends AppCompatActivity {
+import com.corporation8793.medicinal_herb.R;
+
+public class JoinActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_set_noti);
+        setContentView(R.layout.activity_join);
     }
 }

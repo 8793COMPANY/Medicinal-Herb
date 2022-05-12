@@ -26,30 +26,14 @@
             layout="@layout/custom_toolbar"
             bind:actionbar="@{actionBar}"></include>
 
-        <TextView
-            android:id="@+id/farm_introduction_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="전국 유명 약초 농장을 소개합니다."
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:fontFamily="@font/nskr_medium"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/action_bar"
-            app:layout_constraintBottom_toBottomOf="parent"
-
-            app:layout_constraintVertical_bias="0"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/farm_list"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:overScrollMode="never"
-            app:layout_constraintTop_toBottomOf="@+id/farm_introduction_text"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"></androidx.recyclerview.widget.RecyclerView>
+            app:layout_constraintLeft_toLeftOf="parent"></androidx.fragment.app.FragmentContainerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

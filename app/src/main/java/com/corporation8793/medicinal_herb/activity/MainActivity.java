@@ -1,4 +1,4 @@
-package com.corporation8793.medicinal_herb;
+package com.corporation8793.medicinal_herb.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.corporation8793.medicinal_herb.R;
 
 public class MainActivity extends AppCompatActivity {
     WebView wv;

@@ -1,8 +1,10 @@
-package com.corporation8793.medicinal_herb;
+package com.corporation8793.medicinal_herb.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.corporation8793.medicinal_herb.R;
 
 public class ProfileActivity extends AppCompatActivity {
 

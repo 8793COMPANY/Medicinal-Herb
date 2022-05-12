@@ -9,7 +9,7 @@
 
         <variable
             name="actionBar"
-            type="com.corporation8793.medicinal_herb.ActionBar"/>
+            type="com.corporation8793.medicinal_herb.dto.ActionBar"/>
 
     </data>
 
@@ -18,7 +18,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DictionaryActivity"
+        tools:context=".activity.main.DictionaryActivity"
         android:background="@color/white">
 
 

@@ -1,4 +1,4 @@
-package com.corporation8793.medicinal_herb;
+package com.corporation8793.medicinal_herb.dto;
 
 public class ActionBar {
 

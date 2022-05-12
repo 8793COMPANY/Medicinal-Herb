@@ -1,9 +1,10 @@
-package com.corporation8793.medicinal_herb;
+package com.corporation8793.medicinal_herb.activity.main;
 
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.corporation8793.medicinal_herb.R;
 import com.corporation8793.medicinal_herb.databinding.ActivityMain2Binding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;

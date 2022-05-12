@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.corporation8793.medicinal_herb.ChitchatActivity;
-import com.corporation8793.medicinal_herb.DictionaryActivity;
-import com.corporation8793.medicinal_herb.FarmActivity;
-import com.corporation8793.medicinal_herb.QnaActivity;
+import com.corporation8793.medicinal_herb.activity.main.ChitchatActivity;
+import com.corporation8793.medicinal_herb.activity.main.DictionaryActivity;
+import com.corporation8793.medicinal_herb.activity.main.EventActivity;
+import com.corporation8793.medicinal_herb.activity.main.FarmActivity;
+import com.corporation8793.medicinal_herb.activity.main.RecommendActivity;
 import com.corporation8793.medicinal_herb.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
@@ -45,7 +45,12 @@ public class HomeFragment extends Fragment {
         });
 
         binding.recommendBtn.setOnClickListener(v->{
-            Intent intent = new Intent(getActivity(), QnaActivity.class);
+            Intent intent = new Intent(getActivity(), RecommendActivity.class);
+            startActivity(intent);
+        });
+
+        binding.eventBtn.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), EventActivity.class);
             startActivity(intent);
         });
 

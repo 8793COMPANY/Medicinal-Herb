@@ -4,7 +4,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable name="actionbar" type="com.corporation8793.medicinal_herb.ActionBar"/>
+        <variable name="actionbar" type="com.corporation8793.medicinal_herb.dto.ActionBar"/>
     </data>
     
     <androidx.appcompat.widget.Toolbar

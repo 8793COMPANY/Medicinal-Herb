@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import com.corporation8793.medicinal_herb.decoration.HerbDecoration
 import com.corporation8793.medicinal_herb.adapter.HerbAdapter
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
@@ -34,6 +35,8 @@ class DictionaryActivity : AppCompatActivity() {
 
         val lm = GridLayoutManager(this,2)
         binding.herbList.layoutManager = lm
+
+        binding.herbList.addItemDecoration(HerbDecoration(10))
 
         datas.apply {
             add(HerbItem(R.drawable.intro1,"둥글레"))

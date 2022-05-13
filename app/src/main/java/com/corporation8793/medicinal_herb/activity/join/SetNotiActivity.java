@@ -1,4 +1,4 @@
-package com.corporation8793.medicinal_herb.activity;
+package com.corporation8793.medicinal_herb.activity.join;
 
 import androidx.appcompat.app.AppCompatActivity;
 

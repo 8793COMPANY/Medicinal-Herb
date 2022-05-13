@@ -35,7 +35,7 @@ class ChitchatActivity : AppCompatActivity() {
 
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)
-        val height : Int =  (display.heightPixels / 8).toInt()
+        val height : Int =  (display.heightPixels / 8.5).toInt()
 
 
         qna_adapter = QnaAdapter(this,height)

@@ -35,4 +35,6 @@
             android:id="@+id/nav_app_version"
             android:title="앱 버전" />
     </group>
+
+
 </menu>

@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.corporation8793.medicinal_herb.decoration.FarmDecoration
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.adapter.FarmAdapter
-import com.corporation8793.medicinal_herb.databinding.ActivityEventBinding
 import com.corporation8793.medicinal_herb.databinding.ActivityFarmBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.dto.FarmItem
-import com.corporation8793.medicinal_herb.dto.HerbItem
-import com.corporation8793.medicinal_herb.fragment.EventListFragment
 
 class FarmActivity : AppCompatActivity() {
     lateinit var binding : ActivityFarmBinding
     lateinit var farmAdapter : FarmAdapter
+    lateinit var divider : FarmDecoration
 
     val datas = mutableListOf<FarmItem>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +38,13 @@ class FarmActivity : AppCompatActivity() {
 
         val lm = LinearLayoutManager(this)
         binding.farmList.layoutManager = lm
+
+        divider = FarmDecoration(10,resources.getColor(R.color.green))
+
+        val itemDivider : DividerItemDecoration = DividerItemDecoration(this,0)
+        itemDivider.setDrawable(resources.getDrawable(R.color.green))
+        binding.farmList.addItemDecoration(divider)
+
 
         datas.apply {
             add(FarmItem(R.drawable.herb_basic_user_icon,"농장1","김대길","안녕하세요. 딸기 팝니다."))

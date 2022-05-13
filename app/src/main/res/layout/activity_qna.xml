@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="actionBar"
+            type="com.corporation8793.medicinal_herb.dto.ActionBar"/>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.main.DictionaryActivity"
+        android:background="@color/white">
+
+
+        <include android:id="@+id/action_bar"
+            layout="@layout/custom_toolbar"
+            bind:actionbar="@{actionBar}"></include>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_percent="0.04"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_percent="0.96"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+        <TextView
+            android:id="@+id/guide_banner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:gravity="center"
+            android:fontFamily="@font/noto_sans_kr_thin"
+            android:text="⦁  사진 첨부를 하시면 다양한 답변을 받으실 수 있습니다.\n⦁  홍보성 게시물등 산야초마을과 관련되지 않은 게시물은\n공지없이 삭제될 수 있으며 계정이 정지될 수 있습니다."
+            android:background="#f1f1f1"
+            app:layout_constraintHeight_percent="0.13"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"></TextView>
+
+        <ImageView
+            android:id="@+id/photo_registration"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintTop_toBottomOf="@+id/guide_banner"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"></ImageView>
+
+        <ImageView
+            android:id="@+id/photo_registration_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/album_icon"
+            app:layout_constraintDimensionRatio="7:6"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintVertical_bias="0.5"
+            app:layout_constraintTop_toTopOf="@+id/photo_registration"
+            app:layout_constraintBottom_toBottomOf="@+id/photo_registration"
+            app:layout_constraintLeft_toLeftOf="@+id/photo_registration"
+            app:layout_constraintRight_toRightOf="@+id/photo_registration"></ImageView>
+
+        <TextView
+            android:id="@+id/photo_registration_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사진을 등록해주세요."
+            android:textColor="#b1b1b1"
+            app:layout_constraintVertical_bias="0.3"
+            app:layout_constraintTop_toBottomOf="@+id/photo_registration_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/photo_registration"
+            app:layout_constraintLeft_toLeftOf="@+id/photo_registration"
+            app:layout_constraintRight_toRightOf="@+id/photo_registration"></TextView>
+
+        <EditText
+            android:id="@+id/content_input_box"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="#b1b1b1"
+            android:hint="내용을 작성해 주세요"
+            app:layout_constraintHeight_percent="0.21"
+            android:background="@drawable/round_shape_background"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintTop_toBottomOf="@+id/photo_registration"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"></EditText>
+
+        <EditText
+            android:id="@+id/hash_tags_input_box"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textColor="#b1b1b1"
+            android:hint="#해시태그를 등록해주세요."
+            app:layout_constraintHeight_percent="0.07"
+            android:background="@drawable/round_shape_background"
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintTop_toBottomOf="@+id/content_input_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"></EditText>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:text="등록"
+            android:textSize="14dp"
+            android:textColor="@color/green"
+            android:fontFamily="@font/nskr_medium"
+            app:layout_constraintWidth_percent="0.14"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintTop_toTopOf="@+id/hash_tags_input_box"
+            app:layout_constraintBottom_toBottomOf="@+id/hash_tags_input_box"
+            app:layout_constraintLeft_toLeftOf="@+id/hash_tags_input_box"
+            app:layout_constraintRight_toRightOf="@+id/hash_tags_input_box"></androidx.appcompat.widget.AppCompatButton>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/qna_registration_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="등록"
+            android:textColor="@color/white"
+            android:background="@drawable/corner_round_background"
+            android:backgroundTint="@color/green"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintHeight_percent="0.07"
+            app:layout_constraintTop_toBottomOf="@+id/hash_tags_input_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right"></androidx.appcompat.widget.AppCompatButton>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+

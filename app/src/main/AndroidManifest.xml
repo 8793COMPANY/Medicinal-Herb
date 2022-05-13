@@ -2,26 +2,66 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.corporation8793.medicinal_herb">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.MaterialComponents.NoActionBar">
+        android:theme="@style/Theme.MaterialComponents.NoActionBar"
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:name=".activity.main.RecommendActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.main.EventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.main.ChitchatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.main.QnaActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.main.HerbDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.IntroActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.main.MainActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.main.FarmActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".activity.SetNotiActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.JoinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.main.DictionaryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

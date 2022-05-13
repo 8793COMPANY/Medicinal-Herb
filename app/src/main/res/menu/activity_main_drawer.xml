@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="프로필" />
+        <item
+            android:id="@+id/nav_info_change"
+            android:title="내 정보 변경" />
+        <item
+            android:id="@+id/nav_noti_setting"
+            android:title="알림설정" />
+
+        <item
+            android:id="@+id/nav_my_heart"
+            android:title="내 좋아요" />
+        <item
+            android:id="@+id/nav_my_posting"
+            android:title="내 게시글"
+            />
+        <item
+            android:id="@+id/nav_access_term"
+            android:title="서비스 이용 약관" />
+
+        <item
+            android:id="@+id/nav_personal_data"
+            android:title="개인정보 보호정책" />
+        <item
+            android:id="@+id/nav_open_source"
+            android:title="오픈소스 정보" />
+        <item
+            android:id="@+id/nav_app_version"
+            android:title="앱 버전" />
+    </group>
+</menu>

@@ -66,6 +66,7 @@
             android:id="@+id/herb_detail_text"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:textColor="@color/black"
             android:background="@drawable/stroke_corner_round_background"
             app:layout_constraintTop_toBottomOf="@+id/herb_detail_img"
             app:layout_constraintBottom_toBottomOf="parent"

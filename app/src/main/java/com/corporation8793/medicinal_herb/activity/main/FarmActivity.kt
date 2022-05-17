@@ -2,6 +2,7 @@ package com.corporation8793.medicinal_herb.activity.main
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -12,6 +13,11 @@ import com.corporation8793.medicinal_herb.adapter.FarmAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityFarmBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.dto.FarmItem
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class FarmActivity : AppCompatActivity() {
     lateinit var binding : ActivityFarmBinding
@@ -27,7 +33,7 @@ class FarmActivity : AppCompatActivity() {
 
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_farm)
-        binding.setActionBar(ActionBar("방방곡곡 약초농장", R.color.black))
+        binding.setActionBar(ActionBar("방방곡곡 약초농장", R.color.deep_green))
 
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)
@@ -44,6 +50,26 @@ class FarmActivity : AppCompatActivity() {
         val itemDivider : DividerItemDecoration = DividerItemDecoration(this,0)
         itemDivider.setDrawable(resources.getDrawable(R.color.green))
         binding.farmList.addItemDecoration(divider)
+
+        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_FARM)
+
+        posting.enqueue(object : Callback<List<Post>> {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                val check : List<Post>? = response.body()
+                var repo =""
+
+                check?.forEach{ it->
+                    repo += "$it\n-----------------------"
+                }
+                Log.e("farm 설명 : ",repo)
+
+            }
+
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
 
 
         datas.apply {

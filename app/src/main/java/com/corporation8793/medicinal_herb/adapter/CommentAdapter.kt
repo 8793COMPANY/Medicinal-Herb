@@ -10,14 +10,15 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.dto.CommentItem
 import com.corporation8793.medicinal_herb.dto.EventItem
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.fragment.EventDetailFragment
 
-class EventAdapter (private val context: Context?, val height : Int) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
-    var datas = mutableListOf<EventItem>()
+class CommentAdapter (private val context: Context?, val height : Int) : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+    var datas = mutableListOf<CommentItem>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.event_list_itemview,parent,false)
+        val view = LayoutInflater.from(context).inflate(R.layout.comment_list_itemview,parent,false)
         view.layoutParams.height = height
         return ViewHolder(view)
     }
@@ -31,20 +32,18 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val eventImg: ImageView = itemView.findViewById(R.id.herb_event_img)
-        private val date: TextView = itemView.findViewById(R.id.event_end_date)
+        private val eventImg: ImageView = itemView.findViewById(R.id.comment_user_img)
+        private val date: TextView = itemView.findViewById(R.id.comment_date)
 
 
-        fun bind(item: EventItem) {
+        fun bind(item: CommentItem) {
             date.text = item.date
             if (item.img == 0)
                 eventImg.setBackgroundResource(R.drawable.round_shape_background)
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 
-            itemView.setOnClickListener{
-                (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container, EventDetailFragment()).commit()
-            }
+
 
 
 //            Glide.with(itemView).load(item.img).into(imgProfile)

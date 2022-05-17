@@ -205,7 +205,7 @@ interface BoardService {
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#retrieve-a-media-item">Retrieve a Media Item [REST API Reference]</a>
      */
     @GET("http://3.37.133.132/wp-json/wp/v2/media/{id}")
-    fun retrieveMedia(@Path("id") id : String?) : Call<Media>
+    fun retrieveMedia(@Path("id") id : String?) : Call<Array<Media>>
 
 
 

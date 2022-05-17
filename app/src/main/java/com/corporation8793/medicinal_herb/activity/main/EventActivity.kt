@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -18,7 +19,12 @@ class EventActivity : AppCompatActivity() {
 
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_event)
-        binding.setActionBar(ActionBar("이벤트", R.color.black))
+        binding.setActionBar(ActionBar("이벤트", R.color.deep_green))
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+            var intent : Intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+        }
 
         replaceFragment()
 

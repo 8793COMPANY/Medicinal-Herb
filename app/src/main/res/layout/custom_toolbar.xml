@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="android.view.View"/>
         <variable name="actionbar" type="com.corporation8793.medicinal_herb.dto.ActionBar"/>
     </data>
@@ -29,11 +30,12 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@{actionbar.title}"
-                android:textColor="@{actionbar.color}"
+                android:textColor="@{context.getResources().getColor(actionbar.color)}"
                 android:textSize="20dp"
                 android:fontFamily="@font/nskr_medium"></TextView>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/back_home"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/back_btn"

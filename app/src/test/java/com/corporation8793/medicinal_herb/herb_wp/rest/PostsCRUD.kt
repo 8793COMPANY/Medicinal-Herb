@@ -17,30 +17,33 @@ class PostsCRUD {
 
 
 
-        println("------ Create          ------")
-        var responseCode = boardRepository.createPost("테스트 1", "이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT)
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode\n")
-        responseCode = boardRepository.createPost("테스트 2", "진행중인 이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT_ONGOING)
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode\n")
-        responseCode = boardRepository.createPost("테스트 3", "종료된 이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT_DONE)
-        Assert.assertEquals("201", responseCode)
-        println("response Code : $responseCode\n")
+//        println("------ Create          ------")
+//        var responseCode = boardRepository.createPost("테스트 1", "이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT)
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
+//        responseCode = boardRepository.createPost("테스트 2", "진행중인 이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT_ONGOING)
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
+//        responseCode = boardRepository.createPost("테스트 3", "종료된 이벤트 게시판에 연동 게시물 작성", RestClient.CATEGORY_EVENT_DONE)
+//        Assert.assertEquals("201", responseCode)
+//        println("response Code : $responseCode\n")
 
 
 
 
-//        println("------ Retrieve        ------")
-//
-//
-//
-//        println("------ OnePost         ------")
-//        val responseOnePost = boardRepository.retrieveOnePost("219")
-//        Assert.assertEquals("200", responseOnePost.first)
-//        if (responseOnePost.first == "200") {
-//            println("response Post : ${responseOnePost.second!!}\n")
-//        }
+        println("------ Retrieve        ------")
+
+
+
+        //println("------ OnePost         ------")
+        println("------ EventPost       ------")
+        val responseOnePost = boardRepository.retrieveOnePost("271")
+        Assert.assertEquals("200", responseOnePost.first)
+        if (responseOnePost.first == "200") {
+            println("response Post : ${responseOnePost.second!!}\n")
+            println("Post Date : ${responseOnePost.second!!.date}\n")
+            println("Announcement Date : ${responseOnePost.second!!.acf.announcement_date}\n")
+        }
 
 //        println("------ AllPost         ------")
 //        val responseAllPost = boardRepository.retrieveAllPost()

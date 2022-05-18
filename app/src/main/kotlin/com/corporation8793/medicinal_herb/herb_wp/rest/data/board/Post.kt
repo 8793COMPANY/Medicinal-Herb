@@ -5,6 +5,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  * @author  두동근
  * @param   id                  게시물의 고유 번호(Post ID)
  * @param   date                게시물의 작성 일자
+ * @param   acf                 [Acf] 클래스
  * @param   type                게시물의 타입
  * @param   title               [Title] 클래스
  * @param   content             [PostContent] 클래스
@@ -16,6 +17,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  */
 data class Post(val id : String,
                 val date : String,
+                val acf : Acf,
                 val type : String,
                 val title : Title,
                 val content : PostContent,
@@ -43,3 +45,9 @@ data class PostContent(val rendered : String)
  * @param   rendered    게시물의 요약 내용
  */
 data class Excerpt(val rendered : String)
+/**
+ * [Post.acf]
+ * @author  두동근
+ * @param   announcement_date    (이벤트) 당첨자 발표 일자
+ */
+data class Acf(val announcement_date : String)

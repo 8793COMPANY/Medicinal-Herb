@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-18T04:56:11" hostname="TFX245S" time="0.37">
+  <properties/>
+  <testcase name="postsCRUD" classname="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" time="0.37"/>
+  <system-out><![CDATA[====== postsCRUD       ======
+------ Retrieve        ------
+------ EventPost       ------
+response Post : Post(id=271, date=2022-05-18T13:15:05, acf=Acf(announcement_date=2022. 05. 19), type=post, title=Title(rendered=test), content=PostContent(rendered=<p>test</p>
+), excerpt=Excerpt(rendered=<p>test</p>
+), author=1, featured_media=0, categories=[21], tags=[])
+
+Post Date : 2022-05-18T13:15:05
+
+Announcement Date : 2022. 05. 19
+
+====== EndTest         ======
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

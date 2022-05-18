@@ -1,0 +1,12 @@
+====== postsCRUD       ======
+------ Retrieve        ------
+------ EventPost       ------
+°response Post : Post(id=271, date=2022-05-18T13:15:05, acf=Acf(announcement_date=2022. 05. 19), type=post, title=Title(rendered=test), content=PostContent(rendered=<p>test</p>
+(), excerpt=Excerpt(rendered=<p>test</p>
+9), author=1, featured_media=0, categories=[21], tags=[])
+
+ Post Date : 2022-05-18T13:15:05
+
+!Announcement Date : 2022. 05. 19
+
+====== EndTest         ======

@@ -31,11 +31,15 @@ class ChitchatActivity : AppCompatActivity() {
 
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chitchat)
-        binding.setActionBar(ActionBar("약초 수다방", R.color.green))
+        binding.setActionBar(ActionBar("약초 수다방", R.color.deep_green))
+
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+        }
 
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)
-        val height : Int =  (display.heightPixels / 8).toInt()
+        val height : Int =  (display.heightPixels / 8.5).toInt()
 
 
         qna_adapter = QnaAdapter(this,height)

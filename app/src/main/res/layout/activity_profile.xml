@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProfileActivity"
+    tools:context=".activity.join.ProfileActivity"
     android:background="@color/white">
 
     <ImageView
@@ -20,12 +20,26 @@
         app:layout_constraintVertical_bias="0.14"
         android:background="@drawable/switch_thumb_off"></ImageView>
 
+    <ImageView
+        android:id="@+id/camera_icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@+id/img"
+        app:layout_constraintBottom_toBottomOf="@+id/img"
+        app:layout_constraintLeft_toLeftOf="@+id/img"
+        app:layout_constraintRight_toRightOf="@+id/img"
+        app:layout_constraintDimensionRatio="8:7"
+        app:layout_constraintWidth_percent="0.12"
+        app:layout_constraintVertical_bias="0.5"
+        android:background="@drawable/join_camera_icon"></ImageView>
+
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="에밀리"
+        android:includeFontPadding="false"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:fontFamily="@font/noto_sans_kr_light"
@@ -33,11 +47,132 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.01"
+        app:layout_constraintVertical_bias="0.05"
         ></TextView>
+
+    <TextView
+        android:id="@+id/introduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="한 줄 소개를을 작성해주세요."
+        android:includeFontPadding="false"
+        android:textColor="#979797"
+        android:textSize="17dp"
+        android:fontFamily="@font/noto_sans_kr_light"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintVertical_bias="0.04"
+        ></TextView>
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.06"
+        android:background="@drawable/edit_btn"
+        app:layout_constraintTop_toTopOf="@+id/introduction"
+
+        app:layout_constraintLeft_toRightOf="@+id/introduction"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.12"></ImageView>
+
+
+    <TextView
+        android:id="@+id/posting_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:fontFamily="@font/nskr_medium"
+        android:includeFontPadding="false"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintTop_toBottomOf="@+id/introduction"
+        app:layout_constraintBottom_toBottomOf="@id/save_btn"
+        app:layout_constraintLeft_toLeftOf="@+id/posting_text"
+        app:layout_constraintRight_toRightOf="@+id/posting_text"></TextView>
+
+    <TextView
+        android:id="@+id/posting_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게시글"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:fontFamily="@font/nskr_medium"
+        android:includeFontPadding="false"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@+id/posting_count"
+        app:layout_constraintBottom_toBottomOf="@id/save_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"></TextView>
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/my_posting_icon"
+        app:layout_constraintTop_toBottomOf="@+id/posting_text"
+        app:layout_constraintBottom_toTopOf="@+id/save_btn"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.07"
+        app:layout_constraintLeft_toLeftOf="@+id/posting_text"
+        app:layout_constraintRight_toRightOf="@id/posting_text"
+        app:layout_constraintVertical_bias="0.1"></ImageView>
+
+
+
+    <TextView
+        android:id="@+id/heart_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:fontFamily="@font/nskr_medium"
+        android:includeFontPadding="false"
+        app:layout_constraintVertical_bias="0.15"
+        app:layout_constraintTop_toBottomOf="@+id/introduction"
+        app:layout_constraintBottom_toBottomOf="@id/save_btn"
+        app:layout_constraintLeft_toLeftOf="@+id/heart_text"
+        app:layout_constraintRight_toRightOf="@+id/heart_text"></TextView>
+
+    <TextView
+        android:id="@+id/heart_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="좋아요"
+        android:textColor="@color/black"
+        android:textSize="18dp"
+        android:fontFamily="@font/nskr_medium"
+        android:includeFontPadding="false"
+        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@+id/posting_count"
+        app:layout_constraintBottom_toBottomOf="@id/save_btn"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.65"></TextView>
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/my_heart_icon"
+        app:layout_constraintTop_toBottomOf="@+id/heart_text"
+        app:layout_constraintBottom_toTopOf="@+id/save_btn"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintWidth_percent="0.07"
+        app:layout_constraintLeft_toLeftOf="@+id/heart_text"
+        app:layout_constraintRight_toRightOf="@id/heart_text"
+        app:layout_constraintVertical_bias="0.1"></ImageView>
+
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/save_btn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_box"

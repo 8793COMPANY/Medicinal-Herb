@@ -2,6 +2,7 @@ package com.corporation8793.medicinal_herb.activity.main
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.PaintDrawable
@@ -40,6 +41,12 @@ class QnaActivity : AppCompatActivity() {
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_qna)
         binding.setActionBar(ActionBar("묻고 답하기", R.color.black))
+
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+            var intent : Intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+        }
     }
 
     fun showDialog(){

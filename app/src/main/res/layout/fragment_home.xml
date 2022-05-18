@@ -30,16 +30,29 @@
         android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
 
 
-    <ImageView
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/ad_banner"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.29"
+        app:layout_constraintHeight_percent="0.35"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0"></ImageView>
+        app:layout_constraintVertical_bias="0"></androidx.viewpager2.widget.ViewPager2>
+
+    <me.relex.circleindicator.CircleIndicator3
+        android:id="@+id/indicator"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintHeight_percent="0.03"
+        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintTop_toTopOf="@+id/ad_banner"
+        app:layout_constraintBottom_toBottomOf="@+id/ad_banner"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        ></me.relex.circleindicator.CircleIndicator3>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/dictionary_btn"

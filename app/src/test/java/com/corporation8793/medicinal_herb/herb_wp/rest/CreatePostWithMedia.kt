@@ -46,8 +46,8 @@ class CreatePostWithMedia {
         println("------ Retrieve            ------")
         var retrieveMedia = boardRepository.retrieveMedia(responseMedia.second?.id)
         Assert.assertEquals("200", retrieveMedia.first)
-        println("retrieve Media URL : ${retrieveMedia.second?.guid?.rendered}")
-        println("retrieve Media ID : ${retrieveMedia.second?.id}")
+//        println("retrieve Media URL : ${retrieveMedia.second?.guid?.rendered}")
+//        println("retrieve Media ID : ${retrieveMedia.second?.id}")
         println("retrieve Status : ${retrieveMedia.first}\n")
 
 

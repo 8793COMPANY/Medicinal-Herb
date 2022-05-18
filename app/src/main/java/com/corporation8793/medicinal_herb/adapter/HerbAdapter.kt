@@ -44,6 +44,7 @@ class HerbAdapter (private val context: Context, val height : Int) : RecyclerVie
 
             itemView.setOnClickListener{
                 var intent : Intent = Intent(context, HerbDetailActivity::class.java)
+                intent.putExtra("id",item.id)
                 intent.putExtra("name",item.name)
                 context.startActivity(intent)
             }

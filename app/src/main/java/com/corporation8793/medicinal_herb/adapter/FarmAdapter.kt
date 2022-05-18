@@ -30,7 +30,7 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val imgProfile: ImageView = itemView.findViewById(R.id.farm_user_img)
-        private val txtName: TextView = itemView.findViewById(R.id.farm_user_name)
+        private val txtName: TextView = itemView.findViewById(R.id.farm_name)
 
 
         fun bind(item: FarmItem) {

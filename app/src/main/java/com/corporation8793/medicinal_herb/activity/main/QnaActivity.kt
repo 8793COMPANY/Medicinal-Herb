@@ -16,6 +16,12 @@ import androidx.databinding.DataBindingUtil
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityQnaBinding
+import com.corporation8793.medicinal_herb.dto.EventItem
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class QnaActivity : AppCompatActivity() {
     lateinit var binding : ActivityQnaBinding
@@ -91,6 +97,9 @@ class QnaActivity : AppCompatActivity() {
         dlg.setView(dlgView)
         dlg.window?.setBackgroundDrawable(PaintDrawable(Color.WHITE))
         dlg.show()
+
+
+
 
 
 //        val display = windowManager.defaultDisplay

@@ -81,6 +81,8 @@ class EventListFragment : Fragment() {
             dataSetting(RestClient.CATEGORY_EVENT_DONE)
         }
 
+        dataSetting(RestClient.CATEGORY_EVENT_ONGOING)
+
 
 
 //        datas.apply {
@@ -110,9 +112,13 @@ class EventListFragment : Fragment() {
                     datas.clear()
                     check?.forEach{ it->
 
-                        add(EventItem(it.id,0, it.date))
-                        Log.e("it","$it\n")
+//                        Log.e("length",it.acf.toString())
+//                        Log.e("check",it.acf.get(0).announcement_date)
+                        if (it.acf.announcement_date !=null) {
+                            add(EventItem(it.id, 0, it.acf.announcement_date))
 
+                        }
+                        Log.e("it", "$it\n")
                         }
                 }
 
@@ -121,7 +127,8 @@ class EventListFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("t",t.message.toString())
+
             }
 
 

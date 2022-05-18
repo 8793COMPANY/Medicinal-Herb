@@ -15,6 +15,7 @@ import com.corporation8793.medicinal_herb.databinding.ActivityFarmBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.dto.FarmItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
 import retrofit2.Call
 import retrofit2.Callback
@@ -70,7 +71,28 @@ class FarmActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("t",t.message.toString())
+            }
+
+        })
+
+
+        val comment : Call<List<Comment>> = RestClient.boardService.retrieveAllComment((144).toString())
+
+        comment.enqueue(object : Callback<List<Comment>> {
+            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
+                val check : List<Comment>? = response.body()
+                var repo =""
+
+                check?.forEach{ it->
+                    repo += "$it\n-----------------------"
+                }
+                Log.e("comment 설명 : ",repo)
+
+            }
+
+            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
+                Log.e("t",t.message.toString())
             }
 
         })

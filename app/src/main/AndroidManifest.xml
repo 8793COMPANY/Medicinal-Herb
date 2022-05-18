@@ -21,7 +21,8 @@
             android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".activity.main.ChitchatActivity"
-            android:exported="false" />
+            android:exported="true"
+            />
         <activity
             android:name=".activity.main.QnaActivity"
             android:exported="true" />

@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -36,14 +37,18 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
 
 
         fun bind(item: EventItem) {
-            date.text = item.date
+            date.text = "당첨자 발표 " + item.date
             if (item.img == 0)
                 eventImg.setBackgroundResource(R.drawable.round_shape_background)
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 
             itemView.setOnClickListener{
-                (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container, EventDetailFragment()).commit()
+                val bundle : Bundle = Bundle()
+                bundle.putString("id",item.id)
+                var frag = EventDetailFragment()
+                frag.arguments = bundle
+                (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container,frag).commit()
             }
 
 

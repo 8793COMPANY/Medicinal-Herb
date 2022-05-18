@@ -39,7 +39,7 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
         fun bind(item: CommentItem) {
             date.text = item.date
             if (item.img == 0)
-                eventImg.setBackgroundResource(R.drawable.round_shape_background)
+                eventImg.setBackgroundResource(R.drawable.herb_basic_qna_icon)
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 

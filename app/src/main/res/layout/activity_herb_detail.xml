@@ -73,6 +73,7 @@
             app:layout_constraintRight_toRightOf="@+id/guideline_right"
             app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
             app:layout_constraintHeight_percent="0.43"
+            android:scrollbars="vertical"
             ></TextView>
 
 

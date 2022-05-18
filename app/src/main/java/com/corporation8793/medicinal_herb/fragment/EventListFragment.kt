@@ -2,16 +2,24 @@ package com.corporation8793.medicinal_herb.fragment
 
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.adapter.EventAdapter
 import com.corporation8793.medicinal_herb.dto.EventItem
+import com.corporation8793.medicinal_herb.dto.HerbItem
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -46,6 +54,9 @@ class EventListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_event_list, container, false)
         val event_list = view.findViewById<RecyclerView>(R.id.event_list)
 
+        val ongoing_event = view.findViewById<Button>(R.id.ongoing_event)
+        val end_event = view.findViewById<Button>(R.id.end_event)
+
         val display : DisplayMetrics = DisplayMetrics()
         activity?.windowManager?.defaultDisplay?.getMetrics(display)
         val height : Int =  (display.heightPixels / 3.5).toInt()
@@ -62,19 +73,59 @@ class EventListFragment : Fragment() {
 
         event_list.addItemDecoration(divider)
 
-        datas.apply {
+        ongoing_event.setOnClickListener{
+            dataSetting(RestClient.CATEGORY_EVENT_ONGOING)
+        }
 
-            add(EventItem(0, "당첨자 발표: 2022.06.30"))
-            add(EventItem(0, "당첨자 발표: 2022.07.02"))
-            add(EventItem(0, "당첨자 발표: 2022.07.09"))
-
-            eventAdapter.datas = datas
-            eventAdapter.notifyDataSetChanged()
+        end_event.setOnClickListener{
+            dataSetting(RestClient.CATEGORY_EVENT_DONE)
         }
 
 
 
+//        datas.apply {
+//
+//            add(EventItem(0, "당첨자 발표: 2022.06.30"))
+//            add(EventItem(0, "당첨자 발표: 2022.07.02"))
+//            add(EventItem(0, "당첨자 발표: 2022.07.09"))
+//
+//            eventAdapter.datas = datas
+//            eventAdapter.notifyDataSetChanged()
+//        }
+
+
+
         return view
+    }
+
+    fun dataSetting(category : String){
+        val one_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc",category)
+
+        one_posting.enqueue(object : Callback<List<Post>> {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                val check : List<Post>? = response.body()
+                var repo =""
+
+                datas.apply {
+                    datas.clear()
+                    check?.forEach{ it->
+
+                        add(EventItem(it.id,0, it.date))
+                        Log.e("it","$it\n")
+
+                        }
+                }
+
+                eventAdapter.datas = datas
+                eventAdapter.notifyDataSetChanged()
+            }
+
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+
+        })
     }
 
     companion object {

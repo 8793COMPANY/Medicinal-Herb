@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -47,7 +48,11 @@ class RecommendActivity : AppCompatActivity() {
 
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recommend)
-        binding.setActionBar(ActionBar("맞춤추천", R.color.green))
+        binding.setActionBar(ActionBar("맞춤추천", R.color.deep_green))
+
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+        }
 
 
         val display : DisplayMetrics = DisplayMetrics()

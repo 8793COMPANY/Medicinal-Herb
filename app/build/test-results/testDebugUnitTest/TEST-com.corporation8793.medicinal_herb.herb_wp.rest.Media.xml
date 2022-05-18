@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.Media" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-18T04:26:16" hostname="DESKTOP-UASPKGE" time="0.702">
+  <properties/>
+  <testcase name="media" classname="com.corporation8793.medicinal_herb.herb_wp.rest.Media" time="0.702"/>
+  <system-out><![CDATA[====== media    ======
+------ Upload   ------
+response Media URL : http://3.37.133.132/wp-content/uploads/2022/05/Lenna.png
+response Media ID : 274
+====== EndTest  ======
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

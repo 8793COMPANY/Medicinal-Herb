@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -31,6 +32,10 @@ class DictionaryActivity : AppCompatActivity() {
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dictionary)
         binding.setActionBar(ActionBar("약초사전", R.color.deep_green))
+
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+        }
 
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)

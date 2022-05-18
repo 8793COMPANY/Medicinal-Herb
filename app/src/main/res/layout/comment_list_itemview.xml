@@ -49,10 +49,10 @@
         android:textSize="12dp"
         android:textColor="@color/black"
         android:fontFamily="@font/noto_sans_kr_thin"
-        app:layout_constraintTop_toTopOf="@+id/herb_qna_img"
-        app:layout_constraintBottom_toBottomOf="@+id/herb_qna_img"
+        app:layout_constraintTop_toTopOf="@+id/comment_user_img"
+        app:layout_constraintBottom_toBottomOf="@+id/comment_user_img"
         app:layout_constraintRight_toRightOf="@+id/guideline_right"
-        app:layout_constraintLeft_toRightOf="@+id/herb_qna_img"
+        app:layout_constraintLeft_toRightOf="@+id/comment_user_img"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintHorizontal_bias="0.07"></TextView>

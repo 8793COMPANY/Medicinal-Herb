@@ -22,8 +22,7 @@ class EventActivity : AppCompatActivity() {
         binding.setActionBar(ActionBar("이벤트", R.color.deep_green))
         binding.actionBar.backHome.setOnClickListener {
             finish()
-            var intent : Intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
+
         }
 
         replaceFragment()

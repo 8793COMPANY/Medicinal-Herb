@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -35,6 +36,10 @@ class FarmActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_farm)
         binding.setActionBar(ActionBar("방방곡곡 약초농장", R.color.deep_green))
 
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+        }
+
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)
         val height : Int =  (display.heightPixels / 6).toInt()
@@ -47,8 +52,7 @@ class FarmActivity : AppCompatActivity() {
 
         divider = FarmDecoration(10,resources.getColor(R.color.green))
 
-        val itemDivider : DividerItemDecoration = DividerItemDecoration(this,0)
-        itemDivider.setDrawable(resources.getDrawable(R.color.green))
+
         binding.farmList.addItemDecoration(divider)
 
         val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_FARM)

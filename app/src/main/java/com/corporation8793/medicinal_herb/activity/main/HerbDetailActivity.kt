@@ -1,7 +1,9 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.corporation8793.medicinal_herb.R
@@ -34,6 +36,8 @@ class HerbDetailActivity : AppCompatActivity() {
 
                 binding.herbDetailText.text = check?.content?.rendered.toString()
                         .replace("<p>","").replace("</p>","")
+                        .replace("<ul>","").replace("</ul>","")
+                        .replace("<li>","").replace("</li>","")
 
             }
 
@@ -42,6 +46,7 @@ class HerbDetailActivity : AppCompatActivity() {
             }
 
         })
+
 
         val media : Call<Array<Media>> =  RestClient.boardService.retrieveMedia(media_id)
 
@@ -69,7 +74,13 @@ class HerbDetailActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_herb_detail)
         binding.setActionBar(ActionBar(intent.getStringExtra("name"), R.color.green))
 
+        binding.actionBar.backHome.setOnClickListener {
+            finish()
+            var intent : Intent = Intent(this, MainActivity2::class.java)
+            startActivity(intent)
+        }
 
+        binding.herbDetailText.movementMethod = ScrollingMovementMethod()
 
     }
 

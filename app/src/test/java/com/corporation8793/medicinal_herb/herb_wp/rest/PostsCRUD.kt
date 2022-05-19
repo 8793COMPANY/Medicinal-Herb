@@ -37,12 +37,12 @@ class PostsCRUD {
 
         //println("------ OnePost         ------")
         println("------ EventPost       ------")
-        val responseOnePost = boardRepository.retrieveOnePost("271")
+        val responseOnePost = boardRepository.retrieveOnePost("144")
         Assert.assertEquals("200", responseOnePost.first)
         if (responseOnePost.first == "200") {
             println("response Post : ${responseOnePost.second!!}\n")
-            println("Post Date : ${responseOnePost.second!!.date}\n")
-            println("Announcement Date : ${responseOnePost.second!!.acf.announcement_date}\n")
+            //println("Post Date : ${responseOnePost.second!!.date}\n")
+            println("Owner Name : ${responseOnePost.second!!.acf.owner_name}\n")
         }
 
 //        println("------ AllPost         ------")

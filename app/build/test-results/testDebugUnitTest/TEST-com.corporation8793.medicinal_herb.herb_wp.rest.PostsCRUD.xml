@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-18T05:17:49" hostname="TFX245S" time="0.526">
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-19T02:32:38" hostname="TFX245S" time="0.494">
   <properties/>
-  <testcase name="postsCRUD" classname="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" time="0.526"/>
+  <testcase name="postsCRUD" classname="com.corporation8793.medicinal_herb.herb_wp.rest.PostsCRUD" time="0.494"/>
   <system-out><![CDATA[====== postsCRUD       ======
 ------ Retrieve        ------
 ------ EventPost       ------
-response Post : Post(id=271, date=2022-05-18T13:15:05, acf=Acf(announcement_date=2022. 05. 19), type=post, title=Title(rendered=테스트 이벤트), content=PostContent(rendered=<p>테스트 이벤트라네~~</p>
-), excerpt=Excerpt(rendered=<p>테스트 이벤트라네~~</p>
-), author=1, featured_media=0, categories=[21], tags=[])
+response Post : Post(id=144, date=2022-03-30T14:47:56, acf=Acf(announcement_date=, owner_name=김약초), type=post, title=Title(rendered=지리산약초), content=PostContent(rendered=<p>전라남도 광주광역시 서구 양동시장1길 16</p>
+<p>“양동시장 내 위치하고 있으며, 여행 시 몸에 좋은 약초나 재료 구입 시 할인해 드립니다.”</p>
+<p>▣ 남도패스 이용고객 10% 할인 – 방문 시 남도패스 이용할인 확인 후 이용하세요.</p>
+), excerpt=Excerpt(rendered=<p>전라남도 광주광역시 서구 양동시장1길 16 “양동시장 내 위치하고 있으며, 여행 시 몸에 좋은 약초나 재료 구입 시 할인해 드립니다.” ▣ 남도패스 이용고객 10% 할인 – 방문 시 남도패스 이용할인 확인 후 이용하세요.</p>
+), author=1, featured_media=145, categories=[7], tags=[18, 17, 19, 16, 15, 13, 20, 14])
 
-Post Date : 2022-05-18T13:15:05
-
-Announcement Date : 2022. 05. 19
+Owner Name : 김약초
 
 ====== EndTest         ======
 ]]></system-out>

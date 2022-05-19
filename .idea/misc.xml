@@ -14,10 +14,23 @@
         <entry key="..\:/Users/Genie/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_posting_check.xml" value="0.1875" />
         <entry key="..\:/Users/Genie/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_retake.xml" value="0.33" />
         <entry key="..\:/Users/Genie/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/event_list_itemview.xml" value="0.1875" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/drawable-v24/round_shape_background.xml" value="0.1705" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/drawable/corner_round_background.xml" value="0.124" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/drawable/stroke_corner_round_background.xml" value="0.1705" />
         <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/activity_farm_detail.xml" value="0.176" />
-        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_photo_select.xml" value="0.4" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/activity_main2.xml" value="0.264" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/comment_list_itemview.xml" value="0.6" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/content_main.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/custom_actionbar.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/custom_toolbar.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_chitchat_select.xml" value="0.2" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_finish.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_photo_select.xml" value="0.176" />
         <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_posting_check.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/dialog_retake.xml" value="0.23731884057971014" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/herb_list_itemview.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/qna_list_itemview.xml" value="0.2" />
+        <entry key="..\:/Users/gyeon/AndroidStudioProjects/Medicinal-Herb/app/src/main/res/layout/symptom_list_itemview.xml" value="0.11302083333333333" />
       </map>
     </option>
   </component>

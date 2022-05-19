@@ -3,6 +3,8 @@ package com.corporation8793.medicinal_herb.activity.main
 import android.app.AlertDialog
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.PaintDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +13,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -71,9 +78,9 @@ class ChitchatActivity : AppCompatActivity() {
 
 
         binding.chitchatSelectBtn.setOnClickListener{
-//            showDialog("hi")
-            val dialog = TestDialog(this)
-            dialog.showPopup()
+            showDialog("hi")
+//            val dialog = TestDialog(this)
+//            dialog.showPopup()
         }
 
         val one_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_CHITCHAT)
@@ -128,8 +135,36 @@ class ChitchatActivity : AppCompatActivity() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
-        dialog.setContentView(R.layout.activity_event)
+        dialog.setContentView(R.layout.dialog_photo_select)
         dialog.show()
+
+//        dialog.findViewById<TextView>(R.id.qna).setOnClickListener{
+//            dialog.dismiss()
+//        }
+//
+//        dialog.findViewById<ConstraintLayout>(R.id.qna_area).setOnClickListener{
+//            Toast.makeText(applicationContext,"check!",Toast.LENGTH_SHORT).show()
+//        }
+
+
+
+        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+//        dialog.getWindow()!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+                val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
+        // Generate custom width and height and
+        // add to the dialog attributes
+        // we multiplied the width and height by 0.5,
+        // meaning reducing the size to 50%
+        val mLayoutParams = WindowManager.LayoutParams()
+        mLayoutParams.width = (size.x * 0.7f).toInt()
+        mLayoutParams.height = (size.y * 0.3f).toInt()
+
+        dialog.window?.attributes = mLayoutParams
 
     }
 }

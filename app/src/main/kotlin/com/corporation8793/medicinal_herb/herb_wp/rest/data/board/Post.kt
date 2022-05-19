@@ -46,8 +46,10 @@ data class PostContent(val rendered : String)
  */
 data class Excerpt(val rendered : String)
 /**
- * [Post.acf]
+ * 게시물 ACF(Advanced Custom Fields)
  * @author  두동근
- * @param   announcement_date    (이벤트) 당첨자 발표 일자
+ * @param   announcement_date       (이벤트) 당첨자 발표 일자
+ * @param   owner_name              (방방곡곡 약초농장) 대표자 이름
+ * @see     [Post.acf]
  */
-data class Acf(val announcement_date : String)
+data class Acf(val announcement_date : String?, val owner_name : String?)

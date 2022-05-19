@@ -34,6 +34,8 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
 
         private val eventImg: ImageView = itemView.findViewById(R.id.comment_user_img)
         private val date: TextView = itemView.findViewById(R.id.comment_date)
+        private val comment_user_name : TextView = itemView.findViewById(R.id.comment_user_name)
+        private val comment_text : TextView = itemView.findViewById(R.id.comment_text)
 
 
         fun bind(item: CommentItem) {
@@ -43,7 +45,10 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 
-
+            comment_user_name.text = item.user_name
+            comment_text.text = item.comment .replace("<p>","").replace("</p>","")
+                    .replace("<ul>","").replace("</ul>","")
+                    .replace("<li>","").replace("</li>","")
 
 
 //            Glide.with(itemView).load(item.img).into(imgProfile)

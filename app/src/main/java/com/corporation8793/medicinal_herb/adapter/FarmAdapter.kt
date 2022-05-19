@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.activity.main.FarmDetailActivity
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.dto.FarmItem
 import com.corporation8793.medicinal_herb.dto.HerbItem
 
@@ -35,6 +38,12 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
 
         fun bind(item: FarmItem) {
             txtName.text = item.farm_name
+            itemView.setOnClickListener{
+                var intent : Intent = Intent(context, FarmDetailActivity::class.java)
+                intent.putExtra("farm_name",item.farm_name)
+                intent.putExtra("id",item.id)
+                context.startActivity(intent)
+            }
 //            Glide.with(itemView).load(item.img).into(imgProfile)
 
         }

@@ -361,7 +361,7 @@ class BoardRepository(val basicAuth : String) {
      * @see     Post.featured_media
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/media/#retrieve-a-media-item">Retrieve a Media Item [REST API Reference]</a>
      */
-    fun retrieveMedia(mediaId : String?) : Pair<String, Array<Media>?> {
+    fun retrieveMedia(mediaId : String?) : Pair<String, Media?> {
         val response = RestClient.boardService.retrieveMedia(mediaId).execute()
 
         return Pair(response.code().toString(), response.body())

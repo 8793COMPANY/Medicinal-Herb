@@ -15,6 +15,7 @@ import com.corporation8793.medicinal_herb.activity.main.ChitchatActivity;
 import com.corporation8793.medicinal_herb.activity.main.DictionaryActivity;
 import com.corporation8793.medicinal_herb.activity.main.EventActivity;
 import com.corporation8793.medicinal_herb.activity.main.FarmActivity;
+import com.corporation8793.medicinal_herb.activity.main.QnaActivity;
 import com.corporation8793.medicinal_herb.activity.main.RecommendActivity;
 import com.corporation8793.medicinal_herb.adapter.BannerAdapter;
 import com.corporation8793.medicinal_herb.databinding.FragmentHomeBinding;
@@ -46,7 +47,7 @@ public class HomeFragment extends Fragment {
         });
 
         binding.chitchatBtn.setOnClickListener(v->{
-            Intent intent = new Intent(getActivity(), ChitchatActivity.class);
+            Intent intent = new Intent(getActivity(), QnaActivity.class);
             startActivity(intent);
         });
 

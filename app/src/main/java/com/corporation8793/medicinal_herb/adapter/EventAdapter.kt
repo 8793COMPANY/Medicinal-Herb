@@ -48,7 +48,7 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
                 bundle.putString("id",item.id)
                 var frag = EventDetailFragment()
                 frag.arguments = bundle
-                (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container,frag).commit()
+                (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container,frag).addToBackStack(null).commit()
             }
 
 

@@ -3,8 +3,11 @@
     package="com.corporation8793.medicinal_herb">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +35,9 @@
             android:name=".activity.main.HerbDetailActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.main.FarmDetailActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.IntroActivity"
             android:exported="true" />
         <activity
@@ -40,11 +46,7 @@
             android:label="@string/title_activity_main2"
             android:launchMode="singleTask"
             android:theme="@style/NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.main.FarmActivity"
             android:exported="true"></activity>
@@ -59,7 +61,13 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.main.DictionaryActivity"
             android:exported="true" />

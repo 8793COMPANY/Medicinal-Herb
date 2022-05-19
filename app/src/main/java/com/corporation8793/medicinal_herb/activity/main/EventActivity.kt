@@ -32,7 +32,9 @@ class EventActivity : AppCompatActivity() {
     fun replaceFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, EventListFragment())
-        transaction.commit()
+        transaction.addToBackStack(null).commit()
     }
+
+
 
 }

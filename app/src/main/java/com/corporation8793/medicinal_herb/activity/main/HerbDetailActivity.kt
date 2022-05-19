@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityHerbDetailBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
@@ -48,31 +49,32 @@ class HerbDetailActivity : AppCompatActivity() {
         })
 
 
-        val media : Call<Array<Media>> =  RestClient.boardService.retrieveMedia(media_id)
-
-        media.enqueue(object : Callback<Array<Media>>{
-            override fun onResponse(call: Call<Array<Media>>, response: Response<Array<Media>>) {
-                var num = response.body()!!.size
-//                Log.e("response",response.body()!!)
-                for (i: Int in 0 until num) {
-                    Log.e("response", response.body()!!.get(i).guid.rendered)
-                }
-//                val homedateList: List<Media> = gson.fromJson(body, Array<HomeDate>::class.java).toList()
-//                val medias : Guid? = response.body()?.guid
-//                Log.e("response",response.body()?.guid?.rendered.toString())
-            }
-
-            override fun onFailure(call: Call<Array<Media>>, t: Throwable) {
-                Log.e("t",t.message!!)
-            }
-
-        })
+//        val media : Call<Array<Media>> =  RestClient.boardService.retrieveMedia(media_id)
+//
+//        media.enqueue(object : Callback<Array<Media>>{
+//            override fun onResponse(call: Call<Array<Media>>, response: Response<Array<Media>>) {
+//                var num = response.body()!!.size
+////                Log.e("response",response.body()!!)
+//                for (i: Int in 0 until num) {
+//                    Log.e("response", response.body()!!.get(i).guid.rendered)
+//                }
+////                val homedateList: List<Media> = gson.fromJson(body, Array<HomeDate>::class.java).toList()
+////                val medias : Guid? = response.body()?.guid
+////                Log.e("response",response.body()?.guid?.rendered.toString())
+//            }
+//
+//            override fun onFailure(call: Call<Array<Media>>, t: Throwable) {
+//                Log.e("t",t.message!!)
+//            }
+//
+//        })
     }
 
 
     fun init() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_herb_detail)
         binding.setActionBar(ActionBar(intent.getStringExtra("name"), R.color.green))
+        Glide.with(this).load(intent.getStringExtra("img")).into(binding.herbDetailImg)
 
         binding.actionBar.backHome.setOnClickListener {
             finish()

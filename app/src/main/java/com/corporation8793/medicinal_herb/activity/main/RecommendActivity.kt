@@ -91,10 +91,10 @@ class RecommendActivity : AppCompatActivity() {
 
 
         datas.apply {
-            add(HerbItem("1",R.drawable.intro1,"둥글레"))
-            add(HerbItem("1",R.drawable.intro1,"구기차"))
-            add(HerbItem("1",R.drawable.intro1,"감초"))
-            add(HerbItem("1",R.drawable.intro1,"결명자"))
+//            add(HerbItem("1",R.drawable.intro1,"둥글레"))
+//            add(HerbItem("1",R.drawable.intro1,"구기차"))
+//            add(HerbItem("1",R.drawable.intro1,"감초"))
+//            add(HerbItem("1",R.drawable.intro1,"결명자"))
 
             herbAdapter.datas = datas
             herbAdapter.notifyDataSetChanged()

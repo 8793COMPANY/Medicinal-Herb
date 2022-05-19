@@ -117,7 +117,7 @@ class RecommendActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("t",t.message.toString())
             }
 
         })

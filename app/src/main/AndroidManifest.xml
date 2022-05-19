@@ -3,6 +3,8 @@
     package="com.corporation8793.medicinal_herb">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,7 +23,8 @@
             android:windowSoftInputMode="adjustNothing"/>
         <activity
             android:name=".activity.main.ChitchatActivity"
-            android:exported="false" />
+            android:exported="true"
+            />
         <activity
             android:name=".activity.main.QnaActivity"
             android:exported="true" />

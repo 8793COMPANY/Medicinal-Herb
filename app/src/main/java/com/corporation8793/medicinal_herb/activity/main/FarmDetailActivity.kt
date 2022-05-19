@@ -21,7 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FarmActivity : AppCompatActivity() {
+class FarmDetailActivity : AppCompatActivity() {
     lateinit var binding : ActivityFarmBinding
     lateinit var farmAdapter : FarmAdapter
     lateinit var divider : FarmDecoration

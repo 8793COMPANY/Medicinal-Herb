@@ -1,17 +1,32 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.PaintDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.Window
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.TestDialog
 import com.corporation8793.medicinal_herb.adapter.QnaAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityChitchatBinding
+import com.corporation8793.medicinal_herb.dialog.ChitChatDialog
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.dto.QnaItem
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ChitchatActivity : AppCompatActivity() {
     lateinit var binding : ActivityChitchatBinding
@@ -54,6 +69,36 @@ class ChitchatActivity : AppCompatActivity() {
         binding.qnaList.layoutManager = lm
         binding.freeBoardList.layoutManager = lm2
 
+
+        binding.chitchatSelectBtn.setOnClickListener{
+//            showDialog("hi")
+            val dialog = TestDialog(this)
+            dialog.showPopup()
+        }
+
+        val one_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_CHITCHAT)
+
+        one_posting.enqueue(object : Callback<List<Post>> {
+            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+                val check : List<Post>? = response.body()
+                var repo =""
+
+
+                check?.forEach{ it->
+
+                    Log.e("it","$it\n")
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                Log.e("t",t.message.toString())
+            }
+
+
+        })
+
         qna_datas.apply {
             add(QnaItem(R.drawable.herb_basic_qna_icon,"안녕하세요. 얼마전 ***을 선물로 받았습니다.\n어디에 좋은지 알 수 있을까요?","1"))
             add(QnaItem(R.drawable.herb_basic_qna_icon,"안녕하세요. 얼마전 *을 선물로 받았습니다.\n어디에 좋은지 알 수 있을까요?","2"))
@@ -76,6 +121,15 @@ class ChitchatActivity : AppCompatActivity() {
 
 
 
+
+    }
+
+    private fun showDialog(title: String) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.activity_event)
+        dialog.show()
 
     }
 }

@@ -44,6 +44,7 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
                 var intent : Intent = Intent(context, FarmDetailActivity::class.java)
                 intent.putExtra("farm_name",item.farm_name)
                 intent.putExtra("id",item.id)
+                intent.putExtra("farm_img",item.farm_img)
                 context.startActivity(intent)
             }
 //            Glide.with(itemView).load(item.img).into(imgProfile)

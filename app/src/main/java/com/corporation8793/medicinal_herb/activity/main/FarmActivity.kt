@@ -14,9 +14,13 @@ import com.corporation8793.medicinal_herb.adapter.FarmAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityFarmBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.dto.FarmItem
+import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,35 +60,76 @@ class FarmActivity : AppCompatActivity() {
 
         binding.farmList.addItemDecoration(divider)
 
-        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_FARM)
+        GlobalScope.launch(Dispatchers.Default) {
 
-        posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-                datas.apply {
-                check?.forEach{ it->
-                    repo += "$it\n-----------------------"
-                    var owner_name = it.acf.owner_name
-                    if(owner_name == null)
-                        owner_name = it.title.rendered
-                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,it.title.rendered,owner_name,it.excerpt.rendered))
-
-
+            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "desc", RestClient.CATEGORY_FARM).execute().body()
+            Log.e("check", check!!.size.toString())
+            datas.apply {
+                check.forEach {
+                    var img = ""
+                    if (it.featured_media == "0")
+                        img = "0"
+                    else {
+                        img = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
+                        Log.e("response",img)
                     }
 
+
+                        var owner_name = it.acf.owner_name
+                        if(owner_name == null)
+                            owner_name = it.title.rendered
+                        val comment_size = RestClient.boardService.retrieveAllComment(it.id).execute().body()!!.size
+                    Log.e("response",comment_size.toString())
+                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,img,it.title.rendered,owner_name,it.excerpt.rendered))
+
+
+
                     farmAdapter.datas = datas
-                    farmAdapter.notifyDataSetChanged()
+                    GlobalScope.launch(Dispatchers.Main) {    // 2
+                        farmAdapter.notifyDataSetChanged()
+                    }
+                    }
                 }
-                Log.e("farm 설명 : ",repo)
+
+
+
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
 
-        })
+
+
+
+//        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_FARM)
+//
+//        posting.enqueue(object : Callback<List<Post>> {
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                val check : List<Post>? = response.body()
+//                var repo =""
+//                datas.apply {
+//                check?.forEach{ it->
+//                    repo += "$it\n-----------------------"
+//                    var owner_name = it.acf.owner_name
+//                    if(owner_name == null)
+//                        owner_name = it.title.rendered
+//
+//                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,it.title.rendered,owner_name,it.excerpt.rendered))
+//
+//
+//                    }
+//
+//                    farmAdapter.datas = datas
+//                    farmAdapter.notifyDataSetChanged()
+//                }
+//                Log.e("farm 설명 : ",repo)
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("t",t.message.toString())
+//            }
+//
+//        })
 
 
         val comment : Call<List<Comment>> = RestClient.boardService.retrieveAllComment((144).toString())

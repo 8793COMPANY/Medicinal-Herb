@@ -37,8 +37,8 @@ class DictionaryActivity : AppCompatActivity() {
         binding.setActionBar(ActionBar("약초사전", R.color.deep_green))
 
         binding.actionBar.backHome.setOnClickListener {
-//            finish()
-            herbAdapter.notifyDataSetChanged()
+            finish()
+//            herbAdapter.notifyDataSetChanged()
         }
 
         val display : DisplayMetrics = DisplayMetrics()
@@ -54,10 +54,7 @@ class DictionaryActivity : AppCompatActivity() {
         binding.herbList.addItemDecoration(HerbDecoration(10))
         var start = true
 
-        val job = GlobalScope.launch(Dispatchers.Main) {
-            Log.e("in", "main cou")
-            herbAdapter.notifyDataSetChanged()
-        }
+
 
 
 
@@ -69,14 +66,16 @@ class DictionaryActivity : AppCompatActivity() {
                     check.forEach {
                         if (it.featured_media != "0") {
                             val response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!
-                            Log.e("response", response.guid.rendered)
                             Log.e("id", it.id)
                             Log.e("id", it.title.rendered)
+                            Log.e("response", response.guid.rendered)
                             add(HerbItem(it.id, response.guid.rendered, it.title.rendered))
                         }
                     }
                     herbAdapter.datas = datas
-                    job.join()
+                    GlobalScope.launch(Dispatchers.Main) {    // 2
+                       herbAdapter.notifyDataSetChanged()
+                    }
 
 
                 }

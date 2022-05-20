@@ -92,12 +92,17 @@ class EventDetailFragment : Fragment() {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                 val check : List<Comment>? = response.body()
                 var repo =""
-                comment_count.text  = "댓글 "+check!!.size
+                comment_count.text = "댓글 "+check!!.size
+                datas.apply {
+
                     check?.forEach{ it->
-
-                        Log.e("it","$it\n")
-
+                        repo += "$it\n-----------------------"
+                        add(CommentItem(0,it.author_name,it.content.rendered,it.date))
                     }
+
+                    commentAdapter.datas = datas
+                    commentAdapter.notifyDataSetChanged()
+                }
 
 
             }
@@ -108,17 +113,7 @@ class EventDetailFragment : Fragment() {
 
         })
 
-        datas.apply {
 
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-
-            commentAdapter.datas = datas
-            commentAdapter.notifyDataSetChanged()
-        }
 
 
 

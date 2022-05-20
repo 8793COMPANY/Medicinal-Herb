@@ -1,26 +1,25 @@
 package com.corporation8793.medicinal_herb.activity.main
 
-import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.PaintDrawable
+import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
-import com.corporation8793.medicinal_herb.TestDialog
 import com.corporation8793.medicinal_herb.adapter.QnaAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityChitchatBinding
-import com.corporation8793.medicinal_herb.dialog.ChitChatDialog
-import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.dto.QnaItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
@@ -71,9 +70,9 @@ class ChitchatActivity : AppCompatActivity() {
 
 
         binding.chitchatSelectBtn.setOnClickListener{
-//            showDialog("hi")
-            val dialog = TestDialog(this)
-            dialog.showPopup()
+            showDialog()
+//            val dialog = TestDialog(this)
+//            dialog.showPopup()
         }
 
         val one_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_CHITCHAT)
@@ -124,12 +123,56 @@ class ChitchatActivity : AppCompatActivity() {
 
     }
 
-    private fun showDialog(title: String) {
+    private fun showDialog() {
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
-        dialog.setContentView(R.layout.activity_event)
+        dialog.setContentView(R.layout.dialog_chitchat_select)
         dialog.show()
+
+//        dialog.findViewById<TextView>(R.id.qna).setOnClickListener{
+//            dialog.dismiss()
+//        }
+//
+
+        dialog.findViewById<ImageView>(R.id.cancel_btn).setOnClickListener{
+            dialog.dismiss()
+        }
+
+
+        dialog.findViewById<ConstraintLayout>(R.id.qna_area).setOnClickListener{
+            dialog.dismiss()
+            var intent : Intent = Intent(this, QnaActivity::class.java)
+            intent.putExtra("category","묻고 답하기")
+            startActivity(intent)
+        }
+
+        dialog.findViewById<ConstraintLayout>(R.id.free_board_area).setOnClickListener{
+            dialog.dismiss()
+            var intent : Intent = Intent(this, QnaActivity::class.java)
+            intent.putExtra("category","자유 게시판")
+            startActivity(intent)
+        }
+
+
+
+        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+//        dialog.getWindow()!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+                val display = windowManager.defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
+        // Generate custom width and height and
+        // add to the dialog attributes
+        // we multiplied the width and height by 0.5,
+        // meaning reducing the size to 50%
+        val mLayoutParams = WindowManager.LayoutParams()
+        mLayoutParams.width = (size.x * 0.57f).toInt()
+        mLayoutParams.height = (size.y * 0.3f).toInt()
+
+        dialog.window?.attributes = mLayoutParams
 
     }
 }

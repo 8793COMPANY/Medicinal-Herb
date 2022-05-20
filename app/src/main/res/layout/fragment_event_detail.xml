@@ -57,7 +57,7 @@
                 android:id="@+id/comment_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="댓글 2"
+                android:text="댓글 0"
                 android:layout_marginTop="18dp"
                 android:textSize="19dp"
                 android:textColor="@color/black"

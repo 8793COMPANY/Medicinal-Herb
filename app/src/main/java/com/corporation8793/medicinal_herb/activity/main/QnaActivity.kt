@@ -1,35 +1,26 @@
 package com.corporation8793.medicinal_herb.activity.main
 
-import android.Manifest
-import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.Point
-import android.graphics.drawable.PaintDrawable
-import android.opengl.Visibility
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityQnaBinding
-import com.corporation8793.medicinal_herb.dto.EventItem
-import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
-import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.logging.Logger
 
 class QnaActivity : AppCompatActivity() {
     lateinit var binding : ActivityQnaBinding
@@ -44,7 +35,7 @@ class QnaActivity : AppCompatActivity() {
         init()
 
         binding.qnaRegistrationBtn.setOnClickListener {
-            showOkDialog()
+            showDialog(R.layout.dialog_posting_check,0.6f,0.3f)
             Log.e("qna","click")
         }
 
@@ -58,92 +49,69 @@ class QnaActivity : AppCompatActivity() {
 
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_qna)
-        binding.setActionBar(ActionBar("묻고 답하기", R.color.black))
+        binding.setActionBar(ActionBar(intent.getStringExtra("category"), R.color.black))
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
             var intent : Intent = Intent(this, MainActivity2::class.java)
             startActivity(intent)
         }
+        binding.photoRegistration.clipToOutline = true
 
         binding.photoRegistration.setOnClickListener {
-            requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
+            showDialog(R.layout.dialog_photo_select,0.65f,0.3f)
+//            requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
         }
     }
 
-    fun showDialog(){
-        val layoutInflater = LayoutInflater.from(this)
-        val view = layoutInflater.inflate(R.layout.dialog_photo_select, null)
+
+
+
+    private fun showDialog(layout : Int, width :Float, height : Float) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setCancelable(false)
+        dialog.setContentView(layout)
+        dialog.show()
+
+//        dialog.findViewById<TextView>(R.id.qna).setOnClickListener{
+//            dialog.dismiss()
+//        }
+//
+        if (layout == R.layout.dialog_posting_check){
+            dialog.findViewById<Button>(R.id.ok_btn).setOnClickListener{
+               dialog.dismiss()
+                finish()
+            }
+        }else{
+
+        }
 
 
 
 
-        val alertDialog = AlertDialog.Builder(this)
-                .setView(view).create()
+        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
-
-
-        alertDialog.show()
+//        dialog.getWindow()!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
 
-
+        // Generate custom width and height and
+        // add to the dialog attributes
+        // we multiplied the width and height by 0.5,
+        // meaning reducing the size to 50%
         val mLayoutParams = WindowManager.LayoutParams()
-        mLayoutParams.width = (size.x * 0.7f).toInt()
-        mLayoutParams.height = (size.y * 0.4f).toInt()
+        mLayoutParams.width = (size.x * width).toInt()
+        mLayoutParams.height = (size.y * height).toInt()
 
-        alertDialog.window?.attributes = mLayoutParams
-
-    }
-
-    fun showOkDialog(){
-        val layoutInflater = LayoutInflater.from(this)
-//        val view = layoutInflater.inflate(R.layout.dialog_posting_check, null)
-//
-//
-//
-//        val alertDialog = AlertDialog.Builder(this)
-//                .setView(view).create()
-
-
-        val dlgView = View.inflate(this, R.layout.dialog_photo_select, null)
-        val dlg = AlertDialog.Builder(this).create()
-        dlg.setView(dlgView)
-        dlg.window?.setBackgroundDrawable(PaintDrawable(Color.WHITE))
-        dlg.show()
-
-
-
-
-
-//        val display = windowManager.defaultDisplay
-//        val size = Point()
-//        display.getSize(size)
-//
-//        // Generate custom width and height and
-//        // add to the dialog attributes
-//        // we multiplied the width and height by 0.5,
-//        // meaning reducing the size to 50%
-//        val mLayoutParams = WindowManager.LayoutParams()
-//        mLayoutParams.width = (size.x * 0.7f).toInt()
-//        mLayoutParams.height = (size.y * 0.3f).toInt()
-//
-//        dlg.window?.attributes = mLayoutParams
-
+        dialog.window?.attributes = mLayoutParams
 
     }
 
-    fun dialogTest(){
-        val dialog = Dialog(this)
-        dialog.setContentView(R.layout.dialog_chitchat_select)
-        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.setCancelable(true)
-        dialog.show()
 
-    }
+
 
     fun requirePermissions(permissions: Array<String>, requestCode: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -231,4 +199,6 @@ class QnaActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

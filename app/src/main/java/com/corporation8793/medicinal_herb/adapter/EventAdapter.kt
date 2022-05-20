@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.dto.EventItem
 import com.corporation8793.medicinal_herb.dto.HerbItem
@@ -20,6 +21,8 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.event_list_itemview,parent,false)
         view.layoutParams.height = height
+//        view.findViewById<ImageView>(R.id.herb_event_img).clipToOutline = true
+
         return ViewHolder(view)
     }
 
@@ -36,12 +39,17 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
         private val date: TextView = itemView.findViewById(R.id.event_end_date)
 
 
+
         fun bind(item: EventItem) {
+//            eventImg.clipToOutline = true
             date.text = "당첨자 발표 " + item.date
-            if (item.img == 0)
-                eventImg.setBackgroundResource(R.drawable.round_shape_background)
-            else
-                eventImg.setBackgroundResource(R.drawable.green_box)
+            if (item.img == "0") {
+                eventImg.setBackgroundResource(R.drawable.banner4)
+//                Glide.with(context!!).load(R.drawable.banner4).into(eventImg)
+//                eventImg.setImageResource(R.drawable.banner4)
+
+            }else
+                Glide.with(context!!).load(item.img).into(eventImg)
 
             itemView.setOnClickListener{
                 val bundle : Bundle = Bundle()

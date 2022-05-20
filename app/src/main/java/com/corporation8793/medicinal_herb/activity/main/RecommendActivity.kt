@@ -19,6 +19,9 @@ import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,6 +85,7 @@ class RecommendActivity : AppCompatActivity() {
                     binding.symptomRecommendText.text = recommendTexts[pos]
                     symptomAdapter.getNumber(pos)
                     symptomAdapter.notifyDataSetChanged()
+                    dataBySymptom(buttonNames[pos])
 
 
                 }
@@ -90,39 +94,51 @@ class RecommendActivity : AppCompatActivity() {
         })
 
 
-        datas.apply {
-//            add(HerbItem("1",R.drawable.intro1,"둥글레"))
-//            add(HerbItem("1",R.drawable.intro1,"구기차"))
-//            add(HerbItem("1",R.drawable.intro1,"감초"))
-//            add(HerbItem("1",R.drawable.intro1,"결명자"))
+        dataBySymptom(buttonNames[0])
 
-            herbAdapter.datas = datas
-            herbAdapter.notifyDataSetChanged()
+
+
+
+
+    }
+
+    fun hasAndKey(value:String, keywords: List<String>) : Boolean{
+        keywords.forEach {
+            if (value.contains(it)){
+                return true
+            }
         }
+        return false
+    }
 
 
+    fun dataBySymptom(symptom : String){
+        GlobalScope.launch(Dispatchers.Default) {
 
-        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_RECOMMEND)
-
-        posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                check?.forEach{ it->
-                    repo += "$it\n-----------------------"
+            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "desc", RestClient.CATEGORY_RECOMMEND).execute().body()
+            Log.e("check", check!!.size.toString())
+            datas.clear()
+            datas.apply {
+                check.forEach {
+                    if (hasAndKey(it.title.rendered,symptom.split("/")) && it.featured_media != "0") {
+                        Log.e("it", it.id)
+                        Log.e("it", it.featured_media)
+                        Log.e("it", it.title.rendered)
+                        val response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!
+                        val start = it.title.rendered.indexOf("[")
+                        val end = it.title.rendered.indexOf("]")
+                        add(HerbItem(it.id, response.guid.rendered, it.title.rendered.substring(start+1, end)))
+                    }
                 }
-                Log.e("recommend 설명 : ",repo)
+                herbAdapter.datas = datas
+                GlobalScope.launch(Dispatchers.Main) {    // 2
+                    herbAdapter.notifyDataSetChanged()
+                }
+
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
 
-        })
-
-
-
+        }
     }
 }

@@ -71,5 +71,5 @@ object RestClient {
     /**
      * [retrofit]의 [BoardService]
      */
-    val boardService = retrofit.create(BoardService::class.java)!!
+    val boardService = retrofit.create(BoardService::class.java)
 }

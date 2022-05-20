@@ -115,7 +115,7 @@ class EventListFragment : Fragment() {
 //                        Log.e("length",it.acf.toString())
 //                        Log.e("check",it.acf.get(0).announcement_date)
                         if (it.acf.announcement_date !=null) {
-                            add(EventItem(it.id, 0, it.acf.announcement_date))
+                            add(EventItem(it.id, "0", it.acf.announcement_date))
 
                         }
                         Log.e("it", "$it\n")

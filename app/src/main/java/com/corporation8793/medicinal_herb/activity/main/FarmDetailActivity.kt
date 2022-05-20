@@ -19,6 +19,9 @@ import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -65,7 +68,8 @@ class FarmDetailActivity : AppCompatActivity() {
         val lm = LinearLayoutManager(this)
         binding.commentList.layoutManager = lm
 
-        Glide.with(this).load(intent.getStringExtra("img")).into(binding.farmImg)
+        Glide.with(this).load(intent.getStringExtra("farm_img")).into(binding.farmImg)
+
 
 
 
@@ -104,16 +108,42 @@ class FarmDetailActivity : AppCompatActivity() {
 //        })
 
 
+        val farm_info : Call<Post> = RestClient.boardService.retrieveOnePost(intent.getStringExtra("id")!!)
+
+        farm_info.enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                val check : Post? = response.body()
+
+                var owner_name = check!!.acf.owner_name
+                if(owner_name == null)
+                    owner_name = "산야초"
+
+                binding.farmDetailText.text = check!!.title.rendered + "\n" + check!!.acf.owner_name + "\n" +
+                        check!!.content.rendered.replace("<p>","").replace("</p>","")
+
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.e("t",t.message.toString())
+            }
+
+        })
+
+
+
+
         val comment : Call<List<Comment>> = RestClient.boardService.retrieveAllComment(intent.getStringExtra("id")!!)
 
         comment.enqueue(object : Callback<List<Comment>> {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                 val check : List<Comment>? = response.body()
+
                 var repo =""
                 binding.commentCount.text = "댓글 "+check!!.size
                 datas.apply {
 
                 check?.forEach{ it->
+
                     repo += "$it\n-----------------------"
                     add(CommentItem(0,it.author_name,it.content.rendered,it.date))
                 }

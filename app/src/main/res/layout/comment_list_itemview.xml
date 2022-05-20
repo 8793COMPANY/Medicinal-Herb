@@ -107,18 +107,6 @@
         app:layout_constraintLeft_toRightOf="@+id/comment_date"
         ></TextView>
 
-    <TextView
-        android:id="@+id/report_text"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:textSize="12dp"
-        android:textColor="@color/black"
-        android:includeFontPadding="false"
-        android:text="· 신고"
-        android:fontFamily="@font/noto_sans_kr_thin"
-        app:layout_constraintTop_toTopOf="@+id/comment_date"
-        app:layout_constraintLeft_toRightOf="@+id/reply_text"
-        ></TextView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

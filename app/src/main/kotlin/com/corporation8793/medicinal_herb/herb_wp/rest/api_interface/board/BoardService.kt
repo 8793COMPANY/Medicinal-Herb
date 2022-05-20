@@ -223,6 +223,16 @@ interface BoardService {
     fun retrieveUser(@Path("id") id : String?) : Call<User>
 
     /**
+     * 유저를 검증합니다.
+     * @author  두동근
+     * @see     User
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user-2">Retrieve a User [REST API Reference]</a>
+     */
+    @GET("http://3.37.133.132/wp-json/wp/v2/users/me")
+    fun validationUser(@Header("Authorization") h1 : String) : Call<User>
+
+    /**
      * 유저를 수정합니다.
      * * id([userId])가 일치하는 유저를 수정합니다.
      * @author  두동근

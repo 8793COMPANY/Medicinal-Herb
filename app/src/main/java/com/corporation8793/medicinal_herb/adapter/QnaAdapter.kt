@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.activity.main.ChitchatDetailActivity
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.dto.QnaItem
 
@@ -36,6 +39,11 @@ class QnaAdapter (private val context: Context, val height : Int) : RecyclerView
         fun bind(item: QnaItem) {
             txtName.text = item.question+"\n댓글:"+item.comment+"개"
 //            Glide.with(itemView).load(item.img).into(imgProfile)
+
+            itemView.setOnClickListener{
+                var intent : Intent = Intent(context, ChitchatDetailActivity::class.java)
+                context.startActivity(intent)
+            }
 
         }
     }

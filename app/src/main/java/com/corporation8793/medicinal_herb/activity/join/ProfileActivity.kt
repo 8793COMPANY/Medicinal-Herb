@@ -3,24 +3,36 @@ package com.corporation8793.medicinal_herb.activity.join
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import com.corporation8793.medicinal_herb.R
-import android.widget.LinearLayout
-import android.widget.ImageView
-import android.widget.EditText
+import android.util.Log
 import android.view.View
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.Credentials
+import java.io.File
+
 
 class ProfileActivity : AppCompatActivity() {
 
     val PERMISSION_Album = 101
     val REQUEST_STORAGE = 100
     lateinit var user_img : ImageView
+    lateinit var user_name : EditText
+    lateinit var introduction : EditText
+    lateinit var img_uri : Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +40,8 @@ class ProfileActivity : AppCompatActivity() {
         val save_btn = findViewById<LinearLayout>(R.id.save_btn)
         user_img = findViewById<ImageView>(R.id.user_img)
         val input_btn = findViewById<ImageView>(R.id.input_btn)
-        val user_name = findViewById<EditText>(R.id.name)
-        val introduction = findViewById<EditText>(R.id.introduction)
+        user_name = findViewById<EditText>(R.id.name)
+        introduction = findViewById<EditText>(R.id.introduction)
         user_name.requestFocus()
         user_img.setOnClickListener { v: View? ->
             requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
@@ -43,13 +55,89 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         save_btn.setOnClickListener { v: View? ->
-            finish()
-            RestClient.nonceService.runSignUp("nonce",user_name.text.toString()
-                    ,intent.getStringExtra("id")!!,intent.getStringExtra("pw")!!,introduction.text.toString())
+            GlobalScope.launch(Dispatchers.Default) {
+                signUp()
+//                uploadProfile()
+            }
+
+//            finish()
+//            RestClient.nonceService.runSignUp("nonce",user_name.text.toString()
+//                    ,intent.getStringExtra("id")!!,intent.getStringExtra("pw")!!,introduction.text.toString())
         }
 
 
     }
+
+    fun signUp() {
+        try {
+            val nonceRepository = NonceRepository()
+
+            println("====== SignUp     ======")
+            println("------ getNonce() ------")
+
+            nonceRepository.getNonce()
+            println("nonce value : ${nonceRepository.nonce}")
+
+            println("------ runSignUp() ------")
+
+
+
+            println(intent.getStringExtra("id")!!)
+            println(intent.getStringExtra("pw")!!)
+            println(user_name.text.toString())
+
+
+            nonceRepository.runSignUp(intent.getStringExtra("id")!!, intent.getStringExtra("pw")!!, "mm1234@gmail.com", user_name.text.toString())
+
+            when (nonceRepository.signUpStatus.status) {
+                "ok" -> Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+
+            }
+        }catch (e : Exception){
+            Log.e("e",e.toString())
+        }
+
+
+    }
+
+    fun uploadProfile(){
+        try {
+            val testId = intent.getStringExtra("id")!!
+            val testPw = intent.getStringExtra("pw")!!
+            val basicAuth = Credentials.basic(testId, testPw)
+            val boardRepository = BoardRepository(basicAuth)
+
+
+
+
+//            Log.e("file path",img_uri.toFile().path)
+//            Log.e("file path",img_uri.path.toString())
+//            var path = img_uri.path.toString()
+//            val file = File(path)
+            val file = File(getPath(img_uri))
+
+//            val file =
+            val responseMedia = boardRepository.uploadMedia(file!!)
+//
+            println("response Media URL : ${responseMedia.first}")
+            println("response Media URL : ${responseMedia.second?.guid?.rendered}")
+            println("response Media ID : ${responseMedia.second?.id}")
+            println("response Media ID : ${responseMedia.second?.date}")
+        }catch (e: Exception){
+            Log.e("e",e.toString())
+        }
+
+    }
+
+    fun getPath(uri: Uri?): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = managedQuery(uri, projection, null, null, null)
+        startManagingCursor(cursor)
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(column_index)
+    }
+
 
     fun requirePermissions(permissions: Array<String>, requestCode: Int) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -127,7 +215,7 @@ class ProfileActivity : AppCompatActivity() {
 //                }
                 REQUEST_STORAGE -> {
                     data?.data?.let { uri ->
-
+                        img_uri = uri
                         user_img.setImageURI(uri)
                     }
                 }

@@ -29,6 +29,14 @@
             android:exported="true"
             />
         <activity
+            android:name=".activity.main.ChitchatMoreActivity"
+            android:exported="true"
+            />
+        <activity
+            android:name=".activity.main.ChitchatDetailActivity"
+            android:exported="true"
+            />
+        <activity
             android:name=".activity.main.QnaActivity"
             android:exported="true" />
         <activity

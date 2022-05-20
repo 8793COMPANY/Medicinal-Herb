@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
@@ -43,6 +45,8 @@ class EventDetailFragment : Fragment() {
     lateinit var commentAdapter: CommentAdapter
     val datas = mutableListOf<CommentItem>()
     lateinit var divider : EventDecoration
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,4 +143,6 @@ class EventDetailFragment : Fragment() {
                     }
                 }
     }
+
+
 }

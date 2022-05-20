@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="actionBar"
+            type="com.corporation8793.medicinal_herb.dto.ActionBar"/>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.main.DictionaryActivity"
+        android:background="@color/white">
+
+
+        <include android:id="@+id/action_bar"
+            layout="@layout/custom_toolbar"
+            bind:actionbar="@{actionBar}"></include>
+
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_percent="0.04"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintGuide_percent="0.96"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"></androidx.constraintlayout.widget.Guideline>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/action_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+            app:layout_constraintRight_toRightOf="@+id/guideline_right">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <ImageView
+                    android:id="@+id/event_img"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:background="@drawable/round_shape_background"></ImageView>
+
+
+
+                <TextView
+                    android:id="@+id/comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="댓글 0"
+                    android:layout_marginTop="18dp"
+                    android:textSize="19dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/event_img"
+                    app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+                    app:layout_constraintRight_toRightOf="@+id/guideline_right"
+                    app:layout_constraintHorizontal_bias="0.01"
+                    ></TextView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintVertical_bias="0.02"
+                    app:layout_constraintTop_toBottomOf="@+id/comment_count"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
+                    app:layout_constraintRight_toRightOf="@+id/guideline_right">
+
+                    <EditText
+                        android:id="@+id/comment_input_box"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:textColor="#b1b1b1"
+                        android:paddingLeft="15dp"
+                        android:textSize="15dp"
+                        android:hint="댓글을 입력해주세요."
+                        android:textColorHint="#b1b1b1"
+                        android:singleLine="true"
+                        android:paddingRight="40dp"
+                        android:background="@drawable/round_shape_background"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"></EditText>
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/register_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:text="등록"
+                        android:textSize="14dp"
+                        android:textColor="@color/green"
+                        android:fontFamily="@font/nskr_medium"
+                        app:layout_constraintWidth_percent="0.14"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintTop_toTopOf="@+id/comment_input_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/comment_input_box"
+                        app:layout_constraintLeft_toLeftOf="@+id/comment_input_box"
+                        app:layout_constraintRight_toRightOf="@+id/comment_input_box"></androidx.appcompat.widget.AppCompatButton>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/event_list"
+                    android:overScrollMode="never"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
+

@@ -34,12 +34,14 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
         private val farmName: TextView = itemView.findViewById(R.id.farm_name)
         private val userName: TextView = itemView.findViewById(R.id.farm_user_name)
         private val farm_Introduction: TextView = itemView.findViewById(R.id.farm_Introduction)
+        private val farm_comment_count : TextView = itemView.findViewById(R.id.farm_comment_count)
 
 
         fun bind(item: FarmItem) {
             farmName.text = item.farm_name
             userName.text = item.farm_user_name
-            farm_Introduction.text = item.introduction
+            farm_Introduction.text = item.introduction.replace("</p>","").replace("<p>","")
+            farm_comment_count.text = item.comment_count.toString()
             itemView.setOnClickListener{
                 var intent : Intent = Intent(context, FarmDetailActivity::class.java)
                 intent.putExtra("farm_name",item.farm_name)

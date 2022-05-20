@@ -34,8 +34,8 @@ class JoinActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "이용약관을 동의해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this@JoinActivity, ProfileActivity::class.java)
-                intent.putExtra("id",id_input_box.text)
-                intent.putExtra("pw",pw_input_box.text)
+                intent.putExtra("id",id_input_box.text.toString())
+                intent.putExtra("pw",pw_input_box.text.toString())
                 startActivity(intent)
             }
         }

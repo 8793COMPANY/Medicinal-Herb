@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
@@ -40,6 +42,7 @@ class EventListFragment : Fragment() {
     val datas = mutableListOf<EventItem>()
     lateinit var divider : EventDecoration
 
+    private lateinit var callback: OnBackPressedCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -153,6 +156,21 @@ class EventListFragment : Fragment() {
                         putString(ARG_PARAM2, param2)
                     }
                 }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity!!.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 
 

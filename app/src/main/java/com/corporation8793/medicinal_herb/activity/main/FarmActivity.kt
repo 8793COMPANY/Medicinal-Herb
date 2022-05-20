@@ -80,7 +80,7 @@ class FarmActivity : AppCompatActivity() {
                             owner_name = it.title.rendered
                         val comment_size = RestClient.boardService.retrieveAllComment(it.id).execute().body()!!.size
                     Log.e("response",comment_size.toString())
-                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,img,it.title.rendered,owner_name,it.excerpt.rendered))
+                        add(FarmItem(it.id,comment_size,R.drawable.herb_basic_user_icon,img,it.title.rendered,owner_name,it.excerpt.rendered))
 
 
 

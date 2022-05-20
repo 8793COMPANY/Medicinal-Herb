@@ -23,6 +23,8 @@ import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.join.JoinActivity
 import com.corporation8793.medicinal_herb.adapter.QnaAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityChitchatBinding
+import com.corporation8793.medicinal_herb.databinding.ActivityChitchatDetailBinding
+import com.corporation8793.medicinal_herb.databinding.ActivityFarmDetailBinding
 import com.corporation8793.medicinal_herb.decoration.FarmDecoration
 import com.corporation8793.medicinal_herb.decoration.QnaDecoration
 import com.corporation8793.medicinal_herb.dto.QnaItem
@@ -32,8 +34,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ChitchatActivity : AppCompatActivity() {
-    lateinit var binding : ActivityChitchatBinding
+class ChitchatDetailActivity : AppCompatActivity() {
+    lateinit var binding : ActivityChitchatDetailBinding
 
     lateinit var qna_adapter : QnaAdapter
     lateinit var free_board_adapter : QnaAdapter
@@ -49,116 +51,14 @@ class ChitchatActivity : AppCompatActivity() {
     }
 
     fun init(){
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_chitchat)
-        binding.setActionBar(ActionBar("약초 수다방", R.color.deep_green))
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_chitchat_detail)
+        binding.setActionBar(ActionBar("", R.color.deep_green))
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
         }
 
-        binding.freeBoardMoreBtn.setOnClickListener {
-            val intent = Intent(this, ChitchatMoreActivity::class.java)
-            intent.putExtra("title","자유게시판")
-            startActivity(intent)
-        }
 
-        binding.qnaMoreBtn.setOnClickListener {
-            val intent = Intent(this, ChitchatMoreActivity::class.java)
-            intent.putExtra("title","묻고 답하기")
-            startActivity(intent)
-        }
-        val display : DisplayMetrics = DisplayMetrics()
-        windowManager.defaultDisplay.getMetrics(display)
-        val height : Int =  (display.heightPixels / 8.5).toInt()
-
-
-        qna_adapter = QnaAdapter(this,height)
-        free_board_adapter = QnaAdapter(this,height)
-
-        binding.qnaList.adapter = qna_adapter
-        binding.freeBoardList.adapter = free_board_adapter
-
-        val divider = QnaDecoration(1,resources.getColor(R.color.soft_gray))
-
-        binding.qnaList.addItemDecoration(divider)
-        binding.freeBoardList.addItemDecoration(divider)
-
-
-
-        val lm = LinearLayoutManager(this)
-        val lm2 = LinearLayoutManager(this)
-        binding.qnaList.layoutManager = lm
-        binding.freeBoardList.layoutManager = lm2
-
-
-        binding.chitchatSelectBtn.setOnClickListener{
-            showDialog()
-//            val dialog = TestDialog(this)
-//            dialog.showPopup()
-        }
-
-
-        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
-
-        qna_posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                qna_datas.apply {
-                    check?.forEach{ it->
-                        if(!it.title.rendered.equals("궁금해요")){
-
-                        Log.e("it","$it\n")
-                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
-                    }
-
-
-
-                    qna_adapter.datas = qna_datas
-                    qna_adapter.notifyDataSetChanged()
-                }
-
-
-            }
-
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
-
-
-        })
-
-
-        val chitchat_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_CHITCHAT)
-
-        chitchat_posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                free_board_datas.apply {
-                    check?.forEach{ it->
-                        if(!it.title.rendered.equals("약초수다")){
-                        Log.e("it","$it\n")
-                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
-                    }
-
-
-
-                    free_board_adapter.datas = free_board_datas
-                    free_board_adapter.notifyDataSetChanged()
-                }
-
-
-            }
-
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
-
-
-        })
 
 //        qna_datas.apply {
 //            add(QnaItem(R.drawable.herb_basic_qna_icon,"안녕하세요. 얼마전 ***을 선물로 받았습니다.\n어디에 좋은지 알 수 있을까요?","1"))

@@ -65,8 +65,10 @@ class FarmActivity : AppCompatActivity() {
                 datas.apply {
                 check?.forEach{ it->
                     repo += "$it\n-----------------------"
-
-                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,it.title.rendered,"김대길","안녕하세요. 딸기 팝니다."))
+                    var owner_name = it.acf.owner_name
+                    if(owner_name == null)
+                        owner_name = it.title.rendered
+                        add(FarmItem(it.id,R.drawable.herb_basic_user_icon,it.title.rendered,owner_name,it.excerpt.rendered))
 
 
                     }

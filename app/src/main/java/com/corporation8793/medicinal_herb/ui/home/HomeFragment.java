@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         });
 
         binding.chitchatBtn.setOnClickListener(v->{
-            Intent intent = new Intent(getActivity(), QnaActivity.class);
+            Intent intent = new Intent(getActivity(), ChitchatActivity.class);
             startActivity(intent);
         });
 

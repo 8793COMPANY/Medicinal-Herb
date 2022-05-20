@@ -11,9 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.main.FarmDetailActivity
-import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.dto.FarmItem
-import com.corporation8793.medicinal_herb.dto.HerbItem
 
 class FarmAdapter (private val context: Context, val height : Int) : RecyclerView.Adapter<FarmAdapter.ViewHolder>() {
     var datas = mutableListOf<FarmItem>()
@@ -33,11 +31,15 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val imgProfile: ImageView = itemView.findViewById(R.id.farm_user_img)
-        private val txtName: TextView = itemView.findViewById(R.id.farm_name)
+        private val farmName: TextView = itemView.findViewById(R.id.farm_name)
+        private val userName: TextView = itemView.findViewById(R.id.farm_user_name)
+        private val farm_Introduction: TextView = itemView.findViewById(R.id.farm_Introduction)
 
 
         fun bind(item: FarmItem) {
-            txtName.text = item.farm_name
+            farmName.text = item.farm_name
+            userName.text = item.farm_user_name
+            farm_Introduction.text = item.introduction
             itemView.setOnClickListener{
                 var intent : Intent = Intent(context, FarmDetailActivity::class.java)
                 intent.putExtra("farm_name",item.farm_name)

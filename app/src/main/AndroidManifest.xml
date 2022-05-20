@@ -39,13 +39,20 @@
             android:exported="true" />
         <activity
             android:name=".activity.IntroActivity"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.main.MainActivity2"
             android:exported="true"
             android:label="@string/title_activity_main2"
             android:launchMode="singleTask"
             android:theme="@style/NoActionBar">
+
 
         </activity>
         <activity android:name=".activity.main.FarmActivity"
@@ -62,11 +69,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.main.DictionaryActivity"

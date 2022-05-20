@@ -46,6 +46,10 @@ class EventDetailFragment : Fragment() {
     val datas = mutableListOf<CommentItem>()
     lateinit var divider : EventDecoration
 
+    val comment_list = mutableMapOf<String,Array<Int>>()
+
+    var count = 0
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +58,8 @@ class EventDetailFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -101,7 +107,21 @@ class EventDetailFragment : Fragment() {
 
                     check?.forEach{ it->
                         repo += "$it\n-----------------------"
-                        add(CommentItem(0,it.author_name,it.content.rendered,it.date))
+                        if(true){
+                            comment_list["id"] = arrayOf(1,count)
+                            add(CommentItem(0,it.author_name,it.content.rendered,it.date,"comment"))
+                            count += 1
+                        }else{
+                            var index = 0;
+                            for(i in 0..comment_list["id"]!!.get(1)){
+                                index += comment_list["id"]!!.get(0)
+                            }
+
+                            comment_list["id"]!![0] = comment_list["id"]!![0] +1
+                            add(index,CommentItem(0,it.author_name,it.content.rendered,it.date,"reply"))
+                        }
+
+
                     }
 
                     commentAdapter.datas = datas

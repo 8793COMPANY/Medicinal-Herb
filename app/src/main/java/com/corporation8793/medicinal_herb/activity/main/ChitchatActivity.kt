@@ -98,7 +98,8 @@ class ChitchatActivity : AppCompatActivity() {
         }
 
 
-        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+
+        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","asc", RestClient.CATEGORY_QNA)
 
         qna_posting.enqueue(object : Callback<List<Post>> {
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
@@ -159,6 +160,8 @@ class ChitchatActivity : AppCompatActivity() {
 
 
         })
+
+
 
 //        qna_datas.apply {
 //            add(QnaItem(R.drawable.herb_basic_qna_icon,"안녕하세요. 얼마전 ***을 선물로 받았습니다.\n어디에 좋은지 알 수 있을까요?","1"))

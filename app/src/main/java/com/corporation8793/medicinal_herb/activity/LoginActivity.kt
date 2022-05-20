@@ -38,7 +38,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext,"비밀번호를 입력해주세요.",Toast.LENGTH_SHORT).show()
             }else {
                 GlobalScope.launch(Dispatchers.Default) {
-                    id_pw_check(id_input_box.text.toString(), pw_input_box.text.toString())
+                    val intent = Intent(this@LoginActivity, MainActivity2::class.java)
+                    startActivity(intent)
+//                    id_pw_check(id_input_box.text.toString(), pw_input_box.text.toString())
 
                 }
             }
@@ -58,24 +60,27 @@ class LoginActivity : AppCompatActivity() {
 
         println("====== UsersRU             ======")
         println("------ isValid             ------")
-        val isValid = boardRepository.validationUser()
+        try {
+            val isValid = boardRepository.validationUser()
 
-        println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
-        println("retrieve Status : ${isValid.first}\n")
-
-
-
-        val retrieveUser = boardRepository.retrieveUser(isValid.second?.id)
-        Log.e("user",retrieveUser.second?.name.toString())
+            println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
+            println("retrieve Status : ${isValid.first}\n")
 
 
-        when (isValid.first) {
-            "200" ->  {
-                finish()
-                val intent = Intent(this@LoginActivity, MainActivity2::class.java)
-                startActivity(intent)
+            val retrieveUser = boardRepository.retrieveUser(isValid.second?.id)
+            Log.e("user", retrieveUser.second?.name.toString())
+
+
+            when (isValid.first) {
+                "200" -> {
+                    finish()
+                    val intent = Intent(this@LoginActivity, MainActivity2::class.java)
+                    startActivity(intent)
+                }
+
             }
-
+        }catch (e : Exception){
+            Toast.makeText(applicationContext,"아이디와 비밀번호를 확인해주세요.",Toast.LENGTH_SHORT).show()
         }
 
 

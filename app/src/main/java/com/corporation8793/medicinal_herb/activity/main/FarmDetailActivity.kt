@@ -145,7 +145,7 @@ class FarmDetailActivity : AppCompatActivity() {
                 check?.forEach{ it->
 
                     repo += "$it\n-----------------------"
-                    add(CommentItem(0,it.author_name,it.content.rendered,it.date))
+                    add(CommentItem(0,it.author_name,it.content.rendered,it.date,"comment"))
                 }
 
                     commentAdapter.datas = datas

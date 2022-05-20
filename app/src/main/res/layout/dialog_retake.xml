@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/round_shape_background"
+    android:background="@color/white"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/corner_round_background"
+        android:background="@drawable/stroke_corner_round_background"
         android:orientation="vertical"
         android:weightSum="370">
 
@@ -36,7 +36,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:background="#979797"></View>
 
         <LinearLayout

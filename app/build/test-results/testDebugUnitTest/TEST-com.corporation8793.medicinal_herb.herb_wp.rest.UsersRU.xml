@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-20T05:50:41" hostname="TFX245S" time="0.418">
+  <properties/>
+  <testcase name="media" classname="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" time="0.418"/>
+  <system-out><![CDATA[====== UsersRU             ======
+------ isValid             ------
+retrieve User 닉네임(ID) : 스무살 존(15)
+retrieve Status : 200
+
+------ Retrieve            ------
+retrieve User 닉네임(ID) : 존삼이(9)
+retrieve User 한 줄 소개글 : 테스트 계정인 존삼이
+retrieve User URL : http://3.37.133.132/wp-content/uploads/2022/03/맞춤추천-여주.jpg
+retrieve Status : 200
+
+====== EndTest             ======
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

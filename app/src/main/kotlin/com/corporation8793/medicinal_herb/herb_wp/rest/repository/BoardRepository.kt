@@ -388,6 +388,19 @@ class BoardRepository(val basicAuth : String) {
         return Pair(response.code().toString(), response.body())
     }
     /**
+     * 유저를 검증합니다.
+     * @author  두동근
+     * @return  responseCode (expected : "200"), [User]
+     * @see     User
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user-2">Retrieve a User [REST API Reference]</a>
+     */
+    fun validationUser() : Pair<String, User?> {
+        val response = RestClient.boardService.validationUser(basicAuth).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
+    /**
      * 유저를 수정합니다.
      * * id([userId])가 일치하는 유저를 수정합니다.
      * @author  두동근

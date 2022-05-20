@@ -40,6 +40,16 @@ $dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmActivity/in
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmActivity/setBinding/#ActivityFarmBinding/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-activity/set-binding.html
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmActivity/setDivider/#com.corporation8793.medicinal_herb.decoration.FarmDecoration/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-activity/set-divider.html
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmActivity/setFarmAdapter/#com.corporation8793.medicinal_herb.adapter.FarmAdapter/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-activity/set-farm-adapter.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity///PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/index.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/FarmDetailActivity/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/-farm-detail-activity.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/getBinding/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/get-binding.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/getDatas/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/get-datas.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/getDivider/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/get-divider.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/getFarmAdapter/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/get-farm-adapter.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/init/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/init.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/setBinding/#ActivityFarmBinding/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/set-binding.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/setDivider/#com.corporation8793.medicinal_herb.decoration.FarmDecoration/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/set-divider.html
+$dokka.location:com.corporation8793.medicinal_herb.activity.main/FarmDetailActivity/setFarmAdapter/#com.corporation8793.medicinal_herb.adapter.FarmAdapter/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-farm-detail-activity/set-farm-adapter.html
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/HerbDetailActivity///PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-herb-detail-activity/index.html
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/HerbDetailActivity/HerbDetailActivity/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-herb-detail-activity/-herb-detail-activity.html
 $dokka.location:com.corporation8793.medicinal_herb.activity.main/HerbDetailActivity/getBinding/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.activity.main/-herb-detail-activity/get-binding.html
@@ -174,6 +184,11 @@ $dokka.location:com.corporation8793.medicinal_herb.decoration/HerbDecoration/get
 $dokka.location:com.corporation8793.medicinal_herb.decoration/SymptomDecoration///PointingToDeclaration/app/com.corporation8793.medicinal_herb.decoration/-symptom-decoration/index.html
 $dokka.location:com.corporation8793.medicinal_herb.decoration/SymptomDecoration/SymptomDecoration/#kotlin.Int/PointingToDeclaration/app/com.corporation8793.medicinal_herb.decoration/-symptom-decoration/-symptom-decoration.html
 $dokka.location:com.corporation8793.medicinal_herb.decoration/SymptomDecoration/getItemOffsets/#android.graphics.Rect#android.view.View#androidx.recyclerview.widget.RecyclerView#androidx.recyclerview.widget.RecyclerView.State/PointingToDeclaration/app/com.corporation8793.medicinal_herb.decoration/-symptom-decoration/get-item-offsets.html
+$dokka.location:com.corporation8793.medicinal_herb.dialog////PointingToDeclaration/app/com.corporation8793.medicinal_herb.dialog/index.html
+$dokka.location:com.corporation8793.medicinal_herb.dialog/ChitChatDialog///PointingToDeclaration/app/com.corporation8793.medicinal_herb.dialog/-chit-chat-dialog/index.html
+$dokka.location:com.corporation8793.medicinal_herb.dialog/ChitChatDialog/ChitChatDialog/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dialog/-chit-chat-dialog/-chit-chat-dialog.html
+$dokka.location:com.corporation8793.medicinal_herb.dialog/ChitChatDialog/onCreateView/#android.view.LayoutInflater#android.view.ViewGroup?#android.os.Bundle?/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dialog/-chit-chat-dialog/on-create-view.html
+$dokka.location:com.corporation8793.medicinal_herb.dialog/ChitChatDialog/onDestroyView/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dialog/-chit-chat-dialog/on-destroy-view.html
 $dokka.location:com.corporation8793.medicinal_herb.dto////PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/index.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/ActionBar///PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-action-bar/index.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/ActionBar/ActionBar/#java.lang.String#int/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-action-bar/-action-bar.html
@@ -191,9 +206,10 @@ $dokka.location:com.corporation8793.medicinal_herb.dto/EventItem/getDate/#/Point
 $dokka.location:com.corporation8793.medicinal_herb.dto/EventItem/getId/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-event-item/get-id.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/EventItem/getImg/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-event-item/get-img.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem///PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/index.html
-$dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/FarmItem/#kotlin.Int#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/-farm-item.html
+$dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/FarmItem/#kotlin.String#kotlin.Int#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/-farm-item.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/getFarm_name/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/get-farm_name.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/getFarm_user_name/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/get-farm_user_name.html
+$dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/getId/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/get-id.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/getImg/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/get-img.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/FarmItem/getIntroduction/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-farm-item/get-introduction.html
 $dokka.location:com.corporation8793.medicinal_herb.dto/HerbItem///PointingToDeclaration/app/com.corporation8793.medicinal_herb.dto/-herb-item/index.html
@@ -249,6 +265,7 @@ $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.bo
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/BoardService/updatePost/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/-board-service/update-post.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/BoardService/updateUser/#kotlin.String#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/-board-service/update-user.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/BoardService/uploadMedia/#kotlin.String#okhttp3.MultipartBody.Part/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/-board-service/upload-media.html
+$dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/BoardService/validationUser/#kotlin.String/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.board/-board-service/validation-user.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce////PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce/index.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce/NonceService///PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce/-nonce-service/index.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce/NonceService/getNonce/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.api_interface.nonce/-nonce-service/get-nonce.html
@@ -338,6 +355,7 @@ $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/Board
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/BoardRepository/updatePost/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-board-repository/update-post.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/BoardRepository/updateUser/#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-board-repository/update-user.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/BoardRepository/uploadMedia/#java.io.File/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-board-repository/upload-media.html
+$dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/BoardRepository/validationUser/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-board-repository/validation-user.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/NonceRepository///PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-nonce-repository/index.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/NonceRepository/NonceRepository/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-nonce-repository/-nonce-repository.html
 $dokka.location:com.corporation8793.medicinal_herb.herb_wp.rest.repository/NonceRepository/getNonce/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.herb_wp.rest.repository/-nonce-repository/get-nonce.html
@@ -378,11 +396,21 @@ $dokka.location:com.corporation8793.medicinal_herb.ui.slideshow/SlideshowFragmen
 $dokka.location:com.corporation8793.medicinal_herb.ui.slideshow/SlideshowViewModel///PointingToDeclaration/app/com.corporation8793.medicinal_herb.ui.slideshow/-slideshow-view-model/index.html
 $dokka.location:com.corporation8793.medicinal_herb.ui.slideshow/SlideshowViewModel/SlideshowViewModel/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.ui.slideshow/-slideshow-view-model/-slideshow-view-model.html
 $dokka.location:com.corporation8793.medicinal_herb.ui.slideshow/SlideshowViewModel/getText/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb.ui.slideshow/-slideshow-view-model/get-text.html
+$dokka.location:com.corporation8793.medicinal_herb////PointingToDeclaration/app/com.corporation8793.medicinal_herb/index.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog.Companion///PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/-companion/index.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog.Companion/dismissPopup/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/-companion/dismiss-popup.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog.Companion/getDialog/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/-companion/get-dialog.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog.Companion/setDialog/#android.app.Dialog?/PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/-companion/set-dialog.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog///PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/index.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog/TestDialog/#android.content.Context/PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/-test-dialog.html
+$dokka.location:com.corporation8793.medicinal_herb/TestDialog/showPopup/#/PointingToDeclaration/app/com.corporation8793.medicinal_herb/-test-dialog/show-popup.html
+com.corporation8793.medicinal_herb
 com.corporation8793.medicinal_herb.activity
 com.corporation8793.medicinal_herb.activity.join
 com.corporation8793.medicinal_herb.activity.main
 com.corporation8793.medicinal_herb.adapter
 com.corporation8793.medicinal_herb.decoration
+com.corporation8793.medicinal_herb.dialog
 com.corporation8793.medicinal_herb.dto
 com.corporation8793.medicinal_herb.fragment
 com.corporation8793.medicinal_herb.herb_wp.rest

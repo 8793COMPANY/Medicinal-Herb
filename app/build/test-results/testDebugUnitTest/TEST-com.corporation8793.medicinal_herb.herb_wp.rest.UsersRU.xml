@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-20T05:50:41" hostname="TFX245S" time="0.418">
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-05-20T06:01:27" hostname="TFX245S" time="0.502">
   <properties/>
-  <testcase name="media" classname="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" time="0.418"/>
+  <testcase name="media" classname="com.corporation8793.medicinal_herb.herb_wp.rest.UsersRU" time="0.502"/>
   <system-out><![CDATA[====== UsersRU             ======
 ------ isValid             ------
 retrieve User 닉네임(ID) : 스무살 존(15)

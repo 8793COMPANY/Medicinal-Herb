@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.activity.main;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.Menu;
 
 import com.corporation8793.medicinal_herb.R;
+import com.corporation8793.medicinal_herb.activity.join.ProfileActivity;
 import com.corporation8793.medicinal_herb.databinding.ActivityMain2Binding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -46,6 +48,21 @@ public class MainActivity2 extends AppCompatActivity {
 //        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+           if (id == R.id.nav_access_term || id == R.id.nav_personal_data || id == R.id.nav_open_source || id == R.id.nav_app_version){
+               drawer.close();
+           }else{
+               drawer.close();
+               Intent intent = new Intent(MainActivity2.this, ProfileActivity.class);
+               startActivity(intent);
+           }
+
+
+            return true;
+        });
 
 
         setSupportActionBar(binding.appBarMain.toolbar);

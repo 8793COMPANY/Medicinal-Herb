@@ -42,6 +42,10 @@ class QnaAdapter (private val context: Context, val height : Int) : RecyclerView
 
             itemView.setOnClickListener{
                 var intent : Intent = Intent(context, ChitchatDetailActivity::class.java)
+                intent.putExtra("id",item.id)
+                intent.putExtra("img",item.img)
+                intent.putExtra("title",item.title)
+                intent.putExtra("content",item.question)
                 context.startActivity(intent)
             }
 

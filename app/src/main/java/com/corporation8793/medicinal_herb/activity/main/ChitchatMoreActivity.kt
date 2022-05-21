@@ -24,9 +24,13 @@ import com.corporation8793.medicinal_herb.adapter.QnaAdapter
 import com.corporation8793.medicinal_herb.databinding.ActivityChitchatBinding
 import com.corporation8793.medicinal_herb.databinding.ActivityChitchatMoreBinding
 import com.corporation8793.medicinal_herb.decoration.FarmDecoration
+import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.dto.QnaItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,6 +54,7 @@ class ChitchatMoreActivity : AppCompatActivity() {
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chitchat_more)
         binding.setActionBar(ActionBar(intent.getStringExtra("title"), R.color.deep_green))
+        var category = if(intent.getStringExtra("title")!!.equals("묻고 답하기")) RestClient.CATEGORY_QNA else RestClient.CATEGORY_CHITCHAT
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
@@ -79,36 +84,68 @@ class ChitchatMoreActivity : AppCompatActivity() {
 
 
 
+        GlobalScope.launch(Dispatchers.Default) {
 
-        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
-
-        qna_posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                qna_datas.apply {
-                    check?.forEach{ it->
-
-                        Log.e("it","$it\n")
-                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))
+//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", category).execute().body()
+            Log.e("check", check!!.size.toString())
+            qna_datas.apply {
+                check.forEach {
+                    var response = it.featured_media
+                    if (!response.equals("0")){
+                        response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
 
+                        Log.e("id", it.id)
+                        Log.e("id", it.content.rendered)
+//                        Log.e("response", response.guid.rendered)
+
+                        add(QnaItem(it.id,response,replaceWord(it.title.rendered),replaceWord(it.content.rendered),"3"))
 
 
-                    qna_adapter.datas = qna_datas
+                }
+                qna_adapter.datas = qna_datas
+                GlobalScope.launch(Dispatchers.Main) {    // 2
                     qna_adapter.notifyDataSetChanged()
                 }
 
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
+
+        }
 
 
-        })
+//        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+//
+//        qna_posting.enqueue(object : Callback<List<Post>> {
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                val check : List<Post>? = response.body()
+//                var repo =""
+//
+//                qna_datas.apply {
+//                    check?.forEach{ it->
+//
+//                        Log.e("it","$it\n")
+//
+//                        add(QnaItem(it.id,it.featured_media,replaceWord(it.title.rendered),replaceWord(it.content.rendered),"3"))
+//                    }
+//
+//
+//
+//                    qna_adapter.datas = qna_datas
+//                    qna_adapter.notifyDataSetChanged()
+//                }
+//
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("t",t.message.toString())
+//            }
+//
+//
+//        })
 
 
 

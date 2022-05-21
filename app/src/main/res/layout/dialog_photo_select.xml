@@ -8,7 +8,7 @@
     android:background="@drawable/dialog_round_shape_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/qna_area"
+        android:id="@+id/album_area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="150"
@@ -54,6 +54,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/camera_area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="150">
@@ -92,6 +93,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/file_area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="150"

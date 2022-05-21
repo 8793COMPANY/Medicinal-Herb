@@ -60,7 +60,7 @@ class DictionaryActivity : AppCompatActivity() {
 
             GlobalScope.launch(Dispatchers.Default) {
 
-                val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "desc", RestClient.CATEGORY_DICTIONARY).execute().body()
+                val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", RestClient.CATEGORY_DICTIONARY).execute().body()
                 Log.e("check", check!!.size.toString())
                 datas.apply {
                     check.forEach {

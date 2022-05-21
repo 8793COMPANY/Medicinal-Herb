@@ -28,6 +28,9 @@ import com.corporation8793.medicinal_herb.decoration.QnaDecoration
 import com.corporation8793.medicinal_herb.dto.QnaItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -98,68 +101,129 @@ class ChitchatActivity : AppCompatActivity() {
         }
 
 
+        GlobalScope.launch(Dispatchers.Default) {
 
-        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","asc", RestClient.CATEGORY_QNA)
-
-        qna_posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                qna_datas.apply {
-                    check?.forEach{ it->
-                        if(!it.title.rendered.equals("궁금해요")){
-
-                        Log.e("it","$it\n")
-                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
+//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", RestClient.CATEGORY_QNA).execute().body()
+            Log.e("check", check!!.size.toString())
+            qna_datas.apply {
+                check.forEach {
+                    var response = "0"
+                    if (it.featured_media !="0"){
+                        response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
 
+                    Log.e("id", it.id)
+                    Log.e("id", it.title.rendered)
+//                        Log.e("response", response.guid.rendered)
+
+                    add(QnaItem(it.id,response,replaceWord(it.title.rendered),replaceWord(it.content.rendered),"3"))
 
 
-                    qna_adapter.datas = qna_datas
+                }
+                qna_adapter.datas = qna_datas
+                GlobalScope.launch(Dispatchers.Main) {    // 2
                     qna_adapter.notifyDataSetChanged()
                 }
 
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
+
+        }
 
 
-        })
+//        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","asc", RestClient.CATEGORY_QNA)
+//
+//        qna_posting.enqueue(object : Callback<List<Post>> {
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                val check : List<Post>? = response.body()
+//                var repo =""
+//
+//                qna_datas.apply {
+//                    check?.forEach{ it->
+//                        if(!it.title.rendered.equals("궁금해요")){
+//
+//                        Log.e("it","$it\n")
+//                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
+//                    }
+//
+//
+//
+//                    qna_adapter.datas = qna_datas
+//                    qna_adapter.notifyDataSetChanged()
+//                }
+//
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("t",t.message.toString())
+//            }
+//
+//
+//        })
 
+        GlobalScope.launch(Dispatchers.Default) {
 
-        val chitchat_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_CHITCHAT)
-
-        chitchat_posting.enqueue(object : Callback<List<Post>> {
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
-
-                free_board_datas.apply {
-                    check?.forEach{ it->
-                        if(!it.title.rendered.equals("약초수다")){
-                        Log.e("it","$it\n")
-                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
+//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", RestClient.CATEGORY_CHITCHAT).execute().body()
+            Log.e("check", check!!.size.toString())
+            free_board_datas.apply {
+                check.forEach {
+                    var response = "0"
+                    if (it.featured_media !="0"){
+                        response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
+                    Log.e("id", it.id)
+                    Log.e("title", it.content.rendered)
+//                        Log.e("response", response.guid.rendered)
+
+                    add(QnaItem(it.id,response,replaceWord(it.title.rendered),replaceWord(it.content.rendered),"3"))
 
 
-
-                    free_board_adapter.datas = free_board_datas
+                }
+                free_board_adapter.datas = free_board_datas
+                GlobalScope.launch(Dispatchers.Main) {    // 2
                     free_board_adapter.notifyDataSetChanged()
                 }
 
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                Log.e("t",t.message.toString())
-            }
+
+        }
 
 
-        })
+//        val chitchat_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","asc", RestClient.CATEGORY_CHITCHAT)
+//
+//        chitchat_posting.enqueue(object : Callback<List<Post>> {
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                val check : List<Post>? = response.body()
+//                var repo =""
+//
+//                free_board_datas.apply {
+//                    check?.forEach{ it->
+//                        if(!it.title.rendered.equals("약초수다")){
+//                        Log.e("it","$it\n")
+//                        add(QnaItem(R.drawable.herb_basic_qna_icon,replaceWord(it.content.rendered),"3"))}
+//                    }
+//
+//
+//
+//                    free_board_adapter.datas = free_board_datas
+//                    free_board_adapter.notifyDataSetChanged()
+//                }
+//
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                Log.e("t",t.message.toString())
+//            }
+//
+//
+//        })
 
 
 

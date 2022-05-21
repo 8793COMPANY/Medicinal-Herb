@@ -1,11 +1,15 @@
 package com.corporation8793.medicinal_herb.activity.main
 
+import android.Manifest
 import android.app.Dialog
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,11 +20,21 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
+import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityQnaBinding
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.Credentials
+import java.io.File
+import java.text.SimpleDateFormat
 
 class QnaActivity : AppCompatActivity() {
     lateinit var binding : ActivityQnaBinding
@@ -28,13 +42,19 @@ class QnaActivity : AppCompatActivity() {
     lateinit var register_dialog:Dialog
 
     val PERMISSION_Album = 101
+    val PERMISSION_CAMERA = 102;
     val REQUEST_STORAGE = 100
+    val REQUEST_CAMERA = 1
+    lateinit var img_uri : Uri
+    lateinit var prefs : MySharedPreferences
+    lateinit var category : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
-
+        prefs = MySharedPreferences(applicationContext)
         binding.qnaRegistrationBtn.setOnClickListener {
+            createPost(binding.photoRegistrationText.text.toString())
             showDialog(R.layout.dialog_posting_check,0.6f,0.3f)
             Log.e("qna","click")
         }
@@ -47,9 +67,14 @@ class QnaActivity : AppCompatActivity() {
 
     }
 
+    val REQUEST_IMAGE_CAPTURE = 1
+
+
+
     fun init(){
         binding = DataBindingUtil.setContentView(this, R.layout.activity_qna)
         binding.setActionBar(ActionBar(intent.getStringExtra("category"), R.color.black))
+        category = if(intent.getStringExtra("category")!!.equals("묻고 답하기")) RestClient.CATEGORY_QNA else RestClient.CATEGORY_CHITCHAT
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
@@ -60,7 +85,56 @@ class QnaActivity : AppCompatActivity() {
 
         binding.photoRegistration.setOnClickListener {
             showDialog(R.layout.dialog_photo_select,0.65f,0.3f)
-//            requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
+
+        }
+    }
+
+    fun getPath(uri: Uri?): String? {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = managedQuery(uri, projection, null, null, null)
+        startManagingCursor(cursor)
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(column_index)
+    }
+
+    fun createPost(content:String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            val testId = prefs.getString("id","hello")
+            val testPw = prefs.getString("pw","1234")
+            val basicAuth = Credentials.basic(testId, testPw)
+            val boardRepository = BoardRepository(basicAuth)
+            var htmlContent = ""
+
+
+            println("====== CreatePostWithMedia ======")
+
+
+
+            println("------ Upload              ------")
+            // test image (Lenna.png)
+            var responseMediaId = "0"
+            if (binding.photoRegistration.drawable != null) {
+                val file = File(getPath(img_uri))
+                val responseMedia = boardRepository.uploadMedia(file)
+                responseMediaId = responseMedia.second?.id!!
+                println("response Media URL : ${responseMedia.second?.guid?.rendered}")
+                println("response Media ID : ${responseMedia.second?.id}")
+                htmlContent += "<p><img src=\"${responseMedia.second?.guid?.rendered}\"></p>"
+            }
+
+
+
+//        println("------ Create              ------")
+            var responseCode = boardRepository.createPost(
+                    title = "CreatePostWithMedia",
+                    content = content,
+                    categories = category,
+                    featured_media = responseMediaId
+            )
+
+            println("response Code : $responseCode\n")
+
         }
     }
 
@@ -84,7 +158,22 @@ class QnaActivity : AppCompatActivity() {
                 finish()
             }
         }else{
+            dialog.findViewById<ConstraintLayout>(R.id.album_area).setOnClickListener{
+                requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
+                dialog.dismiss()
 
+            }
+
+            dialog.findViewById<ConstraintLayout>(R.id.camera_area).setOnClickListener{
+                requirePermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA)
+                dialog.dismiss()
+
+            }
+
+            dialog.findViewById<ConstraintLayout>(R.id.file_area).setOnClickListener{
+                dialog.dismiss()
+
+            }
         }
 
 
@@ -149,18 +238,18 @@ class QnaActivity : AppCompatActivity() {
 
     private fun permissionGranted(requestCode: Int) {
         when (requestCode) {
-//            PERMISSION_CAMERA -> openCamera()
+            PERMISSION_CAMERA -> openCamera()
             PERMISSION_Album -> openGallery()
         }
     }
 
     private fun permissionDenied(requestCode: Int) {
         when (requestCode) {
-//            PERMISSION_CAMERA -> Toast.makeText(
-//                    this,
-//                    "카메라 권한을 승인해야 카메라를 사용할 수 있습니다.",
-//                    Toast.LENGTH_LONG
-//            ).show()
+            PERMISSION_CAMERA -> Toast.makeText(
+                    this,
+                    "카메라 권한을 승인해야 카메라를 사용할 수 있습니다.",
+                    Toast.LENGTH_LONG
+            ).show()
 
             PERMISSION_Album -> Toast.makeText(
                     this,
@@ -177,22 +266,35 @@ class QnaActivity : AppCompatActivity() {
 
     }
 
+    private fun openCamera() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+        }
+    }
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             when (requestCode) {
-//                REQUEST_CAMERA -> {
-//                    realUri?.let { uri ->
-//                        imageView.setImageURI(uri)
-//                    }
-//                }
+                REQUEST_CAMERA -> {
+                    if (binding.photoRegistrationIcon.visibility != View.INVISIBLE){
+                        binding.photoRegistrationIcon.visibility = View.INVISIBLE
+                        binding.photoRegistrationText.visibility = View.INVISIBLE
+                    }
+                    val imageBitmap = data!!.extras!!.get("data") as Bitmap
+                    binding.photoRegistration.setImageBitmap(imageBitmap)
+                }
                 REQUEST_STORAGE -> {
                     data?.data?.let { uri ->
                         if (binding.photoRegistrationIcon.visibility != View.INVISIBLE){
                             binding.photoRegistrationIcon.visibility = View.INVISIBLE
                             binding.photoRegistrationText.visibility = View.INVISIBLE
                         }
+                        img_uri = uri
                         binding.photoRegistration.setImageURI(uri)
                     }
                 }

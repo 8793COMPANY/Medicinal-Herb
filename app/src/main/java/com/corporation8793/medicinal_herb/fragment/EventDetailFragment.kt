@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.fragment
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -17,12 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.adapter.CommentAdapter
 import com.corporation8793.medicinal_herb.dto.CommentItem
 import com.corporation8793.medicinal_herb.dto.EventItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -103,13 +107,22 @@ class EventDetailFragment : Fragment() {
                 val check : List<Comment>? = response.body()
                 var repo =""
                 comment_count.text = "댓글 "+check!!.size
+                var content = comment_count.text.toString()
+                val spannableString : SpannableString = SpannableString(content)
+                var start = 2
+
+                val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
+
+                spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                comment_count.text = spannableString
                 datas.apply {
 
                     check?.forEach{ it->
                         repo += "$it\n-----------------------"
                         if(true){
                             comment_list["id"] = arrayOf(1,count)
-                            add(CommentItem(0,it.author_name,it.content.rendered,it.date,"comment"))
+                            add(CommentItem(0,it.author_name,it.content.rendered,it.date,0))
                             count += 1
                         }else{
                             var index = 0;
@@ -118,7 +131,7 @@ class EventDetailFragment : Fragment() {
                             }
 
                             comment_list["id"]!![0] = comment_list["id"]!![0] +1
-                            add(index,CommentItem(0,it.author_name,it.content.rendered,it.date,"reply"))
+                            add(index,CommentItem(0,it.author_name,it.content.rendered,it.date,1))
                         }
 
 
@@ -143,6 +156,8 @@ class EventDetailFragment : Fragment() {
 
         return view
     }
+
+
 
     companion object {
         /**

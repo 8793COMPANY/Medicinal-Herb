@@ -163,27 +163,57 @@
                     app:layout_constraintHorizontal_bias="0.01"
                     ></TextView>
 
-                <EditText
-                    android:id="@+id/comment_input_box"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/comment_box"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:textColor="#b1b1b1"
-                    android:layout_marginTop="6dp"
-                    android:paddingLeft="15dp"
-                    android:textSize="15dp"
-                    android:hint="댓글을 입력해주세요."
-                    android:textColorHint="#b1b1b1"
-                    app:layout_constraintHeight_percent="0.07"
-                    android:background="@drawable/round_shape_background"
-                    app:layout_constraintVertical_bias="0.02"
-                    app:layout_constraintTop_toBottomOf="@+id/comment_count"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
-                    app:layout_constraintRight_toRightOf="@+id/guideline_right"></EditText>
+                    android:layout_height="45dp">
+
+                    <EditText
+                        android:id="@+id/comment_input_box"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="#b1b1b1"
+                        android:layout_marginTop="6dp"
+                        android:paddingLeft="15dp"
+                        android:textSize="15dp"
+                        android:hint="댓글을 입력해주세요."
+                        android:textColorHint="#b1b1b1"
+                        app:layout_constraintHeight_percent="0.07"
+                        android:background="@drawable/round_shape_background"
+                        app:layout_constraintVertical_bias="0.02"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"></EditText>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/register_btn"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:text="등록"
+                        android:textSize="14dp"
+                        android:textColor="@color/green"
+                        android:includeFontPadding="false"
+                        android:fontFamily="@font/nskr_medium"
+                        app:layout_constraintWidth_percent="0.14"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintTop_toTopOf="@+id/comment_input_box"
+                        app:layout_constraintBottom_toBottomOf="@+id/comment_input_box"
+                        app:layout_constraintLeft_toLeftOf="@+id/comment_input_box"
+                        app:layout_constraintRight_toRightOf="@+id/comment_input_box"></androidx.appcompat.widget.AppCompatButton>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-                    <androidx.recyclerview.widget.RecyclerView
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/comment_list"
                         android:overScrollMode="never"
                         android:layout_width="match_parent"

@@ -57,7 +57,6 @@ class ProfileActivity : AppCompatActivity() {
         save_btn.setOnClickListener { v: View? ->
             GlobalScope.launch(Dispatchers.Default) {
                 signUp()
-//                uploadProfile()
             }
 
 //            finish()
@@ -87,11 +86,23 @@ class ProfileActivity : AppCompatActivity() {
             println(user_name.text.toString())
 
 
-            nonceRepository.runSignUp(intent.getStringExtra("id")!!, intent.getStringExtra("pw")!!, "mm1234@gmail.com", user_name.text.toString())
-
+            nonceRepository.runSignUp(intent.getStringExtra("id")!!, intent.getStringExtra("pw")!!, intent.getStringExtra("id")!!+"@gmail.com", user_name.text.toString())
+            Log.e("status",nonceRepository.signUpStatus.status)
+            Log.e("error",nonceRepository.signUpStatus.error)
             when (nonceRepository.signUpStatus.status) {
-                "ok" -> Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-
+                "ok" -> {
+                    if(user_img.drawable != null) {
+                        Log.e("img", "not null")
+                        uploadProfile()
+                    }
+//                    Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                "error"->{
+                    if (nonceRepository.signUpStatus.error.equals("E-mail address is already in use.")){
+//                        Toast.makeText(applicationContext,"이미 사용중인 아이디입니다.",Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }catch (e : Exception){
             Log.e("e",e.toString())

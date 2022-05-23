@@ -308,6 +308,20 @@ class BoardRepository(val basicAuth : String) {
         }
     }
     /**
+     * id([commentId])가 일치하는 댓글의 모든 답글[Comment]을 검색합니다.
+     * @author  두동근
+     * @param   commentId   댓글 id
+     * @return  responseCode (expected : "200"), [List<Comment>]
+     * @see     Comment
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#list-comments">List Comments [REST API Reference]</a>
+     */
+    fun retrieveAllReply(commentId : String) : Pair<String, List<Comment>?> {
+        val response = RestClient.boardService.retrieveAllReply(commentId).execute()
+
+        return Pair(response.code().toString(), response.body())
+    }
+    /**
      * 댓글을 수정합니다.
      * * id([commentId])가 일치하는 댓글을 수정합니다.
      * @author  두동근

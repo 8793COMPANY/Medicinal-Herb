@@ -158,6 +158,15 @@ interface BoardService {
     fun retrieveAllComment(@Query("post") post : String) : Call<List<Comment>>
 
     /**
+     * id([commentId])가 일치하는 댓글의 모든 답글[Comment]을 검색합니다.
+     * @author  두동근
+     * @see     Comment
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#list-comments">List Comments [REST API Reference]</a>
+     */
+    @GET("wp-json/wp/v2/comments")
+    fun retrieveAllReply(@Query("parent") parent : String) : Call<List<Comment>>
+
+    /**
      * 댓글을 수정합니다.
      * * id([commentId])가 일치하는 댓글을 수정합니다.
      * @author  두동근

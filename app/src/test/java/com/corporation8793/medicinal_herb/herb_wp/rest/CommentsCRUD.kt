@@ -38,10 +38,18 @@ class CommentsCRUD {
 //        }
 
         println("------ AllComment      ------")
-        val responseAllComment = boardRepository.retrieveAllComment("204")
+        val responseAllComment = boardRepository.retrieveAllComment("144", false)
         Assert.assertEquals("200", responseAllComment.first)
         if (responseAllComment.first == "200") {
             for ((i, p) in responseAllComment.second!!.withIndex()) {
+                println("response Comment $i : $p")
+            }
+        }
+        println("------ AllReply        ------")
+        val retrieveAllReply = boardRepository.retrieveAllReply("21")
+        Assert.assertEquals("200", retrieveAllReply.first)
+        if (retrieveAllReply.first == "200") {
+            for ((i, p) in retrieveAllReply.second!!.withIndex()) {
                 println("response Comment $i : $p")
             }
         }

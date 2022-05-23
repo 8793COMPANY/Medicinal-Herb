@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
@@ -17,7 +18,9 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout.VERTICAL
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,10 +81,14 @@ class ChitchatDetailActivity : AppCompatActivity() {
             createComment(intent.getStringExtra("id")!!,"0",binding.commentInputBox.text.toString())
         }
 
-        if (!intent.getStringExtra("img").equals("0"))
+        if (!intent.getStringExtra("img").equals("0")) {
             Glide.with(this).load(intent.getStringExtra("img")).into(binding.qnaImg)
+        }
+
 
         binding.qnaDetailText.text = intent.getStringExtra("content")
+
+        binding.qnaImg.clipToOutline = true
 
         val display : DisplayMetrics = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(display)
@@ -113,6 +120,7 @@ class ChitchatDetailActivity : AppCompatActivity() {
 
                     check?.forEach{ it->
                         repo += "$it\n-----------------------"
+                        Log.e("it",it.toString())
                         add(CommentItem(0,it.author_name,it.content.rendered,it.date,0))
 
 
@@ -150,6 +158,8 @@ class ChitchatDetailActivity : AppCompatActivity() {
 
     }
 
+
+
     fun createComment(id : String, parent : String, comment : String) {
         GlobalScope.launch(Dispatchers.Default) {
             val testId = prefs.getString("id","hello")
@@ -175,14 +185,7 @@ class ChitchatDetailActivity : AppCompatActivity() {
 
     }
 
-    fun replaceWord(text : String) : String{
-        return text.replace("<p>","").replace("</p>","")
-        .replace("<ul>","").replace("</ul>","")
-                .replace("<li>","").replace("</li>","")
-                .replace("<br>","").replace("<br />","")
-                .replace("<strong>","").replace("</strong>","")
 
-    }
 
 
     private fun showDialog() {

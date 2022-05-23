@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.main.ChitchatDetailActivity
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
@@ -37,7 +38,7 @@ class QnaAdapter (private val context: Context, val height : Int) : RecyclerView
 
 
         fun bind(item: QnaItem) {
-            txtName.text = item.question+"\n댓글:"+item.comment+"개"
+            txtName.text = Common().replaceText(item.question)+"\n댓글:"+item.comment+"개"
 //            Glide.with(itemView).load(item.img).into(imgProfile)
 
             itemView.setOnClickListener{

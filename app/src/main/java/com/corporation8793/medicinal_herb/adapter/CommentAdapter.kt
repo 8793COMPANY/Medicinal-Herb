@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.dto.CommentItem
 import com.corporation8793.medicinal_herb.dto.EventItem
@@ -70,16 +71,14 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
 
 
         fun bind(item: CommentItem) {
-            date.text = item.date.replace("T"," ")
+            date.text = item.date.replace("T"," ").replace("-",".")
             if (item.img == 0)
                 eventImg.setBackgroundResource(R.drawable.herb_basic_qna_icon)
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 
             comment_user_name.text = item.user_name
-            comment_text.text = item.comment .replace("<p>","").replace("</p>","")
-                    .replace("<ul>","").replace("</ul>","")
-                    .replace("<li>","").replace("</li>","")
+            comment_text.text =  Common().replaceText(item.comment)
 
 
 //            Glide.with(itemView).load(item.img).into(imgProfile)
@@ -96,16 +95,15 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
 
 
         fun bind(item: CommentItem) {
-            date.text = item.date
+            date.text = item.date.replace("T"," ").replace("-",".")
             if (item.img == 0)
                 eventImg.setBackgroundResource(R.drawable.herb_basic_qna_icon)
             else
                 eventImg.setBackgroundResource(R.drawable.green_box)
 
             comment_user_name.text = item.user_name
-            comment_text.text = item.comment .replace("<p>","").replace("</p>","")
-                    .replace("<ul>","").replace("</ul>","")
-                    .replace("<li>","").replace("</li>","")
+            comment_text.text = Common().replaceText(item.comment)
+
 
 
 //            Glide.with(itemView).load(item.img).into(imgProfile)

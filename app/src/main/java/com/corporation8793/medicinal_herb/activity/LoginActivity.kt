@@ -68,18 +68,23 @@ class LoginActivity : AppCompatActivity() {
 
             println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
             println("retrieve Status : ${isValid.first}\n")
+            println("retrieve url : ${isValid.second?.url}\n")
 
 
             val retrieveUser = boardRepository.retrieveUser(isValid.second?.id)
             Log.e("user", retrieveUser.second?.name.toString())
 
 
+
+
             when (isValid.first) {
                 "200" -> {
                     finish()
-                    prefs.setString("user_name",retrieveUser.second?.name.toString())
+                    prefs.setString("user_name",isValid.second?.name.toString())
                     prefs.setString("id",testId)
                     prefs.setString("pw",testPw)
+                    prefs.setString("img",isValid.second?.url.toString())
+                    prefs.setString("introdution",retrieveUser.second?.description.toString())
                     val intent = Intent(this@LoginActivity, MainActivity2::class.java)
                     startActivity(intent)
                 }
@@ -87,41 +92,16 @@ class LoginActivity : AppCompatActivity() {
             }
         }catch (e : Exception){
             Log.e("e",e.toString())
+
+            GlobalScope.launch(Dispatchers.Main) {
+                if (e.message!!.contains("Path parameter \"id\" value must not be null.")){
+                    Toast.makeText(applicationContext,"아이디와 비밀번호를 다시 한번 확인해주세요",Toast.LENGTH_SHORT).show()
+                }
+            }
             Log.e("e",e.message.toString())
         }
 
 
-
-//        println("------ Retrieve            ------")
-//        val retrieveUser = boardRepository.retrieveUser("9")
-//        println("retrieve User 닉네임(ID) : ${retrieveUser.second?.name}(${retrieveUser.second?.id})")
-//        println("retrieve User 한 줄 소개글 : ${retrieveUser.second?.description}")
-//        println("retrieve User URL : ${retrieveUser.second?.url}")
-//        println("retrieve Status : ${retrieveUser.first}\n")
-
-
-
-//        println("------ Update              ------")
-//        // test image (Lenna.png)
-//        val file = File("src/test/java/com/corporation8793/medicinal_herb/herb_wp/rest/Lenna.png")
-//        val responseMedia = boardRepository.uploadMedia(file)
-//        Assert.assertEquals("201", responseMedia.first)
-//        println("response Media URL : ${responseMedia.second?.guid?.rendered}")
-//        println("response Media ID : ${responseMedia.second?.id}")
-//
-//        println("------ MediaUploadComplete ------")
-//
-//        var updateUser = boardRepository.updateUser("9", responseMedia.second?.guid?.rendered, "현타가 너무 씨게 와서 힘든 존삼이")
-//        Assert.assertEquals("200", updateUser.first)
-//        println("update User 닉네임(ID) : ${updateUser.second?.name}(${updateUser.second?.id})")
-//        println("update User 한 줄 소개글 : ${updateUser.second?.description}")
-//        println("update User URL : ${updateUser.second?.url}")
-//        println("update Status : ${updateUser.first}\n")
-
-
-
-
-        println("====== EndTest             ======")
     }
 
 

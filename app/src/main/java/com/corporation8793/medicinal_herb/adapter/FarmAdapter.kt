@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.main.FarmDetailActivity
 import com.corporation8793.medicinal_herb.dto.FarmItem
@@ -40,7 +41,7 @@ class FarmAdapter (private val context: Context, val height : Int) : RecyclerVie
         fun bind(item: FarmItem) {
             farmName.text = item.farm_name
             userName.text = item.farm_user_name
-            farm_Introduction.text = item.introduction.replace("</p>","").replace("<p>","")
+            farm_Introduction.text = Common().replaceText(item.introduction)
             farm_comment_count.text = item.comment_count.toString()
             itemView.setOnClickListener{
                 var intent : Intent = Intent(context, FarmDetailActivity::class.java)

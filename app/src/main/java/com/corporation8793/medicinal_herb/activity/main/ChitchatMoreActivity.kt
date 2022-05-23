@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.adapter.QnaAdapter
@@ -100,7 +101,7 @@ class ChitchatMoreActivity : AppCompatActivity() {
                         Log.e("id", it.content.rendered)
 //                        Log.e("response", response.guid.rendered)
 
-                        add(QnaItem(it.id,response,replaceWord(it.title.rendered),replaceWord(it.content.rendered),"3"))
+                        add(QnaItem(it.id,response, Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),"3"))
 
 
                 }
@@ -163,15 +164,6 @@ class ChitchatMoreActivity : AppCompatActivity() {
 
 
 
-
-    }
-
-    fun replaceWord(text : String) : String{
-        return text.replace("<p>","").replace("</p>","")
-        .replace("<ul>","").replace("</ul>","")
-                .replace("<li>","").replace("</li>","")
-                .replace("<br>","").replace("<br />","")
-                .replace("<strong>","").replace("</strong>","")
 
     }
 

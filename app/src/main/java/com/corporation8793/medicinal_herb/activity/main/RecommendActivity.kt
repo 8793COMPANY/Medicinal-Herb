@@ -77,6 +77,10 @@ class RecommendActivity : AppCompatActivity() {
         binding.symptomList.addItemDecoration(divider)
         binding.symptomHerbList.addItemDecoration(HerbDecoration(10))
 
+        symptomAdapter.getNumber(1)
+        symptomAdapter.notifyDataSetChanged()
+        dataBySymptom(buttonNames[1])
+
         symptomAdapter.setOnItemClickListener(object : SymptomAdapter.OnItemClickListener{
             override fun onItemClick(v: View, pos: Int) {
                 Log.e("pos",pos.toString())
@@ -94,7 +98,7 @@ class RecommendActivity : AppCompatActivity() {
         })
 
 
-        dataBySymptom(buttonNames[0])
+
 
 
 

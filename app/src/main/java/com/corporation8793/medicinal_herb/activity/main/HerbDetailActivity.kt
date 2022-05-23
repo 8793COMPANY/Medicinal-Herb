@@ -7,6 +7,7 @@ import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityHerbDetailBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
@@ -35,10 +36,8 @@ class HerbDetailActivity : AppCompatActivity() {
                 Log.e("check",check!!.featured_media)
                 media_id = check!!.featured_media
 
-                binding.herbDetailText.text = check?.content?.rendered.toString()
-                        .replace("<p>","").replace("</p>","")
-                        .replace("<ul>","").replace("</ul>","")
-                        .replace("<li>","").replace("</li>","")
+                binding.herbDetailText.text = Common().replaceText(check?.content?.rendered.toString())
+
 
             }
 

@@ -68,7 +68,7 @@
                 <ImageView
                     android:id="@+id/qna_img"
                     android:scaleType="fitXY"
-                    android:padding="2dp"
+                    android:padding="1dp"
                     android:layout_marginTop="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="215dp"

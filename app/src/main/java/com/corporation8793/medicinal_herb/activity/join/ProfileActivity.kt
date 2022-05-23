@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.activity.join
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,6 +16,8 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
+import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
@@ -33,15 +36,40 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var user_name : EditText
     lateinit var introduction : EditText
     lateinit var img_uri : Uri
+    lateinit var type : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+
         val save_btn = findViewById<LinearLayout>(R.id.save_btn)
         user_img = findViewById<ImageView>(R.id.user_img)
         val input_btn = findViewById<ImageView>(R.id.input_btn)
         user_name = findViewById<EditText>(R.id.name)
         introduction = findViewById<EditText>(R.id.introduction)
+
+        type = intent.getStringExtra("type")!!
+
+        if (type.equals("join")){
+            Log.e("first","first")
+        }else{
+            Log.e("edit","edit")
+            user_name.setText(MySharedPreferences(this).getString("user_name","산야초"))
+            introduction.setText(MySharedPreferences(this).getString("introdution",""))
+            Log.e("id", MySharedPreferences(this).getString("id","girl"))
+            Log.e("id", MySharedPreferences(this).getString("pw","1234"))
+            Log.e("id", MySharedPreferences(this).getString("img","산야초"))
+            Log.e("id", MySharedPreferences(this).getString("introdution","안녕"))
+            Glide.with(this).load(MySharedPreferences(this).getString("img","산야초")).into(user_img)
+
+//            GlobalScope.launch(Dispatchers.Default) {
+//                getUserInfo(MySharedPreferences(applicationContext).getString("id","girl"), MySharedPreferences(applicationContext).getString("pw","1234"))
+//            }
+
+
+        }
+
         user_name.requestFocus()
         user_img.setOnClickListener { v: View? ->
             requirePermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PERMISSION_Album)
@@ -55,9 +83,19 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         save_btn.setOnClickListener { v: View? ->
-            GlobalScope.launch(Dispatchers.Default) {
-                signUp()
+
+            if(type.equals("join")) {
+                GlobalScope.launch(Dispatchers.Default) {
+                    signUp()
+                }
+            }else{
+//                GlobalScope.launch(Dispatchers.Default) {
+//                    updateUser()
+//                }
             }
+
+
+
 
 //            finish()
 //            RestClient.nonceService.runSignUp("nonce",user_name.text.toString()
@@ -67,9 +105,36 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+    fun updateUser(id : String, pw : String) {
+        val testId = id
+        val testPw = pw
+        val basicAuth = Credentials.basic(testId, testPw)
+        val boardRepository = BoardRepository(basicAuth)
+
+
+        println("====== UsersRU             ======")
+        println("------ isValid             ------")
+        try {
+            val isValid = boardRepository.validationUser()
+
+            println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
+            println("retrieve Status : ${isValid.first}\n")
+            println("retrieve url : ${isValid.second?.url}\n")
+
+//            boardRepository.updateUser(isValid.second?.id,)
+
+
+        } catch (e: Exception) {
+            Log.e("e", e.toString())
+
+            Log.e("e", e.message.toString())
+        }
+    }
+
     fun signUp() {
         try {
             val nonceRepository = NonceRepository()
+
 
             println("====== SignUp     ======")
             println("------ getNonce() ------")
@@ -78,6 +143,7 @@ class ProfileActivity : AppCompatActivity() {
             println("nonce value : ${nonceRepository.nonce}")
 
             println("------ runSignUp() ------")
+
 
 
 
@@ -96,11 +162,21 @@ class ProfileActivity : AppCompatActivity() {
                         uploadProfile()
                     }
 //                    Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                    finish()
+                    GlobalScope.launch(Dispatchers.Main) {
+                        finish()
+                    }
                 }
                 "error"->{
+                    GlobalScope.launch(Dispatchers.Main) {
                     if (nonceRepository.signUpStatus.error.equals("E-mail address is already in use.")){
-//                        Toast.makeText(applicationContext,"이미 사용중인 아이디입니다.",Toast.LENGTH_SHORT).show()
+
+                            Toast.makeText(applicationContext,"이미 사용중인 아이디입니다.",Toast.LENGTH_SHORT).show()
+                    }else if (nonceRepository.signUpStatus.error.equals("Username already exists.")){
+
+                        Toast.makeText(applicationContext,"이미 사용중인 이름입니다.",Toast.LENGTH_SHORT).show()
+                    }
+
+
                     }
                 }
             }
@@ -110,6 +186,9 @@ class ProfileActivity : AppCompatActivity() {
 
 
     }
+
+
+
 
     fun uploadProfile(){
         try {
@@ -134,6 +213,10 @@ class ProfileActivity : AppCompatActivity() {
             println("response Media URL : ${responseMedia.second?.guid?.rendered}")
             println("response Media ID : ${responseMedia.second?.id}")
             println("response Media ID : ${responseMedia.second?.date}")
+
+
+            var id = boardRepository.validationUser().second?.id
+            boardRepository.updateUser(id,responseMedia.second?.guid?.rendered,introduction.text.toString())
         }catch (e: Exception){
             Log.e("e",e.toString())
         }

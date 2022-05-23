@@ -16,6 +16,7 @@ import android.webkit.WebViewClient
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import java.util.regex.Pattern
 
@@ -38,6 +39,7 @@ class JoinActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "이용약관을 동의해주세요.", Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this@JoinActivity, ProfileActivity::class.java)
+                intent.putExtra("type","join")
                 intent.putExtra("id",id_input_box.text.toString())
                 intent.putExtra("pw",pw_input_box.text.toString())
                 startActivity(intent)
@@ -47,13 +49,12 @@ class JoinActivity : AppCompatActivity() {
             val ps = Pattern.compile("^[a-zA-Z0-9]+$")
             if (!ps.matcher(source).matches()) {
                 Toast.makeText(applicationContext, "영어와 숫자만 적어주세요.", Toast.LENGTH_SHORT).show()
-                return@InputFilter id_input_box.text.toString() + ""
             }
             null
         }
 
         access_terms_box.setOnClickListener{
-            showDialog()
+            Common().showAccessTerms(this)
         }
 
 // 정규표현식만 적용하는 경우
@@ -66,24 +67,7 @@ class JoinActivity : AppCompatActivity() {
 
     }
 
-    private fun showDialog() {
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_access_term)
 
-
-        var webview = dialog.findViewById<WebView>(R.id.webview)
-        webview.webViewClient = WebViewClient()
-        webview.getSettings().setJavaScriptEnabled(true)
-        webview.getSettings().getLoadsImagesAutomatically()
-        webview.getSettings().getUseWideViewPort()
-        webview.loadUrl("https://blog.naver.com/wisi8793/222738671066")
-//
-        dialog.show()
-        dialog.findViewById<LinearLayout>(R.id.ok_btn).setOnClickListener{
-            dialog.dismiss()
-        }
 
 
 
@@ -93,19 +77,6 @@ class JoinActivity : AppCompatActivity() {
 
 //        dialog.getWindow()!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        val display = windowManager.defaultDisplay
-        val size = Point()
-        display.getSize(size)
 
-        // Generate custom width and height and
-        // add to the dialog attributes
-        // we multiplied the width and height by 0.5,
-        // meaning reducing the size to 50%
-//        val mLayoutParams = WindowManager.LayoutParams()
-//        mLayoutParams.width = (size.x * 0.9f).toInt()
-//        mLayoutParams.height = (size.y * 0.9f).toInt()
-//
-//        dialog.window?.attributes = mLayoutParams
 
-    }
 }

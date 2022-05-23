@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.decoration.FarmDecoration
 import com.corporation8793.medicinal_herb.R
@@ -177,8 +178,8 @@ class FarmDetailActivity : AppCompatActivity() {
                 if(owner_name == null)
                     owner_name = "산야초"
 
-                binding.farmDetailText.text = check!!.title.rendered + "\n" + check!!.acf.owner_name + "\n" +
-                        check!!.content.rendered.replace("<p>","").replace("</p>","")
+                binding.farmDetailText.text = Common().replaceText(check!!.title.rendered + "\n" + check!!.acf.owner_name + "\n" +
+                        check!!.content.rendered)
 
             }
 

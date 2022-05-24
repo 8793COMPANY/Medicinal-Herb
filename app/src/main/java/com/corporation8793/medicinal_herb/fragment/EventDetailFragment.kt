@@ -25,7 +25,11 @@ import com.corporation8793.medicinal_herb.dto.EventItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.User
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
@@ -100,55 +104,59 @@ class EventDetailFragment : Fragment() {
         event_list.addItemDecoration(divider)
         Log.e("id",arguments?.getString("id","147").toString())
 
-        val one_posting : Call<List<Comment>> = RestClient.boardService.retrieveAllComment(arguments?.getString("id","147").toString())
+//        val one_posting : Call<List<Comment>> = RestClient.boardService.retrieveAllComment(arguments?.getString("id","147").toString())
 
-        one_posting.enqueue(object : Callback<List<Comment>> {
-            override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
-                val check : List<Comment>? = response.body()
-                var repo =""
-                comment_count.text = "댓글 "+check!!.size
-                var content = comment_count.text.toString()
-                val spannableString : SpannableString = SpannableString(content)
-                var start = 2
+        GlobalScope.launch(Dispatchers.Default) {
 
-                val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
-
-                spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                comment_count.text = spannableString
-                datas.apply {
-
-                    check?.forEach{ it->
-                        repo += "$it\n-----------------------"
-                        if(true){
-                            comment_list["id"] = arrayOf(1,count)
-                            add(CommentItem(0,it.author_name,it.content.rendered,it.date,0))
-                            count += 1
-                        }else{
-                            var index = 0;
-                            for(i in 0..comment_list["id"]!!.get(1)){
-                                index += comment_list["id"]!!.get(0)
-                            }
-
-                            comment_list["id"]!![0] = comment_list["id"]!![0] +1
-                            add(index,CommentItem(0,it.author_name,it.content.rendered,it.date,1))
-                        }
+//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+            val check: List<Comment>? = RestClient.boardService.retrieveAllComment(arguments?.getString("id","147").toString()).execute().body()!!
+            Log.e("check", check!!.size.toString())
+            var repo =""
 
 
-                    }
+            datas.apply {
+                check.forEach {
+//                    var response = it.featured_media
+                    Log.e("it.author",it.author)
+                    val check: User? =  RestClient.boardService.retrieveUser(it.author).execute().body()
+                    Log.e("check id",check!!.id)
+                    Log.e("check name",check!!.name)
+                    Log.e("check url",check!!.url)
+                    Log.e("check",check!!.description)
+                    var img = check!!.url
+                    if(img.trim().equals(""))
+                        img = "0"
 
-                    commentAdapter.datas = datas
+
+
+                    Log.e("id", it.id)
+                    Log.e("id", it.content.rendered)
+//                        Log.e("response", response.guid.rendered)
+
+                    add(CommentItem("0",it.author_name,it.content.rendered,it.date,0))
+
+
+                }
+                commentAdapter.datas = datas
+                GlobalScope.launch(Dispatchers.Main) {    // 2
                     commentAdapter.notifyDataSetChanged()
+                    comment_count.text = "댓글 "+check!!.size
+                    var content = comment_count.text.toString()
+                    val spannableString : SpannableString = SpannableString(content)
+                    var start = 2
+
+                    val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
+
+                    spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    comment_count.text = spannableString
                 }
 
 
             }
 
-            override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
 
-        })
+        }
 
 
 

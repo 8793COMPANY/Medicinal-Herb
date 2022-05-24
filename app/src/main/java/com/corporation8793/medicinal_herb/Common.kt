@@ -3,6 +3,7 @@ package com.corporation8793.medicinal_herb
 import android.app.Application
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
 import android.util.Log
 import android.view.Window
@@ -10,6 +11,15 @@ import android.view.WindowManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
+import android.widget.Toast
+import com.corporation8793.medicinal_herb.activity.LoginActivity
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.Credentials
 
 class Common {
     fun replaceText(text : String) : String{
@@ -30,7 +40,7 @@ class Common {
 
     }
 
-    public fun showAccessTerms(context : Context) {
+     fun showAccessTerms(context : Context) {
         val dialog = Dialog(context)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)
@@ -64,6 +74,33 @@ class Common {
 //
         dialog.window?.attributes = mLayoutParams
     }
+
+//    fun updateUser() {
+//        val testId = MySharedPreferences(this).getString("id","hello")
+//        val testPw = MySharedPreferences(this).getString("pw","1234")
+//        val basicAuth = Credentials.basic(testId, testPw)
+//        val boardRepository = BoardRepository(basicAuth)
+//
+//
+//        println("====== UsersRU             ======")
+//        println("------ isValid             ------")
+//        try {
+//            val isValid = boardRepository.validationUser()
+//
+//            println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
+//            println("retrieve Status : ${isValid.first}\n")
+//            println("retrieve url : ${isValid.second?.url}\n")
+////            if(img_uri != null)
+////                boardRepository.updateUser(isValid.second?.id,,introduction.text.toString())
+//
+//
+//        } catch (e: Exception) {
+//            Log.e("e", e.toString())
+//
+//            Log.e("e", e.message.toString())
+//        }
+//    }
+
 
 
 }

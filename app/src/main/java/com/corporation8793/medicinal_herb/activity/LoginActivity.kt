@@ -84,7 +84,8 @@ class LoginActivity : AppCompatActivity() {
                     prefs.setString("id",testId)
                     prefs.setString("pw",testPw)
                     prefs.setString("img",isValid.second?.url.toString())
-                    prefs.setString("introdution",retrieveUser.second?.description.toString())
+                    prefs.setString("introdution",isValid.second?.description.toString())
+                    Log.e("description",isValid.second?.description.toString())
                     val intent = Intent(this@LoginActivity, MainActivity2::class.java)
                     startActivity(intent)
                 }

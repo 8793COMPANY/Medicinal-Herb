@@ -76,7 +76,8 @@
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:launchMode="singleTask">
 
         </activity>
         <activity

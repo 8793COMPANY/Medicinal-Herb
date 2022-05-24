@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.activity.LoginActivity
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
 import kotlinx.coroutines.Dispatchers
@@ -105,9 +107,9 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    fun updateUser(id : String, pw : String) {
-        val testId = id
-        val testPw = pw
+    fun updateUser() {
+        val testId = MySharedPreferences(this).getString("id","hello")
+        val testPw = MySharedPreferences(this).getString("pw","1234")
         val basicAuth = Credentials.basic(testId, testPw)
         val boardRepository = BoardRepository(basicAuth)
 
@@ -120,8 +122,8 @@ class ProfileActivity : AppCompatActivity() {
             println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
             println("retrieve Status : ${isValid.first}\n")
             println("retrieve url : ${isValid.second?.url}\n")
-
-//            boardRepository.updateUser(isValid.second?.id,)
+//            if(img_uri != null)
+//                boardRepository.updateUser(isValid.second?.id,,introduction.text.toString())
 
 
         } catch (e: Exception) {
@@ -164,6 +166,8 @@ class ProfileActivity : AppCompatActivity() {
 //                    Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     GlobalScope.launch(Dispatchers.Main) {
                         finish()
+                        val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
+                        startActivity(intent)
                     }
                 }
                 "error"->{
@@ -216,6 +220,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
             var id = boardRepository.validationUser().second?.id
+            Log.e("introduction",introduction.text.toString())
             boardRepository.updateUser(id,responseMedia.second?.guid?.rendered,introduction.text.toString())
         }catch (e: Exception){
             Log.e("e",e.toString())

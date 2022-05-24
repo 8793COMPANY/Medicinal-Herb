@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.dto.CommentItem
@@ -72,10 +73,10 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
 
         fun bind(item: CommentItem) {
             date.text = item.date.replace("T"," ").replace("-",".")
-            if (item.img == 0)
+            if (item.img.equals("0"))
                 eventImg.setBackgroundResource(R.drawable.herb_basic_qna_icon)
             else
-                eventImg.setBackgroundResource(R.drawable.green_box)
+                Glide.with(context!!).load(item.img).into(eventImg)
 
             comment_user_name.text = item.user_name
             comment_text.text =  Common().replaceText(item.comment)
@@ -96,10 +97,10 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
 
         fun bind(item: CommentItem) {
             date.text = item.date.replace("T"," ").replace("-",".")
-            if (item.img == 0)
+            if (item.img.equals("0"))
                 eventImg.setBackgroundResource(R.drawable.herb_basic_qna_icon)
             else
-                eventImg.setBackgroundResource(R.drawable.green_box)
+                Glide.with(context!!).load(item.img).into(eventImg)
 
             comment_user_name.text = item.user_name
             comment_text.text = Common().replaceText(item.comment)

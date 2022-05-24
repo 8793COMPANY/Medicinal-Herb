@@ -82,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                     prefs.setString("user_name",isValid.second?.name.toString())
                     prefs.setString("id",testId)
+                    prefs.setString("user_id",isValid.second?.id.toString())
                     prefs.setString("pw",testPw)
                     prefs.setString("img",isValid.second?.url.toString())
                     prefs.setString("introdution",isValid.second?.description.toString())

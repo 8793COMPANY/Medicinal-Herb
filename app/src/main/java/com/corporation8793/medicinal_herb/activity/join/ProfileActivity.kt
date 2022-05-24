@@ -21,6 +21,8 @@ import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.LoginActivity
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.User
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
 import kotlinx.coroutines.Dispatchers
@@ -39,6 +41,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var introduction : EditText
     lateinit var img_uri : Uri
     lateinit var type : String
+     var img_check = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,13 +90,15 @@ class ProfileActivity : AppCompatActivity() {
         save_btn.setOnClickListener { v: View? ->
 
             if(type.equals("join")) {
+                Log.e("in!","join")
                 GlobalScope.launch(Dispatchers.Default) {
                     signUp()
                 }
             }else{
-//                GlobalScope.launch(Dispatchers.Default) {
-//                    updateUser()
-//                }
+                Log.e("in!","edit")
+                GlobalScope.launch(Dispatchers.Default) {
+                    updateUser()
+                }
             }
 
 
@@ -117,13 +122,21 @@ class ProfileActivity : AppCompatActivity() {
         println("====== UsersRU             ======")
         println("------ isValid             ------")
         try {
-            val isValid = boardRepository.validationUser()
 
-            println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
-            println("retrieve Status : ${isValid.first}\n")
-            println("retrieve url : ${isValid.second?.url}\n")
-//            if(img_uri != null)
-//                boardRepository.updateUser(isValid.second?.id,,introduction.text.toString())
+            if(img_check) {
+                uploadProfile(MySharedPreferences(this).getString("id", "hello"), MySharedPreferences(this).getString("pw", "1234"))
+                Log.e("uri","0")
+            }else {
+                boardRepository.updateUser(MySharedPreferences(this).getString("user_id", "1"), MySharedPreferences(this).getString("img", "1"), introduction.text.toString())
+                Log.e("uri","x")
+                MySharedPreferences(this).setString("introdution",introduction.text.toString())
+            }
+
+            GlobalScope.launch(Dispatchers.Main) {
+                finish()
+
+            }
+
 
 
         } catch (e: Exception) {
@@ -161,7 +174,9 @@ class ProfileActivity : AppCompatActivity() {
                 "ok" -> {
                     if(user_img.drawable != null) {
                         Log.e("img", "not null")
-                        uploadProfile()
+                        //            val testId = intent.getStringExtra("id")!!
+//            val testPw = intent.getStringExtra("pw")!!
+                        uploadProfile(intent.getStringExtra("id")!!,intent.getStringExtra("pw")!!)
                     }
 //                    Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     GlobalScope.launch(Dispatchers.Main) {
@@ -194,25 +209,19 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
-    fun uploadProfile(){
+    fun uploadProfile(id : String, pw : String){
         try {
-            val testId = intent.getStringExtra("id")!!
-            val testPw = intent.getStringExtra("pw")!!
+            val testId = id
+            val testPw = pw
+
             val basicAuth = Credentials.basic(testId, testPw)
             val boardRepository = BoardRepository(basicAuth)
 
-
-
-
-//            Log.e("file path",img_uri.toFile().path)
-//            Log.e("file path",img_uri.path.toString())
-//            var path = img_uri.path.toString()
-//            val file = File(path)
             val file = File(getPath(img_uri))
 
-//            val file =
+
             val responseMedia = boardRepository.uploadMedia(file!!)
-//
+
             println("response Media URL : ${responseMedia.first}")
             println("response Media URL : ${responseMedia.second?.guid?.rendered}")
             println("response Media ID : ${responseMedia.second?.id}")
@@ -222,6 +231,8 @@ class ProfileActivity : AppCompatActivity() {
             var id = boardRepository.validationUser().second?.id
             Log.e("introduction",introduction.text.toString())
             boardRepository.updateUser(id,responseMedia.second?.guid?.rendered,introduction.text.toString())
+            MySharedPreferences(this).setString("img",responseMedia.second?.guid?.rendered.toString())
+            MySharedPreferences(this).setString("introdution",introduction.text.toString())
         }catch (e: Exception){
             Log.e("e",e.toString())
         }
@@ -316,6 +327,7 @@ class ProfileActivity : AppCompatActivity() {
                     data?.data?.let { uri ->
                         img_uri = uri
                         user_img.setImageURI(uri)
+                        img_check = true
                     }
                 }
             }

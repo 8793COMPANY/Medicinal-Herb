@@ -25,6 +25,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.R
@@ -101,59 +102,60 @@ class ChitchatDetailActivity : AppCompatActivity() {
         val lm = LinearLayoutManager(this)
         binding.commentList.layoutManager = lm
 
+        commentSetting()
 
-        GlobalScope.launch(Dispatchers.Default) {
-
-//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
-            val check: List<Comment>? = RestClient.boardService.retrieveAllComment(intent.getStringExtra("id")!!).execute().body()!!
-            Log.e("check", check!!.size.toString())
-            var repo =""
-
-
-            datas.apply {
-                check.forEach {
-//                    var response = it.featured_media
-                    Log.e("it.author",it.author)
-                    val check: User? =  RestClient.boardService.retrieveUser("1").execute().body()
-                    Log.e("check id",check!!.id)
-                    Log.e("check name",check!!.name)
-                    Log.e("check url",check!!.url)
-                    Log.e("check",check!!.description)
-                    var img = check!!.url
-                    if(img.trim().equals(""))
-                        img = "0"
-
-
-
-
-                    Log.e("id", it.id)
-                    Log.e("id", it.content.rendered)
-//                        Log.e("response", response.guid.rendered)
-
-                    add(CommentItem(img,it.author_name,it.content.rendered,it.date,0))
-
-
-                }
-                commentAdapter.datas = datas
-                GlobalScope.launch(Dispatchers.Main) {    // 2
-                    commentAdapter.notifyDataSetChanged()
-                    binding.commentCount.text = "댓글 "+check!!.size
-                    var content = binding.commentCount.text.toString()
-                    val spannableString : SpannableString = SpannableString(content)
-                    var start = 2
-
-                    val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
-
-                    spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                    binding.commentCount.text = spannableString
-                }
-
-
-            }
-
-
-        }
+//        GlobalScope.launch(Dispatchers.Default) {
+//
+////            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+//            val check: List<Comment>? = RestClient.boardService.retrieveAllComment(intent.getStringExtra("id")!!).execute().body()!!
+//            Log.e("check", check!!.size.toString())
+//            var repo =""
+//
+//
+//            datas.apply {
+//                check.forEach {
+////                    var response = it.featured_media
+//                    Log.e("it.author",it.author)
+//                    val check: User? =  RestClient.boardService.retrieveUser("1").execute().body()
+//                    Log.e("check id",check!!.id)
+//                    Log.e("check name",check!!.name)
+//                    Log.e("check url",check!!.url)
+//                    Log.e("check",check!!.description)
+//                    var img = check!!.url
+//                    if(img.trim().equals(""))
+//                        img = "0"
+//
+//
+//
+//
+//                    Log.e("id", it.id)
+//                    Log.e("id", it.content.rendered)
+////                        Log.e("response", response.guid.rendered)
+//
+//                    add(CommentItem(img,it.author_name,it.content.rendered,it.date,0))
+//
+//
+//                }
+//                commentAdapter.datas = datas
+//                GlobalScope.launch(Dispatchers.Main) {    // 2
+//                    commentAdapter.notifyDataSetChanged()
+//                    binding.commentCount.text = "댓글 "+check!!.size
+//                    var content = binding.commentCount.text.toString()
+//                    val spannableString : SpannableString = SpannableString(content)
+//                    var start = 2
+//
+//                    val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
+//
+//                    spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+//
+//                    binding.commentCount.text = spannableString
+//                }
+//
+//
+//            }
+//
+//
+//        }
 
 
 //        val one_posting : Call<List<Comment>> = RestClient.boardService.retrieveAllComment(intent.getStringExtra("id").toString())
@@ -224,6 +226,13 @@ class ChitchatDetailActivity : AppCompatActivity() {
 
     }
 
+    fun commentSetting(){
+        GlobalScope.launch(Dispatchers.Default) {
+            Common().dataSetting(applicationContext,intent.getStringExtra("id")!!,datas,commentAdapter,binding.commentCount)
+        }
+
+    }
+
 
 
     fun createComment(id : String, parent : String, comment : String) {
@@ -243,6 +252,10 @@ class ChitchatDetailActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("e", e.toString())
                 Log.e("e", e.message.toString())
+            }
+
+            GlobalScope.launch(Dispatchers.Main) {
+                commentSetting()
             }
 
 

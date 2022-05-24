@@ -26,12 +26,12 @@ class CommentAdapter (private val context: Context?, val height : Int) : Recycle
         return when(viewType){
             0->{
                 view = LayoutInflater.from(context).inflate(R.layout.comment_list_itemview,parent,false)
-                view!!.layoutParams.height = height
+//                view!!.layoutParams.height = height
                 CommentViewHolder(view)
             }
             else->{
                 view = LayoutInflater.from(context).inflate(R.layout.reply_list_itemview,parent,false)
-                view!!.layoutParams.height = height
+//                view!!.layoutParams.height = height
                 ReplyViewHolder(view)
             }
 

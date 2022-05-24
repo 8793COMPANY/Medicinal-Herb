@@ -54,9 +54,13 @@ class QnaActivity : AppCompatActivity() {
         init()
         prefs = MySharedPreferences(applicationContext)
         binding.qnaRegistrationBtn.setOnClickListener {
-            createPost(binding.photoRegistrationText.text.toString())
-            showDialog(R.layout.dialog_posting_check,0.6f,0.3f)
-            Log.e("qna","click")
+            if (!binding.contentInputBox.text.toString().trim().equals("")) {
+                createPost(binding.contentInputBox.text.toString())
+                showDialog(R.layout.dialog_posting_check, 0.6f, 0.3f)
+                Log.e("qna", "click")
+            }else{
+                Toast.makeText(applicationContext,"글을 입력해주세요!",Toast.LENGTH_SHORT).show()
+            }
         }
 
 //        binding.photoRegistration.setOnClickListener {
@@ -78,8 +82,6 @@ class QnaActivity : AppCompatActivity() {
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
-            var intent : Intent = Intent(this, MainActivity2::class.java)
-            startActivity(intent)
         }
         binding.photoRegistration.clipToOutline = true
 
@@ -115,23 +117,29 @@ class QnaActivity : AppCompatActivity() {
             // test image (Lenna.png)
             var responseMediaId = "0"
             if (binding.photoRegistration.drawable != null) {
-                val file = File(getPath(img_uri))
-                val responseMedia = boardRepository.uploadMedia(file)
-                responseMediaId = responseMedia.second?.id!!
-                println("response Media URL : ${responseMedia.second?.guid?.rendered}")
-                println("response Media ID : ${responseMedia.second?.id}")
-                htmlContent += "<p><img src=\"${responseMedia.second?.guid?.rendered}\"></p>"
+                if (img_uri != null) {
+                    val file = File(getPath(img_uri))
+                    val responseMedia = boardRepository.uploadMedia(file)
+                    responseMediaId = responseMedia.second?.id!!
+                    println("response Media URL : ${responseMedia.second?.guid?.rendered}")
+                    println("response Media ID : ${responseMedia.second?.id}")
+                    htmlContent += "<p><img src=\"${responseMedia.second?.guid?.rendered}\"></p>"
+                }else{
+                    binding.photoRegistration.drawable
+                }
             }
 
 
 
 //        println("------ Create              ------")
             var responseCode = boardRepository.createPost(
-                    title = "CreatePostWithMedia",
+                    title = content,
                     content = content,
                     categories = category,
                     featured_media = responseMediaId
             )
+
+
 
             println("response Code : $responseCode\n")
 
@@ -154,7 +162,7 @@ class QnaActivity : AppCompatActivity() {
 //
         if (layout == R.layout.dialog_posting_check){
             dialog.findViewById<Button>(R.id.ok_btn).setOnClickListener{
-               dialog.dismiss()
+                dialog.dismiss()
                 finish()
             }
         }else{
@@ -223,7 +231,7 @@ class QnaActivity : AppCompatActivity() {
 
 
 
-        override fun onRequestPermissionsResult(
+    override fun onRequestPermissionsResult(
             requestCode: Int,
             permissions: Array<out String>,
             grantResults: IntArray
@@ -285,6 +293,7 @@ class QnaActivity : AppCompatActivity() {
                         binding.photoRegistrationIcon.visibility = View.INVISIBLE
                         binding.photoRegistrationText.visibility = View.INVISIBLE
                     }
+                    Log.e("check data",data!!.extras!!.get("data").toString())
                     val imageBitmap = data!!.extras!!.get("data") as Bitmap
                     binding.photoRegistration.setImageBitmap(imageBitmap)
                 }
@@ -304,3 +313,5 @@ class QnaActivity : AppCompatActivity() {
 
 
 }
+
+

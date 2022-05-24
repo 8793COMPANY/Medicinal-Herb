@@ -3,12 +3,16 @@ package com.corporation8793.medicinal_herb.activity.main;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.corporation8793.medicinal_herb.Common;
 import com.corporation8793.medicinal_herb.MySharedPreferences;
 import com.corporation8793.medicinal_herb.R;
@@ -53,9 +57,21 @@ public class MainActivity2 extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+
+
         MySharedPreferences preferences = new MySharedPreferences(this);
         Common common = new Common();
 
+
+        View header = navigationView.getHeaderView(0);
+
+        // header에 있는 리소스 가져오기
+        TextView text = (TextView) header.findViewById(R.id.user_name);
+        text.setText(preferences.getString("user_name","산야초"));
+
+        ImageView img = header.findViewById(R.id.user_img);
+        if (!preferences.getString("img","0").equals("0"))
+            Glide.with(this).load(preferences.getString("img","0")).into(img);
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();

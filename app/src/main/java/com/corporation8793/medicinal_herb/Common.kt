@@ -5,15 +5,24 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.corporation8793.medicinal_herb.activity.LoginActivity
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
+import com.corporation8793.medicinal_herb.adapter.CommentAdapter
+import com.corporation8793.medicinal_herb.dto.CommentItem
+import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
+import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.User
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
 import kotlinx.coroutines.Dispatchers
@@ -100,6 +109,114 @@ class Common {
 //            Log.e("e", e.message.toString())
 //        }
 //    }
+
+    fun commentCountSetting(context : Context, count_text : TextView, count: Int){
+        GlobalScope.launch(Dispatchers.Default) {
+
+            GlobalScope.launch(Dispatchers.Main) {
+                count_text.text = "댓글 " + count
+                var content = count_text.text.toString()
+                val spannableString: SpannableString = SpannableString(content)
+                var start = 2
+
+                val colorGreenSpan = ForegroundColorSpan(context.resources.getColor(R.color.green))
+
+                spannableString.setSpan(colorGreenSpan, start, content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                count_text.text = spannableString
+            }
+        }
+    }
+
+    fun dataSetting(context: Context, postId : String, datas : MutableList<CommentItem>, adapter:CommentAdapter, commentCount : TextView) {
+        val testId = MySharedPreferences(context).getString("id","hello")
+        val testPw = MySharedPreferences(context).getString("pw","1234")
+        val basicAuth = Credentials.basic(testId, testPw)
+        val boardRepository = BoardRepository(basicAuth)
+
+
+        println("====== UsersRU             ======")
+        println("------ isValid             ------")
+
+        val isValid = boardRepository.validationUser()
+
+
+//            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+        val comment: List<Comment>? = boardRepository.retrieveAllComment(postId,false).second
+        Log.e("check", comment!!.size.toString())
+        var repo =""
+
+        commentCountSetting(context,commentCount,boardRepository.retrieveAllComment(postId,true)!!.second!!.size)
+
+        datas.apply {
+            comment.forEach {
+//                    var response = it.featured_media
+                Log.e("comment author",it.author)
+                Log.e("comment post",it.content.rendered)
+
+                val user: User? =  RestClient.boardService.retrieveUser(it.author).execute().body()
+                var img = "0"
+                if (user?.id != null) {
+                    Log.e("check id", user!!.id)
+                    Log.e("check name", user!!.name)
+                    Log.e("check url", user!!.url)
+                    Log.e("check", user!!.description)
+                    img = user!!.url
+                }
+                if(img.trim().equals(""))
+                    img = "0"
+
+                add(CommentItem(img,it.author_name,it.content.rendered,it.date,0))
+
+                val reply: List<Comment>? = boardRepository.retrieveAllReply(it.id).second
+
+                reply!!.forEach {
+                    var reply_user_img ="0"
+                    val user: User? =  RestClient.boardService.retrieveUser(it.author).execute().body()
+                    var img = "0"
+                    if (user?.id != null) {
+                        Log.e("check id", user!!.id)
+                        Log.e("check name", user!!.name)
+                        Log.e("check url", user!!.url)
+                        Log.e("check", user!!.description)
+                        reply_user_img = user!!.url
+                    }
+                    if(reply_user_img.trim().equals(""))
+                        reply_user_img = "0"
+
+                    Log.e("reply post",it.content.rendered)
+                    add(CommentItem(reply_user_img,it.author_name,it.content.rendered,it.date,1))
+                }
+
+
+
+
+
+
+                Log.e("id", it.id)
+                Log.e("id", it.content.rendered)
+//                        Log.e("response", response.guid.rendered)
+
+//                    add(CommentItem("0",it.author_name,it.content.rendered,it.date,0))
+
+
+            }
+            adapter.datas = datas
+            GlobalScope.launch(Dispatchers.Main) {    // 2
+                adapter.notifyDataSetChanged()
+
+            }
+
+
+
+
+
+        }
+
+
+
+    }
+
 
 
 

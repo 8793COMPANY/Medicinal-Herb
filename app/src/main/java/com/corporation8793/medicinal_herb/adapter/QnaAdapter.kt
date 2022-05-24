@@ -15,6 +15,7 @@ import com.corporation8793.medicinal_herb.activity.main.ChitchatDetailActivity
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.dto.QnaItem
+import org.w3c.dom.Text
 
 class QnaAdapter (private val context: Context, val height : Int) : RecyclerView.Adapter<QnaAdapter.ViewHolder>() {
     var datas = mutableListOf<QnaItem>()
@@ -35,10 +36,12 @@ class QnaAdapter (private val context: Context, val height : Int) : RecyclerView
 
         private val imgProfile: ImageView = itemView.findViewById(R.id.herb_qna_img)
         private val txtName: TextView = itemView.findViewById(R.id.herb_qna_text)
+        private val herb_qna_comment_count : TextView = itemView.findViewById(R.id.herb_qna_comment_count)
 
 
         fun bind(item: QnaItem) {
-            txtName.text = Common().replaceText(item.question)+"\n댓글:"+item.comment+"개"
+            txtName.text = Common().replaceText(item.question)
+            herb_qna_comment_count.text = "댓글:"+item.comment+"개"
 //            Glide.with(itemView).load(item.img).into(imgProfile)
 
             itemView.setOnClickListener{

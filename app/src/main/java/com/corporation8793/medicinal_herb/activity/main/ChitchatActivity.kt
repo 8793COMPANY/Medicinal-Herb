@@ -113,12 +113,17 @@ class ChitchatActivity : AppCompatActivity() {
                     if (it.featured_media !="0"){
                         response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
-
+                    var comment_count = RestClient.boardService.retrieveAllComment(it.id).execute().body()!!.size
                     Log.e("id", it.id)
-                    Log.e("id", it.title.rendered)
+                    Log.e("title", it.title.rendered)
+                    Log.e("author", it.author)
+                    Log.e("media", it.featured_media)
+                    Log.e("content", it.content.rendered)
+                    Log.e("excerpt", it.excerpt.rendered)
+                    Log.e("--------------","-------------")
 //                        Log.e("response", response.guid.rendered)
 
-                    add(QnaItem(it.id,response,Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),"3"))
+                    add(QnaItem(it.id,response,Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),comment_count.toString()))
 
 
                 }
@@ -176,11 +181,12 @@ class ChitchatActivity : AppCompatActivity() {
                     if (it.featured_media !="0"){
                         response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
+                    var comment_count = RestClient.boardService.retrieveAllComment(it.id).execute().body()!!.size
                     Log.e("id", it.id)
                     Log.e("title", it.content.rendered)
 //                        Log.e("response", response.guid.rendered)
 
-                    add(QnaItem(it.id,response,Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),"3"))
+                    add(QnaItem(it.id,response,Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),comment_count.toString()))
 
 
                 }

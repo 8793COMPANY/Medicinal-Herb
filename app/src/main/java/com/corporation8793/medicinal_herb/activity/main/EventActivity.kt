@@ -1,13 +1,15 @@
 package com.corporation8793.medicinal_herb.activity.main
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.databinding.ActivityEventBinding
 import com.corporation8793.medicinal_herb.dto.ActionBar
 import com.corporation8793.medicinal_herb.fragment.EventListFragment
+
 
 class EventActivity : AppCompatActivity() {
     lateinit var binding : ActivityEventBinding
@@ -32,7 +34,10 @@ class EventActivity : AppCompatActivity() {
     fun replaceFragment() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragment_container, EventListFragment())
-        transaction.commit()
+        transaction.addToBackStack(null).commit()
     }
+
+
+
 
 }

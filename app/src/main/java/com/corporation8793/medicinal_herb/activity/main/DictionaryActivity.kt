@@ -15,6 +15,9 @@ import com.corporation8793.medicinal_herb.databinding.ActivityDictionaryBinding
 import com.corporation8793.medicinal_herb.dto.HerbItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import kotlinx.coroutines.*
+import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +38,7 @@ class DictionaryActivity : AppCompatActivity() {
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
+//            herbAdapter.notifyDataSetChanged()
         }
 
         val display : DisplayMetrics = DisplayMetrics()
@@ -48,40 +52,86 @@ class DictionaryActivity : AppCompatActivity() {
         binding.herbList.layoutManager = lm
 
         binding.herbList.addItemDecoration(HerbDecoration(10))
+        var start = true
 
-        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc",RestClient.CATEGORY_DICTIONARY)
 
-        posting.enqueue(object : Callback<List<Post>>{
-            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
-                val check : List<Post>? = response.body()
-                var repo =""
 
+
+
+            GlobalScope.launch(Dispatchers.Default) {
+
+                val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", RestClient.CATEGORY_DICTIONARY).execute().body()
+                Log.e("check", check!!.size.toString())
                 datas.apply {
-                    check?.forEach{ it->
-                        if(! it.title.rendered.equals("약초사전")) {
-
-                            add(HerbItem(it.id, R.drawable.intro1, it.title.rendered))
-                            Log.e("check",it.id)
-
-
+                    check.forEach {
+                        if (it.featured_media != "0") {
+                            val response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!
+                            Log.e("id", it.id)
+                            Log.e("id", it.title.rendered)
+                            Log.e("response", response.guid.rendered)
+                            add(HerbItem(it.id, response.guid.rendered, it.title.rendered))
                         }
-                        Log.e("it","$it\n")
-
+                    }
+                    herbAdapter.datas = datas
+                    GlobalScope.launch(Dispatchers.Main) {    // 2
+                       herbAdapter.notifyDataSetChanged()
                     }
 
-                    herbAdapter.datas = datas
-                    herbAdapter.notifyDataSetChanged()
+
                 }
 
-//                Log.e("herb 설명 : ",repo)
 
             }
 
-            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
 
-        })
+
+
+
+
+
+//        val posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc",RestClient.CATEGORY_DICTIONARY)
+//
+//        posting.enqueue(object : Callback<List<Post>>{
+//            override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
+//                val check : List<Post>? = response.body()
+//                var repo =""
+//
+//                datas.apply {
+//                    check?.forEach{ it->
+//                        if(! it.title.rendered.equals("약초사전")) {
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//                            Log.e("check",it.id)
+//
+//
+//                        }
+//                        Log.e("it","$it\n")
+//
+//                    }
+//
+//                    herbAdapter.datas = datas
+//                    herbAdapter.notifyDataSetChanged()
+//
+//
+//                }
+//
+//
+////                Log.e("herb 설명 : ",repo)
+//
+//            }
+//
+//            override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
 
 
 
@@ -101,5 +151,9 @@ class DictionaryActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 }

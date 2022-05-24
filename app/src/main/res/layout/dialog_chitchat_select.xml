@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:weightSum="450"
     android:orientation="vertical"
-    android:background="@drawable/stroke_corner_round_background">
+    android:background="@drawable/round_shape_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/qna_area"
@@ -14,11 +14,27 @@
         android:layout_weight="160"
         >
         <ImageView
+            android:id="@+id/cancel_btn"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/dialog_cancel_btn"
             app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintWidth_percent="0.09"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/qna_divider"
+            app:layout_constraintRight_toRightOf="@+id/qna_divider"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintVertical_bias="0.18"></ImageView>
+
+        <ImageView
+            android:id="@+id/qna_icon"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="6:5"
             android:background="@drawable/dialog_qna_icon"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.6"
             app:layout_constraintWidth_percent="0.12"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -33,6 +49,7 @@
             android:text="묻고 답하기"
             android:textColor="@color/black"
             android:gravity="center"
+            app:layout_constraintVertical_bias="0.6"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,6 +71,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/free_board_area"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="130">
@@ -61,8 +79,8 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:background="@drawable/dialog_qna_icon"
+            app:layout_constraintDimensionRatio="6:5"
+            android:background="@drawable/dialog_free_board_icon"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintWidth_percent="0.12"
             app:layout_constraintTop_toTopOf="parent"
@@ -107,9 +125,10 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            android:background="@drawable/dialog_qna_icon"
+            app:layout_constraintDimensionRatio="6:5"
+            android:background="@drawable/dialog_shopping_icon"
             app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintWidth_percent="0.12"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -124,6 +143,7 @@
             android:text="구매문의"
             android:textColor="@color/black"
             android:gravity="center"
+            app:layout_constraintVertical_bias="0.4"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -5,4 +5,5 @@ data class CommentItem(
        val user_name : String,
        val comment : String,
        val date : String,
+       val type : Int,
 )

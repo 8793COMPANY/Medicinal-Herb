@@ -1,5 +1,6 @@
 package com.corporation8793.medicinal_herb.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
@@ -40,6 +42,7 @@ class EventListFragment : Fragment() {
     val datas = mutableListOf<EventItem>()
     lateinit var divider : EventDecoration
 
+    private lateinit var callback: OnBackPressedCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -115,7 +118,7 @@ class EventListFragment : Fragment() {
 //                        Log.e("length",it.acf.toString())
 //                        Log.e("check",it.acf.get(0).announcement_date)
                         if (it.acf.announcement_date !=null) {
-                            add(EventItem(it.id, 0, it.acf.announcement_date))
+                            add(EventItem(it.id, "0", it.acf.announcement_date))
 
                         }
                         Log.e("it", "$it\n")
@@ -154,4 +157,21 @@ class EventListFragment : Fragment() {
                     }
                 }
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity!!.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
+    }
+
+
 }

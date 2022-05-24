@@ -63,6 +63,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="20dp"
+        android:digits="0123456789_qwertzuiopasdfghjklyxcvbnm!"
         app:layout_constraintTop_toBottomOf="@+id/id_section"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/guideline_left"
@@ -70,6 +71,7 @@
         app:layout_constraintHeight_percent="0.06"
         app:layout_constraintVertical_bias="0.01"
         android:hint="이메일 아이디를 입력해주세요."
+        android:textColor="@color/black"
         android:backgroundTint="@color/gray"
         android:textColorHint="@color/gray"></EditText>
 
@@ -101,6 +103,7 @@
         app:layout_constraintHeight_percent="0.06"
         app:layout_constraintVertical_bias="0.01"
         android:hint="비밀번호를 입력해주세요."
+        android:textColor="@color/black"
         android:backgroundTint="@color/gray"
         android:textColorHint="@color/gray"></EditText>
 
@@ -116,6 +119,7 @@
         app:layout_constraintVertical_bias="0.03"
         app:layout_constraintHeight_percent="0.06"
         android:hint="비밀번호를 한 번 더 입력해주세요"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:backgroundTint="@color/gray"
         android:textColorHint="@color/gray"></EditText>
@@ -149,12 +153,14 @@
             app:layout_constraintHorizontal_bias="0.3"></TextView>
 
         <CheckBox
+            android:id="@+id/access_term_check"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/custom_checkbox"
+            android:background="@drawable/checkbox_click_selector"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintWidth_percent="0.07"
             app:layout_constraintTop_toTopOf="parent"
+            android:button="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/access_term_text"
             app:layout_constraintRight_toRightOf="parent"
@@ -165,7 +171,8 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
+        android:id="@+id/next_btn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/green_box"
@@ -184,7 +191,7 @@
             android:textColor="@color/white"
             android:fontFamily="@font/noto_sans_kr_regular"
             android:gravity="center"></TextView>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 
 

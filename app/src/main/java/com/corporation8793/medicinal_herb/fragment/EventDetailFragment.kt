@@ -1,5 +1,7 @@
 package com.corporation8793.medicinal_herb.fragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
@@ -11,16 +13,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
 import com.corporation8793.medicinal_herb.R
+import com.corporation8793.medicinal_herb.activity.main.MainActivity2
 import com.corporation8793.medicinal_herb.adapter.CommentAdapter
 import com.corporation8793.medicinal_herb.dto.CommentItem
 import com.corporation8793.medicinal_herb.dto.EventItem
 import com.corporation8793.medicinal_herb.herb_wp.rest.RestClient
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Comment
 import com.corporation8793.medicinal_herb.herb_wp.rest.data.board.Post
+import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepository
+import okhttp3.Credentials
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -44,12 +50,20 @@ class EventDetailFragment : Fragment() {
     val datas = mutableListOf<CommentItem>()
     lateinit var divider : EventDecoration
 
+    val comment_list = mutableMapOf<String,Array<Int>>()
+
+    var count = 0
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -92,12 +106,40 @@ class EventDetailFragment : Fragment() {
             override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                 val check : List<Comment>? = response.body()
                 var repo =""
+                comment_count.text = "댓글 "+check!!.size
+                var content = comment_count.text.toString()
+                val spannableString : SpannableString = SpannableString(content)
+                var start = 2
+
+                val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
+
+                spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                comment_count.text = spannableString
+                datas.apply {
 
                     check?.forEach{ it->
+                        repo += "$it\n-----------------------"
+                        if(true){
+                            comment_list["id"] = arrayOf(1,count)
+                            add(CommentItem(0,it.author_name,it.content.rendered,it.date,0))
+                            count += 1
+                        }else{
+                            var index = 0;
+                            for(i in 0..comment_list["id"]!!.get(1)){
+                                index += comment_list["id"]!!.get(0)
+                            }
 
-                        Log.e("it","$it\n")
+                            comment_list["id"]!![0] = comment_list["id"]!![0] +1
+                            add(index,CommentItem(0,it.author_name,it.content.rendered,it.date,1))
+                        }
+
 
                     }
+
+                    commentAdapter.datas = datas
+                    commentAdapter.notifyDataSetChanged()
+                }
 
 
             }
@@ -108,18 +150,14 @@ class EventDetailFragment : Fragment() {
 
         })
 
-        datas.apply {
 
-            add(CommentItem(0, "에밀리","이벤트 참여합니다.","2022.06.30 16:27"))
-
-            commentAdapter.datas = datas
-            commentAdapter.notifyDataSetChanged()
-        }
 
 
 
         return view
     }
+
+
 
     companion object {
         /**
@@ -140,4 +178,6 @@ class EventDetailFragment : Fragment() {
                     }
                 }
     }
+
+
 }

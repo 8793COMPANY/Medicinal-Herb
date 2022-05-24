@@ -1,13 +1,18 @@
 package com.corporation8793.medicinal_herb.activity.main;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
+import com.corporation8793.medicinal_herb.Common;
+import com.corporation8793.medicinal_herb.MySharedPreferences;
 import com.corporation8793.medicinal_herb.R;
+import com.corporation8793.medicinal_herb.activity.join.ProfileActivity;
 import com.corporation8793.medicinal_herb.databinding.ActivityMain2Binding;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -27,6 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
+    float waitTime = 0L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,28 @@ public class MainActivity2 extends AppCompatActivity {
 //        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+
+        MySharedPreferences preferences = new MySharedPreferences(this);
+        Common common = new Common();
+
+
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+
+           if (id == R.id.nav_access_term || id == R.id.nav_personal_data || id == R.id.nav_open_source || id == R.id.nav_app_version){
+               drawer.close();
+               common.showAccessTerms(this);
+           }else{
+               drawer.close();
+               Intent intent = new Intent(MainActivity2.this, ProfileActivity.class);
+               intent.putExtra("type","edit");
+               intent.putExtra("user_name",preferences.getString("user_name","산야초"));
+               startActivity(intent);
+           }
+
+
+            return true;
+        });
 
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -96,5 +124,15 @@ public class MainActivity2 extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(System.currentTimeMillis() - waitTime >=1500 ) {
+            waitTime = System.currentTimeMillis();
+            Toast.makeText(this,"뒤로가기 버튼을 한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+        } else {
+            finish(); // 액티비티 종료
+        }
     }
 }

@@ -2,8 +2,10 @@ package com.corporation8793.medicinal_herb.dto
 
 data class FarmItem(
         val id : String,
-       val img : Int,
-       val farm_name : String,
-       val farm_user_name : String,
-       val introduction : String,
+        var comment_count : Int,
+        val user_img : Int,
+        val farm_img : String,
+        val farm_name : String,
+        val farm_user_name : String,
+        val introduction : String,
 )

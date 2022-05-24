@@ -290,14 +290,34 @@ class BoardRepository(val basicAuth : String) {
      * id([postId])가 일치하는 게시물의 모든 댓글[Comment]을 검색합니다.
      * * 총 댓글수 : [List.size]
      * @author  두동근
-     * @param   postId  게시물 id
+     * @param   postId          게시물 id
+     * @param   includeReply    답글 포함 플래그
      * @return  responseCode (expected : "200"), [List<Comment>]
      * @see     Comment
      * @see     Pair
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#list-comments">List Comments [REST API Reference]</a>
      */
-    fun retrieveAllComment(postId : String) : Pair<String, List<Comment>?> {
+    fun retrieveAllComment(postId : String, includeReply : Boolean) : Pair<String, List<Comment>?> {
         val response = RestClient.boardService.retrieveAllComment(postId).execute()
+
+        return when (includeReply) {
+            true -> Pair(response.code().toString(), response.body())
+            false -> {
+                Pair(response.code().toString(), response.body()?.filter { comment -> comment.parent == "0" })
+            }
+        }
+    }
+    /**
+     * id([commentId])가 일치하는 댓글의 모든 답글[Comment]을 검색합니다.
+     * @author  두동근
+     * @param   commentId   댓글 id
+     * @return  responseCode (expected : "200"), [List<Comment>]
+     * @see     Comment
+     * @see     Pair
+     * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#list-comments">List Comments [REST API Reference]</a>
+     */
+    fun retrieveAllReply(commentId : String) : Pair<String, List<Comment>?> {
+        val response = RestClient.boardService.retrieveAllReply(commentId).execute()
 
         return Pair(response.code().toString(), response.body())
     }

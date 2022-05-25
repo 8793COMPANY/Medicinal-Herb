@@ -70,6 +70,12 @@ class FarmDetailActivity : AppCompatActivity() {
                 Log.e("e", e.message.toString())
             }
 
+            GlobalScope.launch(Dispatchers.Main) {
+                binding.commentInputBox.setText("")
+                commentSetting()
+            }
+
+
 
         }
 
@@ -325,6 +331,7 @@ class FarmDetailActivity : AppCompatActivity() {
 
     fun commentSetting(){
         GlobalScope.launch(Dispatchers.Default) {
+            datas.clear()
             Common().dataSetting(applicationContext,intent.getStringExtra("id")!!,datas,commentAdapter,binding.commentCount)
         }
     }

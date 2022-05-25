@@ -54,6 +54,7 @@ class EventAdapter (private val context: Context?, val height : Int) : RecyclerV
             itemView.setOnClickListener{
                 val bundle : Bundle = Bundle()
                 bundle.putString("id",item.id)
+                bundle.putString("img",item.img)
                 var frag = EventDetailFragment()
                 frag.arguments = bundle
                 (it.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.fragment_container,frag).addToBackStack(null).commit()

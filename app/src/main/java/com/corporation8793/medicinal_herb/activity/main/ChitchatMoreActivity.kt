@@ -44,7 +44,7 @@ class ChitchatMoreActivity : AppCompatActivity() {
 
     val qna_datas = mutableListOf<QnaItem>()
     val free_board_datas = mutableListOf<QnaItem>()
-
+    lateinit var loading_dialog : Dialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +56,8 @@ class ChitchatMoreActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chitchat_more)
         binding.setActionBar(ActionBar(intent.getStringExtra("title"), R.color.deep_green))
         var category = if(intent.getStringExtra("title")!!.equals("묻고 답하기")) RestClient.CATEGORY_QNA else RestClient.CATEGORY_CHITCHAT
+        loading_dialog = Common().showLoadingDialog(this)
+
 
         binding.actionBar.backHome.setOnClickListener {
             finish()
@@ -83,8 +85,6 @@ class ChitchatMoreActivity : AppCompatActivity() {
 
         binding.qnaList.layoutManager = lm
 
-
-
         GlobalScope.launch(Dispatchers.Default) {
 
 //            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
@@ -92,22 +92,28 @@ class ChitchatMoreActivity : AppCompatActivity() {
             Log.e("check", check!!.size.toString())
             qna_datas.apply {
                 check.forEach {
-                    var response = it.featured_media
-                    if (!response.equals("0")){
+                    var response = "0"
+                    if (it.featured_media !="0"){
                         response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
                     }
-
-                        Log.e("id", it.id)
-                        Log.e("id", it.content.rendered)
+                    var comment_count = RestClient.boardService.retrieveAllComment(it.id).execute().body()!!.size
+                    Log.e("id", it.id)
+                    Log.e("title", it.title.rendered)
+                    Log.e("author", it.author)
+                    Log.e("media", it.featured_media)
+                    Log.e("content", it.content.rendered)
+                    Log.e("excerpt", it.excerpt.rendered)
+                    Log.e("--------------","-------------")
 //                        Log.e("response", response.guid.rendered)
 
-                        add(QnaItem(it.id,response, Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),"3"))
+                    add(QnaItem(it.id,response,Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),comment_count.toString()))
 
 
                 }
                 qna_adapter.datas = qna_datas
                 GlobalScope.launch(Dispatchers.Main) {    // 2
                     qna_adapter.notifyDataSetChanged()
+                    loading_dialog.dismiss()
                 }
 
 
@@ -115,6 +121,39 @@ class ChitchatMoreActivity : AppCompatActivity() {
 
 
         }
+
+
+
+//        GlobalScope.launch(Dispatchers.Default) {
+//
+////            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
+//            val check: List<Post>? = RestClient.boardService.retrievePostInCategories("100", "1", "asc", category).execute().body()
+//            Log.e("check", check!!.size.toString())
+//            qna_datas.apply {
+//                check.forEach {
+//                    var response = it.featured_media
+//                    if (!response.equals("0")){
+//                        response = RestClient.boardService.retrieveMedia(it.featured_media).execute().body()!!.guid.rendered
+//                    }
+//
+//                        Log.e("id", it.id)
+//                        Log.e("id", it.content.rendered)
+////                        Log.e("response", response.guid.rendered)
+//
+//                        add(QnaItem(it.id,response, Common().replaceText(it.title.rendered),Common().replaceText(it.content.rendered),"3"))
+//
+//
+//                }
+//                qna_adapter.datas = qna_datas
+//                GlobalScope.launch(Dispatchers.Main) {    // 2
+//                    qna_adapter.notifyDataSetChanged()
+//                }
+//
+//
+//            }
+//
+//
+//        }
 
 
 //        val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)

@@ -1,18 +1,24 @@
 package com.corporation8793.medicinal_herb
 
+import android.animation.Animator
 import android.app.Application
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Point
+import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -27,6 +33,7 @@ import com.corporation8793.medicinal_herb.herb_wp.rest.repository.BoardRepositor
 import com.corporation8793.medicinal_herb.herb_wp.rest.repository.NonceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.Credentials
 
@@ -84,31 +91,35 @@ class Common {
         dialog.window?.attributes = mLayoutParams
     }
 
-//    fun updateUser() {
-//        val testId = MySharedPreferences(this).getString("id","hello")
-//        val testPw = MySharedPreferences(this).getString("pw","1234")
-//        val basicAuth = Credentials.basic(testId, testPw)
-//        val boardRepository = BoardRepository(basicAuth)
+    fun showLoadingDialog(context : Context) : Dialog{
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.getWindow()!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.dialog_loading)
 //
-//
-//        println("====== UsersRU             ======")
-//        println("------ isValid             ------")
-//        try {
-//            val isValid = boardRepository.validationUser()
-//
-//            println("retrieve User 닉네임(ID) : ${isValid.second?.name}(${isValid.second?.id})")
-//            println("retrieve Status : ${isValid.first}\n")
-//            println("retrieve url : ${isValid.second?.url}\n")
-////            if(img_uri != null)
-////                boardRepository.updateUser(isValid.second?.id,,introduction.text.toString())
-//
-//
-//        } catch (e: Exception) {
-//            Log.e("e", e.toString())
-//
-//            Log.e("e", e.message.toString())
-//        }
-//    }
+        dialog.show()
+        var loading_img = dialog.findViewById<ImageView>(R.id.loading_icon)
+
+        val anim = AnimationUtils.loadAnimation(context,R.anim.turn_horizontal)
+
+        loading_img.animation = anim
+
+
+        val display =(context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+        val size = Point()
+        display.getSize(size)
+
+
+        val mLayoutParams = WindowManager.LayoutParams()
+        mLayoutParams.width = (size.x * 0.9f).toInt()
+        mLayoutParams.height = (size.y * 0.9f).toInt()
+
+        dialog.window?.attributes = mLayoutParams
+
+        return dialog
+    }
+
 
     fun commentCountSetting(context : Context, count_text : TextView, count: Int){
         GlobalScope.launch(Dispatchers.Default) {

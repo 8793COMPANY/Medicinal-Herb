@@ -1,6 +1,7 @@
 package com.corporation8793.medicinal_herb.activity.join
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -17,6 +18,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.LoginActivity
@@ -41,7 +43,8 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var introduction : EditText
     lateinit var img_uri : Uri
     lateinit var type : String
-     var img_check = false
+    var img_check = false
+    lateinit var loading_dialog : Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,9 +91,10 @@ class ProfileActivity : AppCompatActivity() {
             }
         }
         save_btn.setOnClickListener { v: View? ->
-
+            loading_dialog = Common().showLoadingDialog(this)
             if(type.equals("join")) {
                 Log.e("in!","join")
+
                 GlobalScope.launch(Dispatchers.Default) {
                     signUp()
                 }
@@ -134,7 +138,7 @@ class ProfileActivity : AppCompatActivity() {
 
             GlobalScope.launch(Dispatchers.Main) {
                 finish()
-
+                loading_dialog.dismiss()
             }
 
 
@@ -143,6 +147,9 @@ class ProfileActivity : AppCompatActivity() {
             Log.e("e", e.toString())
 
             Log.e("e", e.message.toString())
+            GlobalScope.launch(Dispatchers.Main) {
+                loading_dialog.dismiss()
+            }
         }
     }
 
@@ -180,6 +187,7 @@ class ProfileActivity : AppCompatActivity() {
                     }
 //                    Toast.makeText(applicationContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     GlobalScope.launch(Dispatchers.Main) {
+                        loading_dialog.dismiss()
                         finish()
                         val intent = Intent(this@ProfileActivity, LoginActivity::class.java)
                         startActivity(intent)
@@ -194,14 +202,17 @@ class ProfileActivity : AppCompatActivity() {
 
                         Toast.makeText(applicationContext,"이미 사용중인 이름입니다.",Toast.LENGTH_SHORT).show()
                     }
-
+                        loading_dialog.dismiss()
 
                     }
                 }
             }
         }catch (e : Exception){
             Log.e("e",e.toString())
-        }
+            GlobalScope.launch(Dispatchers.Main) {
+                loading_dialog.dismiss()
+            }
+            }
 
 
     }

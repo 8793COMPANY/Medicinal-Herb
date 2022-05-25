@@ -22,8 +22,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.main.EventActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:exported="false" />
         <activity
             android:name=".activity.main.ChitchatActivity"
             android:exported="true"

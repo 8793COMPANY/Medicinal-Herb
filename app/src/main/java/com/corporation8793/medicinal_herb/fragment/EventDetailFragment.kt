@@ -12,11 +12,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.corporation8793.medicinal_herb.Common
+import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.decoration.EventDecoration
 import com.corporation8793.medicinal_herb.R
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
@@ -55,6 +60,7 @@ class EventDetailFragment : Fragment() {
     val datas = mutableListOf<CommentItem>()
     lateinit var divider : EventDecoration
     lateinit var comment_count : TextView
+    lateinit var comment_input_box : EditText
 
     val comment_list = mutableMapOf<String,Array<Int>>()
 
@@ -77,6 +83,9 @@ class EventDetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_event_detail, container, false)
         val event_list = view.findViewById<RecyclerView>(R.id.event_list)
+        val register_btn = view.findViewById<Button>(R.id.register_btn)
+        val event_img = view.findViewById<ImageView>(R.id.event_img)
+        comment_input_box  = view.findViewById<EditText>(R.id.comment_input_box)
         comment_count = view.findViewById<TextView>(R.id.comment_count)
 
         var content = comment_count.text.toString()
@@ -99,6 +108,12 @@ class EventDetailFragment : Fragment() {
         val lm = LinearLayoutManager(context)
         event_list.layoutManager = lm
 
+        if (arguments?.getString("img","0").equals("0")){
+            event_img.setBackgroundResource(R.drawable.banner4)
+        }else{
+            Glide.with(this).load(arguments?.getString("img","0")).into(event_img)
+        }
+
 
         divider = EventDecoration(10)
 
@@ -106,66 +121,11 @@ class EventDetailFragment : Fragment() {
         event_list.addItemDecoration(divider)
         Log.e("id",arguments?.getString("id","147").toString())
 
-//        val one_posting : Call<List<Comment>> = RestClient.boardService.retrieveAllComment(arguments?.getString("id","147").toString())
+        register_btn.setOnClickListener{
+            createComment(arguments?.getString("id","147").toString(),"0",comment_input_box.text.toString())
+        }
+
         commentSetting()
-
-//        GlobalScope.launch(Dispatchers.Default) {
-//
-////            val qna_posting : Call<List<Post>> = RestClient.boardService.retrievePostInCategories("100","1","desc", RestClient.CATEGORY_QNA)
-//            val check: List<Comment>? = RestClient.boardService.retrieveAllComment(arguments?.getString("id","147").toString()).execute().body()!!
-//            Log.e("check", check!!.size.toString())
-//            var repo =""
-//
-//
-//            datas.apply {
-//                check.forEach {
-////                    var response = it.featured_media
-//                    Log.e("it.author",it.author)
-//                    val check: User? =  RestClient.boardService.retrieveUser(it.author).execute().body()
-//                    Log.e("check id",check!!.id)
-//                    Log.e("check name",check!!.name)
-//                    Log.e("check url",check!!.url)
-//                    Log.e("check",check!!.description)
-//                    var img = check!!.url
-//                    if(img.trim().equals(""))
-//                        img = "0"
-//
-//                    var replys = RestClient.boardService.retrieveAllReply(it.id).execute().body()!!
-//                    replys.forEach{
-//
-//                    }
-//
-//                    Log.e("id", it.id)
-//                    Log.e("id", it.content.rendered)
-////                        Log.e("response", response.guid.rendered)
-//
-//                    add(CommentItem("0",it.author_name,it.content.rendered,it.date,0))
-//
-//
-//                }
-//                commentAdapter.datas = datas
-//                GlobalScope.launch(Dispatchers.Main) {    // 2
-//                    commentAdapter.notifyDataSetChanged()
-//                    comment_count.text = "댓글 "+check!!.size
-//                    var content = comment_count.text.toString()
-//                    val spannableString : SpannableString = SpannableString(content)
-//                    var start = 2
-//
-//                    val colorGreenSpan = ForegroundColorSpan(resources.getColor(R.color.green))
-//
-//                    spannableString.setSpan(colorGreenSpan,start,content.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//
-//                    comment_count.text = spannableString
-//                }
-//
-//
-//            }
-//
-//
-//        }
-
-
-
 
 
         return view
@@ -175,6 +135,36 @@ class EventDetailFragment : Fragment() {
         GlobalScope.launch(Dispatchers.Default) {
             Common().dataSetting(context!!.applicationContext,arguments?.getString("id","147").toString(),datas,commentAdapter,comment_count)
         }
+
+    }
+
+    fun createComment(id : String, parent : String, comment : String) {
+        GlobalScope.launch(Dispatchers.Default) {
+            val testId = MySharedPreferences(context!!.applicationContext).getString("id","hello")
+            val testPw = MySharedPreferences(context!!.applicationContext).getString("pw","1234")
+            val basicAuth = Credentials.basic(testId, testPw)
+            val boardRepository = BoardRepository(basicAuth)
+
+
+            println("====== UsersRU             ======")
+            println("------ isValid             ------")
+            try {
+
+                val isValid = boardRepository.createComment(id,parent,comment)
+
+            } catch (e: Exception) {
+                Log.e("e", e.toString())
+                Log.e("e", e.message.toString())
+            }
+
+            GlobalScope.launch(Dispatchers.Main) {
+                comment_input_box.setText("")
+                commentSetting()
+            }
+
+
+        }
+
 
     }
 

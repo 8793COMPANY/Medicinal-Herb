@@ -11,6 +11,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Toast
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.activity.join.JoinActivity
 import com.corporation8793.medicinal_herb.activity.main.MainActivity2
@@ -31,6 +32,9 @@ class LoginActivity : AppCompatActivity() {
         val id_input_box = findViewById<EditText>(R.id.id_input_box)
         val pw_input_box = findViewById<EditText>(R.id.pw_input_box)
         val login_btn = findViewById<LinearLayout>(R.id.login_btn)
+
+
+
         join_btn.setOnClickListener { v: View? ->
             val intent = Intent(this@LoginActivity, JoinActivity::class.java)
             startActivity(intent)

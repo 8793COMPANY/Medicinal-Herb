@@ -3,6 +3,8 @@ package com.corporation8793.medicinal_herb.activity.main
 import android.Manifest
 import android.app.Dialog
 import android.content.ContentValues
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -22,6 +24,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.databinding.DataBindingUtil
 import com.corporation8793.medicinal_herb.MySharedPreferences
 import com.corporation8793.medicinal_herb.dto.ActionBar
@@ -34,7 +37,11 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.Credentials
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.text.SimpleDateFormat
+import java.util.*
 
 class QnaActivity : AppCompatActivity() {
     lateinit var binding : ActivityQnaBinding
@@ -48,6 +55,7 @@ class QnaActivity : AppCompatActivity() {
     lateinit var img_uri : Uri
     lateinit var prefs : MySharedPreferences
     lateinit var category : String
+    lateinit var img_type : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,7 +126,11 @@ class QnaActivity : AppCompatActivity() {
             var responseMediaId = "0"
             if (binding.photoRegistration.drawable != null) {
                 if (img_uri != null) {
-                    val file = File(getPath(img_uri))
+                    var file : File
+                    if (img_type.equals("album"))
+                        file = File(getPath(img_uri))
+                    else
+                        file = File(img_uri.path)
                     val responseMedia = boardRepository.uploadMedia(file)
                     responseMediaId = responseMedia.second?.id!!
                     println("response Media URL : ${responseMedia.second?.guid?.rendered}")
@@ -145,6 +157,30 @@ class QnaActivity : AppCompatActivity() {
 
         }
     }
+
+
+    private fun bitmapToFile(bitmap:Bitmap): Uri {
+        // Get the context wrapper
+        val wrapper = ContextWrapper(applicationContext)
+
+        // Initialize a new file instance to save bitmap object
+        var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
+        file = File(file,"${UUID.randomUUID()}.jpg")
+
+        try{
+            // Compress the bitmap and save in jpg format
+            val stream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+            stream.flush()
+            stream.close()
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+
+        // Return the saved bitmap uri
+        return Uri.parse(file.absolutePath)
+    }
+
 
 
 
@@ -296,6 +332,10 @@ class QnaActivity : AppCompatActivity() {
                     Log.e("check data",data!!.extras!!.get("data").toString())
                     val imageBitmap = data!!.extras!!.get("data") as Bitmap
                     binding.photoRegistration.setImageBitmap(imageBitmap)
+                        img_uri = bitmapToFile(imageBitmap)
+                        img_type = "camera"
+
+//                        Log.e("uri",bitmapToFile(imageBitmap).toString())
                 }
                 REQUEST_STORAGE -> {
                     data?.data?.let { uri ->
@@ -305,6 +345,7 @@ class QnaActivity : AppCompatActivity() {
                         }
                         img_uri = uri
                         binding.photoRegistration.setImageURI(uri)
+                        img_type = "album"
                     }
                 }
             }

@@ -100,6 +100,7 @@ class ChitchatActivity : AppCompatActivity() {
 //            val dialog = TestDialog(this)
 //            dialog.showPopup()
         }
+        var loading_dialog = Common().showLoadingDialog(this)
 
 
         GlobalScope.launch(Dispatchers.Default) {
@@ -130,6 +131,7 @@ class ChitchatActivity : AppCompatActivity() {
                 qna_adapter.datas = qna_datas
                 GlobalScope.launch(Dispatchers.Main) {    // 2
                     qna_adapter.notifyDataSetChanged()
+                    loading_dialog.dismiss()
                 }
 
 

@@ -37,6 +37,8 @@ public class MainActivity2 extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMain2Binding binding;
     float waitTime = 0L;
+    ImageView img;
+    MySharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
 
-        MySharedPreferences preferences = new MySharedPreferences(this);
+        preferences = new MySharedPreferences(this);
         Common common = new Common();
 
 
@@ -69,9 +71,11 @@ public class MainActivity2 extends AppCompatActivity {
         TextView text = (TextView) header.findViewById(R.id.user_name);
         text.setText(preferences.getString("user_name","산야초"));
 
-        ImageView img = header.findViewById(R.id.user_img);
-        if (!preferences.getString("img","0").equals("0"))
-            Glide.with(this).load(preferences.getString("img","0")).into(img);
+        img = header.findViewById(R.id.user_img);
+        if (!preferences.getString("img","0").equals("0")) {
+            Log.e("in!","img setting");
+            Glide.with(this).load(preferences.getString("img", "0")).into(img);
+        }
 
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -150,5 +154,12 @@ public class MainActivity2 extends AppCompatActivity {
         } else {
             finish(); // 액티비티 종료
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (img != null)
+            Glide.with(this).load(preferences.getString("img", "0")).into(img);
     }
 }

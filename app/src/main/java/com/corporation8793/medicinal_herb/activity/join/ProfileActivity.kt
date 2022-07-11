@@ -241,6 +241,7 @@ class ProfileActivity : AppCompatActivity() {
 
             var id = boardRepository.validationUser().second?.id
             Log.e("introduction",introduction.text.toString())
+            Log.e("img",responseMedia.second?.guid?.rendered.toString())
             boardRepository.updateUser(id,responseMedia.second?.guid?.rendered,introduction.text.toString())
             MySharedPreferences(this).setString("img",responseMedia.second?.guid?.rendered.toString())
             MySharedPreferences(this).setString("introdution",introduction.text.toString())

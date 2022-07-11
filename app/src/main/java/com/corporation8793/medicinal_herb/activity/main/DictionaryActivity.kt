@@ -7,6 +7,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import com.corporation8793.medicinal_herb.Common
 import com.corporation8793.medicinal_herb.decoration.HerbDecoration
 import com.corporation8793.medicinal_herb.adapter.HerbAdapter
 import com.corporation8793.medicinal_herb.dto.ActionBar
@@ -55,7 +56,7 @@ class DictionaryActivity : AppCompatActivity() {
         var start = true
 
 
-
+        var loading_dialog = Common().showLoadingDialog(this)
 
 
             GlobalScope.launch(Dispatchers.Default) {
@@ -75,6 +76,7 @@ class DictionaryActivity : AppCompatActivity() {
                     herbAdapter.datas = datas
                     GlobalScope.launch(Dispatchers.Main) {    // 2
                        herbAdapter.notifyDataSetChanged()
+                        loading_dialog.dismiss()
                     }
 
 

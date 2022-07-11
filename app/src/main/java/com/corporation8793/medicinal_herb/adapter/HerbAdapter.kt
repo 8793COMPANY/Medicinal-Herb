@@ -40,7 +40,7 @@ class HerbAdapter (private val context: Context, val height : Int) : RecyclerVie
 
         fun bind(item: HerbItem) {
             txtName.text = item.name
-            imgProfile.setBackgroundResource(R.drawable.green_box)
+//            imgProfile.setBackgroundResource(R.drawable.green_box)
             Glide.with(itemView).load(item.img).into(imgProfile)
 
             itemView.setOnClickListener{

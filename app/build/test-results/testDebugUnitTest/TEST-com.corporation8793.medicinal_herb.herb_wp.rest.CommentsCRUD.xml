@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.corporation8793.medicinal_herb.herb_wp.rest.CommentsCRUD" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-07-11T02:58:03" hostname="TFX245S" time="0.61">
+  <properties/>
+  <testcase name="postsCRUD" classname="com.corporation8793.medicinal_herb.herb_wp.rest.CommentsCRUD" time="0.61"/>
+  <system-out><![CDATA[====== CommentsCRUD    ======
+------ Retrieve        ------
+------ AllComment      ------
+response Comment 0 : Comment(id=26, post=144, parent=0, author=18, author_name=민경, date=2022-05-25T16:24:14, content=CommentContent(rendered=<p>안녕하세요</p>
+), type=comment)
+response Comment 1 : Comment(id=21, post=144, parent=0, author=18, author_name=민경, date=2022-05-21T15:15:41, content=CommentContent(rendered=<p>hi</p>
+), type=comment)
+response Comment 2 : Comment(id=19, post=144, parent=0, author=11, author_name=존오, date=2022-03-30T14:55:29, content=CommentContent(rendered=<p>안녕하세요, 제가 동맥경화 초기 증상이 있어서 그러는데 추천해주실만한 약초가 있을까요?? 한 3kg 정도 구매하고 싶습니다만</p>
+), type=comment)
+response Comment 3 : Comment(id=17, post=144, parent=0, author=9, author_name=존삼이, date=2022-03-30T14:50:51, content=CommentContent(rendered=<p>솔잎 1kg, 황기 1kg 주문하고 싶은데 택배주문 가능한가요?</p>
+), type=comment)
+------ AllReply        ------
+response Comment 0 : Comment(id=23, post=144, parent=21, author=18, author_name=민경, date=2022-05-21T17:39:34, content=CommentContent(rendered=<p>네</p>
+), type=comment)
+====== EndTest         ======
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,15 +1,19 @@
 ====== CommentsCRUD    ======
 ------ Retrieve        ------
 ------ AllComment      ------
-�response Comment 0 : Comment(id=26, post=144, parent=0, author=18, author_name=민경, date=2022-05-25T16:24:14, content=CommentContent(rendered=<p>안녕하세요</p>
+�response Comment 0 : Comment(id=29, status=approved, post=144, parent=0, author=18, author_name=민경, date=2022-07-11T12:24:09, content=CommentContent(rendered=<p>test44</p>
 ), type=comment)
-�response Comment 1 : Comment(id=21, post=144, parent=0, author=18, author_name=민경, date=2022-05-21T15:15:41, content=CommentContent(rendered=<p>hi</p>
+�response Comment 1 : Comment(id=28, status=approved, post=144, parent=0, author=18, author_name=민경, date=2022-07-11T12:16:36, content=CommentContent(rendered=<p>test23</p>
 ), type=comment)
-�response Comment 2 : Comment(id=19, post=144, parent=0, author=11, author_name=존오, date=2022-03-30T14:55:29, content=CommentContent(rendered=<p>안녕하세요, 제가 동맥경화 초기 증상이 있어서 그러는데 추천해주실만한 약초가 있을까요?? 한 3kg 정도 구매하고 싶습니다만</p>
+�response Comment 2 : Comment(id=26, status=approved, post=144, parent=0, author=18, author_name=민경, date=2022-05-25T16:24:14, content=CommentContent(rendered=<p>테스트 1</p>
 ), type=comment)
-�response Comment 3 : Comment(id=17, post=144, parent=0, author=9, author_name=존삼이, date=2022-03-30T14:50:51, content=CommentContent(rendered=<p>솔잎 1kg, 황기 1kg 주문하고 싶은데 택배주문 가능한가요?</p>
+�response Comment 3 : Comment(id=21, status=approved, post=144, parent=0, author=18, author_name=민경, date=2022-05-21T15:15:41, content=CommentContent(rendered=<p>hi</p>
 ), type=comment)
------- AllReply        ------
-�response Comment 0 : Comment(id=23, post=144, parent=21, author=18, author_name=민경, date=2022-05-21T17:39:34, content=CommentContent(rendered=<p>네</p>
+�response Comment 4 : Comment(id=19, status=approved, post=144, parent=0, author=11, author_name=존오, date=2022-03-30T14:55:29, content=CommentContent(rendered=<p>안녕하세요, 제가 동맥경화 초기 증상이 있어서 그러는데 추천해주실만한 약초가 있을까요?? 한 3kg 정도 구매하고 싶습니다만</p>
 ), type=comment)
+�response Comment 5 : Comment(id=17, status=approved, post=144, parent=0, author=9, author_name=존삼이, date=2022-03-30T14:50:51, content=CommentContent(rendered=<p>솔잎 1kg, 황기 1kg 주문하고 싶은데 택배주문 가능한가요?</p>
+), type=comment)
+/------ Update( 신고[hold] )          ------
+Update Comment : 200
+
 ====== EndTest         ======

@@ -176,6 +176,7 @@ interface BoardService {
     @POST("wp-json/wp/v2/comments/{id}")
     fun updateComment(@Header("Authorization") h1 : String,
                       @Path("id") id : String,
+                      @Field("status") status : String = "approved",
                       @Field("content") content : String) : Call<ResponseBody>
 
     /**

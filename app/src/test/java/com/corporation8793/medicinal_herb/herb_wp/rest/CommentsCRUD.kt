@@ -45,14 +45,14 @@ class CommentsCRUD {
                 println("response Comment $i : $p")
             }
         }
-        println("------ AllReply        ------")
-        val retrieveAllReply = boardRepository.retrieveAllReply("21")
-        Assert.assertEquals("200", retrieveAllReply.first)
-        if (retrieveAllReply.first == "200") {
-            for ((i, p) in retrieveAllReply.second!!.withIndex()) {
-                println("response Comment $i : $p")
-            }
-        }
+//        println("------ AllReply        ------")
+//        val retrieveAllReply = boardRepository.retrieveAllReply("21")
+//        Assert.assertEquals("200", retrieveAllReply.first)
+//        if (retrieveAllReply.first == "200") {
+//            for ((i, p) in retrieveAllReply.second!!.withIndex()) {
+//                println("response Comment $i : $p")
+//            }
+//        }
 
 //        println("------ Create c of c   ------")
 //        var responseCode = boardRepository.createComment("204", "38", "대댓글 테스트 두둠칫~")
@@ -65,6 +65,11 @@ class CommentsCRUD {
 //        val updateComment = boardRepository.updateComment("22", "테스트 2번 댓글 수정이 된곤감??")
 //        Assert.assertEquals("200", updateComment)
 //        println("Update Comment : ${updateComment}\n")
+
+        println("------ Update( 신고[hold] )          ------")
+        val updateComment = boardRepository.updateComment("29", "hold","민경님, 여기엔 원래 댓글 내용을 넣어주세요.")
+        Assert.assertEquals("200", updateComment)
+        println("Update Comment : ${updateComment}\n")
 
 
 

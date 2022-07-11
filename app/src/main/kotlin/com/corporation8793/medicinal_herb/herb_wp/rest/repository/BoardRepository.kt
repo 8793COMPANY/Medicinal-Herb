@@ -330,8 +330,8 @@ class BoardRepository(val basicAuth : String) {
      * @return  responseCode (expected : "200")
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/comments/#update-a-comment">Update a Comment [REST API Reference]</a>
      */
-    fun updateComment(commentId : String, content : String) : String =
-        RestClient.boardService.updateComment(basicAuth, commentId, content)
+    fun updateComment(commentId : String, status : String = "approved", content : String) : String =
+        RestClient.boardService.updateComment(basicAuth, commentId, status, content)
             .execute().code().toString()
     /**
      * 댓글을 삭제합니다.

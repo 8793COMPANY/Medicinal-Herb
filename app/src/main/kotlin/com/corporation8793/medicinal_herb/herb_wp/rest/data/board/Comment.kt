@@ -6,6 +6,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  * * 대댓글 : parent {Comment ID}
  * @author  두동근
  * @param   id                  댓글의 고유 번호(Comment ID)
+ * @param   status              댓글의 상태값
  * @param   post                댓글이 달릴 게시물의 고유 번호(Post ID)
  * @param   parent              댓글, 대댓글 설정 (기본값 : 댓글)
  * @param   author              댓글을 작성한 회원의 고유 번호(User ID)
@@ -15,6 +16,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  * @param   type                타입 (expected : "comment")
  */
 data class Comment(val id : String,
+                   val status : String = "approved",
                    val post : String,
                    val parent : String = "0",
                    val author : String,

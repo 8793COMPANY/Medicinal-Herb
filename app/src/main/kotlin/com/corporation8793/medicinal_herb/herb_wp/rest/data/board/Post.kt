@@ -4,6 +4,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  * 게시물 data class
  * @author  두동근
  * @param   id                  게시물의 고유 번호(Post ID)
+ * @param   status              게시물의 상태
  * @param   date                게시물의 작성 일자
  * @param   acf                 [Acf] 클래스
  * @param   type                게시물의 타입
@@ -16,6 +17,7 @@ package com.corporation8793.medicinal_herb.herb_wp.rest.data.board
  * @param   tags                게시물의 태그
  */
 data class Post(val id : String,
+                val status : String = "publish",
                 val date : String,
                 val acf : Acf,
                 val type : String,

@@ -228,13 +228,28 @@ class BoardRepository(val basicAuth : String) {
      * * id([postId])가 일치하는 게시물을 수정합니다.
      * @author  두동근
      * @param   postId  게시물 id
+     * @param   status  게시물 상태 지정
+     * * publish : 공개 (기본값)
+     * * pending : 신고처리
      * @param   title   제목
      * @param   content 내용
      * @return  responseCode (expected : "200")
      * @see     <a href="https://developer.wordpress.org/rest-api/reference/posts/#update-a-post">Update a Post [REST API Reference]</a>
      */
-    fun updatePost(postId : String, title : String, content : String) : String {
-        val call = RestClient.boardService.updatePost(basicAuth, id = postId, title = title, content = content)
+    fun updatePost(postId : String,
+                   status : String = "publish",
+                   title : String, content : String,
+                   categories : String = "10",
+                   featured_media : String = "0") : String {
+        val call = RestClient.boardService.updatePost(
+            basicAuth,
+            id = postId,
+            status = status,
+            title = title,
+            content = content,
+            categories = categories,
+            featured_media = featured_media
+        )
 
         // for test (execute)
         return call.execute().code().toString()
